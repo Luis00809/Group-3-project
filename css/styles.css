@@ -200,6 +200,13 @@ button {
   & h1 {
     padding: 8px 0;
     color: var(--neutral-000);
+    cursor: pointer;
+    &:hover {
+      color: var(--secondary-100);
+    }
+    &:active {
+      color: var(--primary-900);
+    }
   }
 
   & #nav-links {
@@ -210,6 +217,15 @@ button {
       margin-left: 32px;
       color: var(--neutral-000);
       margin-top: 16px;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--secondary-100);
+      }
+
+      &:active {
+        color: var(--primary-900);
+      }
     }
   }
 }
