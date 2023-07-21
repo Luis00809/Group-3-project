@@ -48,7 +48,7 @@ $(function () {
     greetingDiv.append(searchField);
     searchField.attr({
       placeholder: "Search Title or Genre",
-      id: "searchField"
+      id: "searchField",
     });
     greetingDiv.append(searchBtn);
     searchBtn.text("Show me what you've got!");
@@ -123,7 +123,7 @@ $(function () {
       let title = $("<h3>");
       let release = $("<p>");
       let ratingDiv = $("<div>");
-      let ratingLabel = $('<p class="small-body">Avg. score</p>');
+      let ratingLabel = $('<p class="small-text">Avg. score</p>');
       let rating = $("<h2>");
 
       historyCardDiv.append(card);
@@ -133,7 +133,7 @@ $(function () {
       card.append(title);
       title.text(tempArray[i].name);
       card.append(release);
-      release.addClass("small-body release");
+      release.addClass("small-text release");
       release.text(tempArray[i].release);
       card.append(ratingDiv);
       ratingDiv.append(ratingLabel);
