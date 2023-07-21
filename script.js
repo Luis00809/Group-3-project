@@ -129,15 +129,19 @@ $(function () {
       historyCardDiv.append(card);
       card.addClass("historyCard");
       card.append(img);
-      img.attr("src", tempArray[i].image);
+
       card.append(title);
-      title.text(tempArray[i].name);
+
       card.append(release);
       release.addClass("small-text release");
-      release.text(tempArray[i].release);
       card.append(ratingDiv);
       ratingDiv.append(ratingLabel);
       ratingDiv.append(rating);
+
+      // data from returned results goes here
+      img.attr("src", tempArray[i].image);
+      title.text(tempArray[i].name);
+      release.text(tempArray[i].release);
       rating.text(tempArray[i].rating);
     });
   }
