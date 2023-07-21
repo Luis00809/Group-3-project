@@ -143,3 +143,29 @@ body {
   height: 100%;
   width: 100%;
 }
+
+nav {
+  display: flex;
+}
+#navbar {
+  background-color: var(--secondary-500);
+  height: 56px;
+  padding: 0 32px;
+  margin-left: auto;
+
+  & h1 {
+    padding: 8px 0;
+    color: var(--neutral-000);
+  }
+
+  & #nav-links {
+    display: flex;
+    margin-left: auto;
+
+    & h3 {
+      margin-left: 32px;
+      color: var(--neutral-000);
+      margin-top: 16px;
+    }
+  }
+}
