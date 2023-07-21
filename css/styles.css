@@ -236,6 +236,7 @@ button {
   overflow: hidden;
   background-size: cover;
   background-repeat: no-repeat;
+  padding: 32px;
 }
 
 .greetingDiv {
@@ -261,5 +262,42 @@ button {
   & button {
     display: block;
     margin: 16px auto auto auto;
+  }
+}
+
+.historyCardDiv {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(332px, 1fr));
+  grid-gap: 16px;
+}
+
+.historyCard {
+  min-width: 332px;
+  background-color: var(--neutral-800);
+  box-shadow: var(--card-shadow);
+  object-fit: contain;
+  padding: 12px;
+  border-radius: 8px;
+  color: var(--neutral-000);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--neutral-900);
+  }
+
+  & img {
+    width: 100%;
+  }
+
+  & h3 {
+    margin-bottom: 4px;
+  }
+
+  & p {
+    color: var(--neutral-300);
+  }
+  & .release {
+    margin-bottom: 24px;
   }
 }
