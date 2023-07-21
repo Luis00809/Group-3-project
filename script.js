@@ -48,13 +48,12 @@ $(function () {
     greetingDiv.append(searchField);
     searchField.attr({
       placeholder: "Search Title or Genre",
+      id: "searchField"
     });
     greetingDiv.append(searchBtn);
     searchBtn.text("Show me what you've got!");
 
-    searchBtn.on("click", function () {
-      console.log("this will search");
-    });
+    searchBtn.on("click", getGame);
   }
 
   // listener for history cards - temporily prints game title in console - will eventually render that games info page.
