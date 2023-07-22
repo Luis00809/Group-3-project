@@ -15,12 +15,14 @@ $(function () {
 
   searchHistoryBtn.on("click", function () {
     console.log("this renders my search history");
+    searchHistory();
   });
 
   iveReviewedBtn.on("click", function () {
     console.log("this renders games ive reviewed");
   });
 
+  // renders landing page
   function landingPage() {
     root.text(""); // clears root before rendering.
     // sets background image and opacity
@@ -46,7 +48,7 @@ $(function () {
     greetingDiv.append(searchField);
     searchField.attr({
       placeholder: "Search Title or Genre",
-      id: "searchField"
+      id: "searchField",
     });
     greetingDiv.append(searchBtn);
     searchBtn.text("Show me what you've got!");
@@ -54,5 +56,110 @@ $(function () {
     searchBtn.on("click", getGame);
   }
 
-  landingPage();
+  // listener for history cards - temporily prints game title in console - will eventually render that games info page.
+  root.on("click", ".historyCard", function () {
+    let title = $(this).children().eq(1).text();
+    console.log(title);
+  });
+
+  // renders the Search history (UI only) when nav link is clicked
+  function searchHistory() {
+    // resets root
+    root.text("");
+    root.css("background", "none");
+
+    let searchBarDiv = $("<div>");
+    let searchField = $("<input>");
+    let searchBtn = $("<button>");
+
+    root.append(searchBarDiv);
+    searchBarDiv.append(searchField);
+    searchBarDiv.append(searchBtn);
+    searchBtn.text("Go!");
+    searchField.attr({
+      placeholder: "Search Title or Genre",
+      id: "searchField",
+    });
+    searchBarDiv.addClass("searchBarDiv");
+
+    searchBtn.on("click", getGame);
+    // this array is temporary for the sake of building the components.  It will need to be updated to get search history from localStorage
+    let tempArray = [
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+        price: "$10.99",
+      },
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+        price: "$10.99",
+      },
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+        price: "$10.99",
+      },
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+        price: "$10.99",
+      },
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+        price: "$10.99",
+      },
+    ];
+
+    let historyCardDiv = $("<div>");
+    root.append(historyCardDiv);
+    historyCardDiv.addClass("historyCardDiv");
+
+    // creates a historyCard for every item stored in the array
+    $.each(tempArray, function (i) {
+      let card = $("<div>");
+      let img = $("<img>");
+      let title = $("<h3>");
+      let release = $("<p>");
+      let ratingDiv = $("<div>");
+      let ratingLabel = $('<p class="small-text">Avg. score</p>');
+      let rating = $("<h2>");
+
+      historyCardDiv.append(card);
+      card.addClass("historyCard");
+      card.append(img);
+
+      card.append(title);
+
+      card.append(release);
+      release.addClass("small-text release");
+      card.append(ratingDiv);
+      ratingDiv.append(ratingLabel);
+      ratingDiv.append(rating);
+
+      // data from returned results goes here
+      img.attr("src", tempArray[i].image);
+      title.text(tempArray[i].name);
+      release.text(tempArray[i].release);
+      rating.text(tempArray[i].rating);
+    });
+  }
+
+  landingPage(); // renders the landing page on load
 });

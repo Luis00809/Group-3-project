@@ -1,5 +1,4 @@
 function getGame() {
-
     let gameName = $('#searchField').val()
     let fetchGame = 'https://api.rawg.io/api/games?search=' + gameName + '&search_exact=true&key=decffd508da34a34bc289acf081e71c0';
 
