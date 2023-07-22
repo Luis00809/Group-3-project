@@ -68,6 +68,21 @@ $(function () {
     root.text("");
     root.css("background", "none");
 
+    let searchBarDiv = $("<div>");
+    let searchField = $("<input>");
+    let searchBtn = $("<button>");
+
+    root.append(searchBarDiv);
+    searchBarDiv.append(searchField);
+    searchBarDiv.append(searchBtn);
+    searchBtn.text("Go!");
+    searchField.attr({
+      placeholder: "Search Title or Genre",
+      id: "searchField",
+    });
+    searchBarDiv.addClass("searchBarDiv");
+
+    searchBtn.on("click", getGame);
     // this array is temporary for the sake of building the components.  It will need to be updated to get search history from localStorage
     let tempArray = [
       {

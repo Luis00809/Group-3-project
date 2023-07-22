@@ -162,6 +162,7 @@ input {
   border: 2px solid var(--opacity-neutral-inverted);
   background-color: var(--neutral-800);
   width: 332px;
+  margin-right: 16px;
 
   &:focus {
     outline: 2px solid var(--secondary-500);
@@ -265,6 +266,18 @@ button {
   }
 }
 
+.searchBarDiv {
+  display: flex;
+  margin-bottom: 16px;
+
+  & input {
+    color: var(--neutral-000);
+
+    &::placeholder {
+      color: var(--neutral-600);
+    }
+  }
+}
 .historyCardDiv {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(332px, 1fr));
