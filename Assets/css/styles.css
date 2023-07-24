@@ -197,6 +197,9 @@ button {
   height: 56px;
   padding: 0 32px;
   margin-left: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
 
   & h1 {
     padding: 8px 0;
@@ -234,7 +237,7 @@ button {
 #root {
   height: calc(100vh - 56px);
   width: 100%;
-
+  margin-top: 56px;
   background-size: cover;
   background-repeat: no-repeat;
   padding: 32px;
