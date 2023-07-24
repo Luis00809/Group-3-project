@@ -53,7 +53,7 @@ $(function () {
     greetingDiv.append(searchBtn);
     searchBtn.text("Show me what you've got!");
 
-    searchBtn.on("click", getGame);
+    searchBtn.on("click", getSearchResults);
   }
 
   // listener for history cards - temporily prints game title in console - will eventually render that games info page.
@@ -129,7 +129,7 @@ $(function () {
 
     let historyCardDiv = $("<div>");
     root.append(historyCardDiv);
-    historyCardDiv.addClass("historyCardDiv");
+    historyCardDiv.addClass("grid");
 
     // creates a historyCard for every item stored in the array
     $.each(tempArray, function (i) {
@@ -142,7 +142,7 @@ $(function () {
       let rating = $("<h2>");
 
       historyCardDiv.append(card);
-      card.addClass("historyCard");
+      card.addClass("card");
       card.append(img);
 
       card.append(title);
@@ -159,6 +159,73 @@ $(function () {
       release.text(tempArray[i].release);
       rating.text(tempArray[i].rating);
     });
+  }
+
+  function getSearchResults() {
+    getGame().then(function (gameData) {
+      root.text("");
+      root.css("background", "none");
+
+      console.log(gameData);
+      console.log(gameData.results[0].name);
+
+      let searchResultsDiv = $("<div>");
+      root.append(searchResultsDiv);
+      searchResultsDiv.addClass("grid");
+
+      $.each(gameData.results, function (i) {
+        let isOfficial = gameData.results[i].added; // this will will only allow items from the array to print if they have a rating count > 0
+
+        if (isOfficial > 10) {
+          let card = $("<div>");
+          let img = $("<img>");
+          let title = $("<h3>");
+          let release = $("<p>");
+          let ratingDiv = $("<div>");
+          let ratingLabel = $("<h4>Metacritic Score</h4>");
+          let rating = $("<h2>");
+
+          searchResultsDiv.append(card);
+          card.addClass("card");
+          card.append(img);
+
+          card.append(title);
+
+          card.append(release);
+          release.addClass("small-text release");
+          card.append(ratingDiv);
+          ratingDiv.append(ratingLabel);
+          ratingDiv.append(rating);
+
+          let indexer = gameData.results[i];
+          console.log(indexer);
+
+          // data from returned results goes here
+          img.attr("src", indexer.background_image);
+          title.text(indexer.name);
+
+          let releaseUnix = Date.parse(indexer.released);
+          release.text("Released: " + formatReleaseDate(releaseUnix));
+
+          if (indexer.tba) {
+            release.text("Release: (TBA)");
+          }
+
+          if (!indexer.metacritic) {
+            indexer.metacritic = "N/A";
+            rating.css("color", "var(--neutral-500)");
+          }
+          rating.text(indexer.metacritic);
+        }
+      });
+    });
+  }
+
+  function formatReleaseDate(unix) {
+    const date = new Date(unix);
+    const options = { month: "short", year: "numeric" };
+    const formattedDate = date.toLocaleString("en-US", options);
+    return formattedDate;
   }
 
   landingPage(); // renders the landing page on load

@@ -234,7 +234,7 @@ button {
 #root {
   height: calc(100vh - 56px);
   width: 100%;
-  overflow: hidden;
+
   background-size: cover;
   background-repeat: no-repeat;
   padding: 32px;
@@ -278,13 +278,13 @@ button {
     }
   }
 }
-.historyCardDiv {
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(332px, 1fr));
   grid-gap: 16px;
 }
 
-.historyCard {
+.card {
   min-width: 332px;
   background-color: var(--neutral-800);
   box-shadow: var(--card-shadow);
