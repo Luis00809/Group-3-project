@@ -3,7 +3,7 @@ $(function () {
   let nav = $("nav");
   let root = $("#root");
 
-  // nav bar listeners
+  // NAV BAR LISTENERS
   let returnToLandingBtn = nav.children().eq(0);
   let searchHistoryBtn = nav.children().eq(1).children().eq(0);
   let iveReviewedBtn = nav.children().eq(1).children().eq(1);
@@ -22,9 +22,25 @@ $(function () {
     console.log("this renders games ive reviewed");
   });
 
+  // COMMON FUNCTIONS
+  // clears dom before re rendering
+  function clearDom() {
+    root.text("");
+    root.css("background", "none");
+  }
+
+  // converts realease received from RAWG to "Jan 2023 format"
+  function formatReleaseDate(u) {
+    const releaseUnix = Date.parse(u);
+    const date = new Date(releaseUnix);
+    const options = { month: "short", year: "numeric" };
+    const formattedDate = date.toLocaleString("en-US", options);
+    return formattedDate;
+  }
+
   // renders landing page
   function landingPage() {
-    root.text(""); // clears root before rendering.
+    clearDom();
     // sets background image and opacity
     root.css({
       backgroundImage:
@@ -53,7 +69,7 @@ $(function () {
     greetingDiv.append(searchBtn);
     searchBtn.text("Show me what you've got!");
 
-    searchBtn.on("click", getGame);
+    searchBtn.on("click", getSearchResults);
   }
 
   // listener for history cards - temporily prints game title in console - will eventually render that games info page.
@@ -64,9 +80,7 @@ $(function () {
 
   // renders the Search history (UI only) when nav link is clicked
   function searchHistory() {
-    // resets root
-    root.text("");
-    root.css("background", "none");
+    clearDom();
 
     let searchBarDiv = $("<div>");
     let searchField = $("<input>");
@@ -129,7 +143,7 @@ $(function () {
 
     let historyCardDiv = $("<div>");
     root.append(historyCardDiv);
-    historyCardDiv.addClass("historyCardDiv");
+    historyCardDiv.addClass("grid");
 
     // creates a historyCard for every item stored in the array
     $.each(tempArray, function (i) {
@@ -142,7 +156,7 @@ $(function () {
       let rating = $("<h2>");
 
       historyCardDiv.append(card);
-      card.addClass("historyCard");
+      card.addClass("card");
       card.append(img);
 
       card.append(title);
@@ -158,6 +172,83 @@ $(function () {
       title.text(tempArray[i].name);
       release.text(tempArray[i].release);
       rating.text(tempArray[i].rating);
+    });
+  }
+
+  // prints search results on page
+  function getSearchResults() {
+    getGame().then(function (gameData) {
+      // gets Promise from getGame() and loads page when fullfilled.
+      clearDom();
+
+      let searchBarDiv = $("<div>");
+      let searchField = $("<input>");
+      let searchBtn = $("<button>");
+
+      root.append(searchBarDiv);
+      searchBarDiv.append(searchField);
+      searchBarDiv.append(searchBtn);
+      searchBtn.text("Go!");
+      searchField.attr({
+        placeholder: "Search Title or Genre",
+        id: "searchField",
+      });
+      searchBarDiv.addClass("searchBarDiv");
+      searchBtn.on("click", getSearchResults);
+
+      // console.log(gameData);
+
+      let searchResultsDiv = $("<div>");
+      root.append(searchResultsDiv);
+      searchResultsDiv.addClass("grid");
+
+      gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
+
+      $.each(gameData.results, function (i) {
+        let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
+
+        if (isOfficial > 10) {
+          let card = $("<div>");
+          let img = $("<img>");
+          let title = $("<h3>");
+          let release = $("<p>");
+          let ratingDiv = $("<div>");
+          let ratingLabel = $("<h4>Metacritic Score</h4>");
+          let rating = $("<h2>");
+
+          searchResultsDiv.append(card);
+          card.addClass("card");
+          card.append(img);
+
+          card.append(title);
+
+          card.append(release);
+          release.addClass("small-text release");
+          card.append(ratingDiv);
+          ratingDiv.append(ratingLabel);
+          ratingDiv.append(rating);
+
+          let indexer = gameData.results[i];
+
+          // data from returned results goes here
+          img.attr("src", indexer.background_image);
+          title.text(indexer.name);
+
+          release.text("Released: " + formatReleaseDate(indexer.released)); // converts date
+
+          // if a game does not have a release date;
+          if (indexer.tba) {
+            release.text("Release: (TBA)");
+          }
+
+          // if a game does not have a meta score;
+          if (!indexer.metacritic) {
+            indexer.metacritic = "N/A";
+            rating.css("color", "var(--neutral-500)");
+          }
+          rating.text(indexer.metacritic);
+        }
+      });
     });
   }
 
