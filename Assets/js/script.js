@@ -22,9 +22,14 @@ $(function () {
     console.log("this renders games ive reviewed");
   });
 
+  function clearDom() {
+    root.text("");
+    root.css("background", "none");
+  }
+
   // renders landing page
   function landingPage() {
-    root.text(""); // clears root before rendering.
+    clearDom();
     // sets background image and opacity
     root.css({
       backgroundImage:
@@ -64,9 +69,7 @@ $(function () {
 
   // renders the Search history (UI only) when nav link is clicked
   function searchHistory() {
-    // resets root
-    root.text("");
-    root.css("background", "none");
+    clearDom();
 
     let searchBarDiv = $("<div>");
     let searchField = $("<input>");
@@ -161,10 +164,25 @@ $(function () {
     });
   }
 
+  // prints search results on page
   function getSearchResults() {
     getGame().then(function (gameData) {
-      root.text("");
-      root.css("background", "none");
+      clearDom();
+
+      let searchBarDiv = $("<div>");
+      let searchField = $("<input>");
+      let searchBtn = $("<button>");
+
+      root.append(searchBarDiv);
+      searchBarDiv.append(searchField);
+      searchBarDiv.append(searchBtn);
+      searchBtn.text("Go!");
+      searchField.attr({
+        placeholder: "Search Title or Genre",
+        id: "searchField",
+      });
+      searchBarDiv.addClass("searchBarDiv");
+      searchBtn.on("click", getSearchResults);
 
       console.log(gameData);
       console.log(gameData.results[0].name);
@@ -174,7 +192,7 @@ $(function () {
       searchResultsDiv.addClass("grid");
 
       $.each(gameData.results, function (i) {
-        let isOfficial = gameData.results[i].added; // this will will only allow items from the array to print if they have a rating count > 0
+        let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
 
         if (isOfficial > 10) {
           let card = $("<div>");
