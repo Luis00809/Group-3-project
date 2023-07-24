@@ -1,0 +1,315 @@
+/* README: Added styles to be reused across projects. All of which are part of a design system that I have been building to enhance my knowledge of UI Design.*/
+
+/* Contains style variables to be reused throughout the page */
+:root {
+  --neutral-000: #fafbfb;
+  --neutral-100: #f8f8f9;
+  --neutral-200: #f0f1f2;
+  --neutral-300: #cdd3d6;
+  --neutral-400: #b9bec1;
+  --neutral-500: #a4a9ab;
+  --neutral-600: #9a9ea1;
+  --neutral-700: #7b7f80;
+  --neutral-800: #5c5f60;
+  --neutral-900: #484a4b;
+
+  --primary-100: #e0eff5;
+  --primary-500: #2e94b9;
+  --primary-900: #1c596f;
+
+  --secondary-100: #ede0f4;
+  --secondary-500: #872eb8;
+  --secondary-900: #511c6e;
+
+  --success-100: #e0f5e9;
+  --success-500: #2eb96e;
+  --success-900: #1c6f42;
+
+  --warning-100: #fdf4ea;
+  --warning-500: #f0b775;
+  --warning-900: #906e46;
+
+  --danger-100: #ffe6e6;
+  --danger-500: #fd5959;
+  --danger-900: #983535;
+
+  /* Stylistic opacities.  Uses '26' at the end of the hex to set opacity to 15% */
+  --opacity-neutral: #484a4b26;
+  --opacity-neutral-inverted: #fafbfb26;
+  --opacity-primary: #2e94b926;
+  --opacity-secondary: #872eb826;
+  --opacity-success: #2eb96e26;
+  --opacity-warning: #f0b77526;
+  --opacity-danger: #fd595926;
+
+  /* Stylings */
+  --overlay-shadow: 0px 4px 24px rgba(24, 30, 36, 0.16);
+  --card-shadow: 0px 4px 4px rgba(8, 8, 8, 0.16);
+
+  /* Text */
+  --font-family-default: "Roboto";
+
+  --font-weight-bold: 900;
+  --font-weight-medium: 700;
+  --font-weight-regular: 400;
+
+  --font-h1-size: 32px;
+  --font-h1-line-height: 40px;
+
+  --font-h2-size: 24px;
+  --font-h2-line-height: 32px;
+
+  --font-h3-size: 20px;
+  --font-h3-line-height: 24px;
+
+  --font-h4-size: 14px;
+  --font-h4-line-height: 16px;
+
+  --font-large-text-size: 16px;
+  --font-large-text-line-height: 20px;
+
+  --font-medium-text-size: 14px;
+  --font-medium-text-line-height: 16px;
+
+  --font-small-text-size: 12px;
+  --font-small-text-line-height: 14px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-h1-size);
+  line-height: var(--font-h1-line-height);
+  margin: 0;
+}
+
+h2 {
+  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-h2-size);
+  line-height: var(--font-h2-line-height);
+  margin: 0;
+}
+
+h3 {
+  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-h3-size);
+  line-height: var(--font-h3-line-height);
+  margin: 0;
+}
+
+h4 {
+  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-h4-size);
+  line-height: var(--font-h4-line-height);
+  margin: 0;
+}
+
+.large-text {
+  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-large-text-size);
+  line-height: var(--font-large-text-line-height);
+  margin: 0;
+}
+
+.medium-text {
+  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-medium-text-size);
+  line-height: var(--font-medium-text-line-height);
+  margin: 0;
+}
+
+.small-text {
+  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-small-text-size);
+  line-height: var(--font-small-text-line-height);
+  margin: 0;
+}
+
+i {
+  font-size: 24px;
+}
+
+/* End design system style guide */
+* {
+  padding: 0px;
+}
+body {
+  background-color: var(--neutral-900);
+  padding: 0px;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+nav {
+  display: flex;
+}
+
+input {
+  padding: 0 12px;
+  height: 40px;
+  border-radius: 4px;
+  border: 2px solid var(--opacity-neutral-inverted);
+  background-color: var(--neutral-800);
+  width: 332px;
+  margin-right: 16px;
+
+  &:focus {
+    outline: 2px solid var(--secondary-500);
+    outline-offset: -2px;
+  }
+}
+
+button {
+  height: 40px;
+  background-color: var(--secondary-500);
+  color: var(--neutral-000);
+  border-radius: 4px;
+  border: none;
+  padding: 12px 16px;
+  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-h4-size);
+  line-height: var(--font-h4-line-height);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--secondary-900);
+  }
+
+  &:active {
+    background-color: var(--primary-900);
+  }
+}
+
+#navbar {
+  background-color: var(--secondary-500);
+  height: 56px;
+  padding: 0 32px;
+  margin-left: auto;
+
+  & h1 {
+    padding: 8px 0;
+    color: var(--neutral-000);
+    cursor: pointer;
+    &:hover {
+      color: var(--secondary-100);
+    }
+    &:active {
+      color: var(--primary-900);
+    }
+  }
+
+  & #nav-links {
+    display: flex;
+    margin-left: auto;
+
+    & h3 {
+      margin-left: 32px;
+      color: var(--neutral-000);
+      margin-top: 16px;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--secondary-100);
+      }
+
+      &:active {
+        color: var(--primary-900);
+      }
+    }
+  }
+}
+
+#root {
+  height: calc(100vh - 56px);
+  width: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 32px;
+}
+
+.greetingDiv {
+  margin-top: 50vh;
+  transform: translateY(-50%);
+  text-align: center;
+  color: var(--neutral-000);
+  flex-direction: column;
+
+  & h1 {
+    margin-bottom: 4px;
+  }
+
+  & h3 {
+    margin-bottom: 24px;
+  }
+
+  & input {
+    border: 2px solid var(--opacity-neutral);
+    background-color: var(--neutral-000);
+  }
+
+  & button {
+    display: block;
+    margin: 16px auto auto auto;
+  }
+}
+
+.searchBarDiv {
+  display: flex;
+  margin-bottom: 16px;
+
+  & input {
+    color: var(--neutral-000);
+
+    &::placeholder {
+      color: var(--neutral-600);
+    }
+  }
+}
+.historyCardDiv {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(332px, 1fr));
+  grid-gap: 16px;
+}
+
+.historyCard {
+  min-width: 332px;
+  background-color: var(--neutral-800);
+  box-shadow: var(--card-shadow);
+  object-fit: contain;
+  padding: 12px;
+  border-radius: 8px;
+  color: var(--neutral-000);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--neutral-900);
+  }
+
+  & img {
+    width: 100%;
+  }
+
+  & h3 {
+    margin-bottom: 4px;
+  }
+
+  & p {
+    color: var(--neutral-300);
+  }
+  & .release {
+    margin-bottom: 24px;
+  }
+}
