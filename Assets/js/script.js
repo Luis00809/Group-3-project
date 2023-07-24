@@ -3,7 +3,7 @@ $(function () {
   let nav = $("nav");
   let root = $("#root");
 
-  // nav bar listeners
+  // NAV BAR LISTENERS
   let returnToLandingBtn = nav.children().eq(0);
   let searchHistoryBtn = nav.children().eq(1).children().eq(0);
   let iveReviewedBtn = nav.children().eq(1).children().eq(1);
@@ -22,9 +22,20 @@ $(function () {
     console.log("this renders games ive reviewed");
   });
 
+  // COMMON FUNCTIONS
+  // clears dom before re rendering
   function clearDom() {
     root.text("");
     root.css("background", "none");
+  }
+
+  // converts realease received from RAWG to "Jan 2023 format"
+  function formatReleaseDate(u) {
+    const releaseUnix = Date.parse(u);
+    const date = new Date(releaseUnix);
+    const options = { month: "short", year: "numeric" };
+    const formattedDate = date.toLocaleString("en-US", options);
+    return formattedDate;
   }
 
   // renders landing page
@@ -167,6 +178,7 @@ $(function () {
   // prints search results on page
   function getSearchResults() {
     getGame().then(function (gameData) {
+      // gets Promise from getGame() and loads page when fullfilled.
       clearDom();
 
       let searchBarDiv = $("<div>");
@@ -184,12 +196,13 @@ $(function () {
       searchBarDiv.addClass("searchBarDiv");
       searchBtn.on("click", getSearchResults);
 
-      console.log(gameData);
-      console.log(gameData.results[0].name);
+      // console.log(gameData);
 
       let searchResultsDiv = $("<div>");
       root.append(searchResultsDiv);
       searchResultsDiv.addClass("grid");
+
+      gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
 
       $.each(gameData.results, function (i) {
         let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
@@ -216,19 +229,19 @@ $(function () {
           ratingDiv.append(rating);
 
           let indexer = gameData.results[i];
-          console.log(indexer);
 
           // data from returned results goes here
           img.attr("src", indexer.background_image);
           title.text(indexer.name);
 
-          let releaseUnix = Date.parse(indexer.released);
-          release.text("Released: " + formatReleaseDate(releaseUnix));
+          release.text("Released: " + formatReleaseDate(indexer.released)); // converts date
 
+          // if a game does not have a release date;
           if (indexer.tba) {
             release.text("Release: (TBA)");
           }
 
+          // if a game does not have a meta score;
           if (!indexer.metacritic) {
             indexer.metacritic = "N/A";
             rating.css("color", "var(--neutral-500)");
@@ -237,13 +250,6 @@ $(function () {
         }
       });
     });
-  }
-
-  function formatReleaseDate(unix) {
-    const date = new Date(unix);
-    const options = { month: "short", year: "numeric" };
-    const formattedDate = date.toLocaleString("en-US", options);
-    return formattedDate;
   }
 
   landingPage(); // renders the landing page on load

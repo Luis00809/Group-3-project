@@ -3,7 +3,7 @@ function getGame() {
   let fetchGame =
     "https://api.rawg.io/api/games?search=" +
     gameName +
-    "&search_exact=true&page_size=5000&key=decffd508da34a34bc289acf081e71c0";
+    "&search_exact=true&page_size=5000&ordering=released&key=decffd508da34a34bc289acf081e71c0";
 
   if (!gameName) {
     console.log("Enter a Valid Game Name");
