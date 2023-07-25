@@ -5,12 +5,18 @@ $(function () {
 
   // NAV BAR LISTENERS
   let returnToLandingBtn = nav.children().eq(0);
-  let searchHistoryBtn = nav.children().eq(1).children().eq(0);
-  let iveReviewedBtn = nav.children().eq(1).children().eq(1);
+  let freeGamesBtn = nav.children().eq(1).children().eq(0);
+  let searchHistoryBtn = nav.children().eq(1).children().eq(1);
+  let iveReviewedBtn = nav.children().eq(1).children().eq(2);
 
   returnToLandingBtn.on("click", function () {
     console.log("this renders the landing page");
     landingPage();
+  });
+
+  freeGamesBtn.on("click", function () {
+    console.log("this render a list of free games");
+    getFreeGames();
   });
 
   searchHistoryBtn.on("click", function () {
@@ -175,6 +181,79 @@ $(function () {
     });
   }
 
+  function getFreeGames() {
+    clearDom();
+    let tempArray = [
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+      },
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+      },
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+      },
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+      },
+      {
+        name: "Grand Theft Auto V",
+        image:
+          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
+        rating: "4.47",
+        release: "2013-09-17",
+      },
+    ];
+
+    let freeGamesDiv = $("<div>");
+    root.append(freeGamesDiv);
+    freeGamesDiv.addClass("grid");
+
+    $.each(tempArray, function (i) {
+      let card = $("<div>");
+      let img = $("<img>");
+      let title = $("<h3>");
+      let release = $("<p>");
+      let ratingDiv = $("<div>");
+      let ratingLabel = $('<p class="small-text">Avg. score</p>');
+      let rating = $("<h2>");
+
+      freeGamesDiv.append(card);
+      card.addClass("card");
+      card.append(img);
+
+      card.append(title);
+
+      card.append(release);
+      release.addClass("small-text release");
+      card.append(ratingDiv);
+      ratingDiv.append(ratingLabel);
+      ratingDiv.append(rating);
+
+      // data from returned results goes here
+      img.attr("src", tempArray[i].image);
+      title.text(tempArray[i].name);
+      release.text(tempArray[i].release);
+      rating.text(tempArray[i].rating);
+    });
+  }
+
   // prints search results on page
   function getSearchResults() {
     getGame().then(function (gameData) {
@@ -196,7 +275,7 @@ $(function () {
       searchBarDiv.addClass("searchBarDiv");
       searchBtn.on("click", getSearchResults);
 
-      // console.log(gameData);
+      console.log(gameData);
 
       let searchResultsDiv = $("<div>");
       root.append(searchResultsDiv);
