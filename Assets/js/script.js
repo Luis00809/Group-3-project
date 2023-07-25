@@ -1,3 +1,5 @@
+const h1 = "tw-text-h1 tw-font-bold tw-text-neu-0";
+
 $(function () {
   let body = $("body");
   let nav = $("nav");
