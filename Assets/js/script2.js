@@ -18,3 +18,20 @@ function getGame() {
       return data;
     });
 }
+
+function freeGames() {
+  const settings = {
+    async: true,
+    crossDomain: true,
+    url: "https://gamerpower.p.rapidapi.com/api/giveaways",
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "ec68b97893mshf85a5138dcd165ep1180d5jsnc5fcd51d8dc9",
+      "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
+    },
+  };
+
+  return $.ajax(settings).done(function (response) {
+    return response;
+  });
+}

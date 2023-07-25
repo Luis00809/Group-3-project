@@ -182,75 +182,43 @@ $(function () {
   }
 
   function getFreeGames() {
-    clearDom();
-    let tempArray = [
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-      },
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-      },
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-      },
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-      },
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-      },
-    ];
+    freeGames().then(function (gameData) {
+      clearDom();
+      console.log(gameData);
 
-    let freeGamesDiv = $("<div>");
-    root.append(freeGamesDiv);
-    freeGamesDiv.addClass("grid");
+      let freeGamesDiv = $("<div>");
+      root.append(freeGamesDiv);
+      freeGamesDiv.addClass("grid");
 
-    $.each(tempArray, function (i) {
-      let card = $("<div>");
-      let img = $("<img>");
-      let title = $("<h3>");
-      let release = $("<p>");
-      let ratingDiv = $("<div>");
-      let ratingLabel = $('<p class="small-text">Avg. score</p>');
-      let rating = $("<h2>");
+      $.each(gameData, function (i) {
+        let indexer = gameData[i];
 
-      freeGamesDiv.append(card);
-      card.addClass("card");
-      card.append(img);
+        let card = $("<div>");
+        let img = $("<img>");
+        let title = $("<h3>");
+        let release = $("<p>");
+        let valueDiv = $("<div>");
+        let valueLabel = $('<p class="small-text">value</p>');
+        let value = $("<h2>");
 
-      card.append(title);
+        freeGamesDiv.append(card);
+        card.addClass("card");
+        card.append(img);
 
-      card.append(release);
-      release.addClass("small-text release");
-      card.append(ratingDiv);
-      ratingDiv.append(ratingLabel);
-      ratingDiv.append(rating);
+        card.append(title);
 
-      // data from returned results goes here
-      img.attr("src", tempArray[i].image);
-      title.text(tempArray[i].name);
-      release.text(tempArray[i].release);
-      rating.text(tempArray[i].rating);
+        card.append(release);
+        release.addClass("small-text release");
+        card.append(valueDiv);
+        valueDiv.append(valueLabel);
+        valueDiv.append(value);
+
+        // data from returned results goes here
+        img.attr("src", indexer.thumbnail);
+        title.text(indexer.title);
+        release.text(indexer.published_date);
+        value.text(indexer.worth);
+      });
     });
   }
 
