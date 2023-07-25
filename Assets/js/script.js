@@ -1,4 +1,19 @@
-const h1 = "tw-text-h1 tw-font-bold tw-text-neu-0";
+const h1 = " tw-text-h1 tw-font-bold tw-text-neu-0 ";
+const h2 = " tw-text-h2 tw-font-bold tw-text-neu-0 ";
+const h3 = " tw-text-h3 tw-font-semibold tw-text-neu-0 ";
+const h4 = " tw-text-h4 tw-font-medium tw-text-neu-0 ";
+
+const smTxt = " tw-text-sm tw-text-neu-0 ";
+
+const btn =
+  " tw-bg-pri-5 tw-rounded tw-px-4 tw-py-3 tw-h-10 tw-cursor-pointer hover:tw-bg-pri-9 " +
+  h4;
+const input =
+  " tw-bg-neu-8 tw-text-neu-0 tw-h-10 tw-rounded tw-px-3 tw-mr-4 tw-w-80 ";
+
+const grid = " tw-grid tw-grid-cols-auto tw-gap-4 ";
+const card =
+  " tw-p-4 tw-text-neu-0 tw-bg-neu-8 tw-rounded-lg hover:tw-bg-opac-pri hover:tw-border-pri-5 hover:tw-border-2 ";
 
 $(function () {
   let body = $("body");
@@ -34,7 +49,11 @@ $(function () {
   // clears dom before re rendering
   function clearDom() {
     root.text("");
-    root.css("background", "none");
+    root.css({ backgroundImage: "none" });
+    root.removeClass("tw-flex");
+    root.addClass(
+      "tw-h-screen tw-mt-14 tw-block tw-bg-cover tw-bg-no-repeat tw-p-8 tw-bg-neu-9 tw-bg-none "
+    );
   }
 
   // converts realease received from RAWG to "Jan 2023 format"
@@ -54,6 +73,7 @@ $(function () {
       backgroundImage:
         "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images8.alphacoders.com/954/thumb-1920-954028.jpg)",
     });
+    root.addClass("tw-flex");
 
     let greetingDiv = $("<div>");
     let greeting = $("<h1>");
@@ -62,20 +82,24 @@ $(function () {
     let searchBtn = $("<button>");
 
     root.append(greetingDiv);
-    greetingDiv.addClass("greetingDiv");
+    greetingDiv.addClass("tw-text-center tw-m-auto");
     greetingDiv.append(greeting);
     greeting.text("Your next adventure awaits...");
+    greeting.addClass(h1 + " tw-mb-1 ");
     greetingDiv.append(subGreeting);
     subGreeting.text(
       "Search from 1000s of games by title or genre to compare reviews and prices"
     );
+    subGreeting.addClass(h3 + " tw-mb-6");
     greetingDiv.append(searchField);
     searchField.attr({
       placeholder: "Search Title or Genre",
       id: "searchField",
     });
+    searchField.addClass(input + "tw-text-center");
     greetingDiv.append(searchBtn);
     searchBtn.text("Show me what you've got!");
+    searchBtn.addClass(btn + " tw-block tw-mt-4 tw-mx-auto");
 
     searchBtn.on("click", getSearchResults);
   }
@@ -95,6 +119,7 @@ $(function () {
     let searchBtn = $("<button>");
 
     root.append(searchBarDiv);
+    root.addClass("");
     searchBarDiv.append(searchField);
     searchBarDiv.append(searchBtn);
     searchBtn.text("Go!");
@@ -102,7 +127,9 @@ $(function () {
       placeholder: "Search Title or Genre",
       id: "searchField",
     });
-    searchBarDiv.addClass("searchBarDiv");
+    searchField.addClass(input);
+    searchBtn.addClass(btn);
+    searchBarDiv.addClass("tw-flex tw-mb-4");
 
     searchBtn.on("click", getGame);
     // this array is temporary for the sake of building the components.  It will need to be updated to get search history from localStorage
@@ -151,27 +178,31 @@ $(function () {
 
     let historyCardDiv = $("<div>");
     root.append(historyCardDiv);
-    historyCardDiv.addClass("grid");
+    historyCardDiv.addClass(grid);
 
     // creates a historyCard for every item stored in the array
     $.each(tempArray, function (i) {
-      let card = $("<div>");
+      let newCard = $("<div>");
       let img = $("<img>");
       let title = $("<h3>");
       let release = $("<p>");
       let ratingDiv = $("<div>");
-      let ratingLabel = $('<p class="small-text">Avg. score</p>');
+      let ratingLabel = $('<p class="tw-text-sm tw-text-neu-3">Avg. score</p>');
       let rating = $("<h2>");
 
-      historyCardDiv.append(card);
-      card.addClass("card");
-      card.append(img);
+      historyCardDiv.append(newCard);
+      newCard.append(img);
 
-      card.append(title);
+      newCard.addClass(card);
+      img.addClass("tw-bg-cover");
+      title.addClass(h3 + "tw-mt-4");
+      release.addClass(smTxt + "tw-mb-6 tw-text-neu-3");
+      rating.addClass(h2);
 
-      card.append(release);
-      release.addClass("small-text release");
-      card.append(ratingDiv);
+      newCard.append(title);
+
+      newCard.append(release);
+      newCard.append(ratingDiv);
       ratingDiv.append(ratingLabel);
       ratingDiv.append(rating);
 

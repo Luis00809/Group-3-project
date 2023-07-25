@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   prefix: "tw-",
-  content: ["./*.{html,js}"],
+  content: ["./*.{html,js}", "./Assets/js/*.js"],
   theme: {
     fontFamily: {
       sans: "Roboto",
@@ -53,21 +53,25 @@ module.exports = {
         5: "#f0b775",
         9: "#906e46",
       },
-      // opac: {
-      //   neu: "",
-      //   alt: "",
-      //   pri: "",
-      //   sec: "",
-      //   suc: "",
-      //   dan: "",
-      //   war: "",
-      // },
+      opac: {
+        neu: "#484a4b26",
+        alt: "#fafbfb26",
+        pri: "#872eb826",
+        sec: "#2e94b926",
+        suc: "#2eb96e26",
+        dan: "#fd595926",
+        war: "#f0b77526",
+      },
     },
     opacity: {
       15: "0.15",
       40: "0.4",
     },
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        auto: "repeat(auto-fit, minmax(332px, 1fr))",
+      },
+    },
   },
   plugins: [],
 };
