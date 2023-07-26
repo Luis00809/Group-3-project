@@ -13,7 +13,7 @@ const input =
 
 const grid = " tw-grid tw-grid-cols-auto tw-gap-4 ";
 const card =
-  " tw-p-4 tw-text-neu-0 tw-bg-neu-8 tw-rounded-lg hover:tw-bg-opac-pri hover:tw-border-pri-5 hover:tw-border-2 ";
+  " tw-p-4 tw-text-neu-0 tw-bg-neu-8 tw-rounded-lg hover:tw-bg-opac-pri hover:tw-translate-y-[-2px] ";
 
 $(function () {
   let body = $("body");
