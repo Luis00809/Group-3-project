@@ -56,13 +56,39 @@ $(function () {
     );
   }
 
+  function getSearchBar() {
+    let searchBarDiv = $("<div>");
+    let searchField = $("<input>");
+    let searchBtn = $("<button>");
+
+    searchField.addClass(input);
+    searchBtn.addClass(btn);
+    searchBarDiv.addClass("tw-flex tw-mb-4");
+
+    root.append(searchBarDiv);
+    searchBarDiv.append(searchField);
+    searchBarDiv.append(searchBtn);
+    searchBtn.text("Go!");
+    searchField.attr({
+      placeholder: "Search Title or Genre",
+      id: "searchField",
+    });
+    searchBtn.on("click", getSearchResults);
+  }
+
+  function getGrid() {
+    let gridDiv = $("<div>");
+    root.append(gridDiv);
+    gridDiv.addClass(grid + " grid");
+  }
+
   function getCard(imgSrc, titleSrc, releaseSrc, altLabel, altSrc) {
     // imgSrc = data point for game thumbnail
     // titleSrc = data point for game title
     // releaseSrc = data point for game release date
     // altLabel = (boolean) if true label is 'Value' else 'Avg. Score'
     // altSrc = value or game rating data point.
-    let thisGrid = $(".tw-grid");
+    let thisGrid = $(".grid");
     let newCard = $("<div>");
     let img = $("<img>");
     let title = $("<h3>");
@@ -169,25 +195,8 @@ $(function () {
   // renders the Search history (UI only) when nav link is clicked
   function searchHistory() {
     clearDom();
-
-    let searchBarDiv = $("<div>");
-    let searchField = $("<input>");
-    let searchBtn = $("<button>");
-
-    root.append(searchBarDiv);
-    root.addClass("");
-    searchBarDiv.append(searchField);
-    searchBarDiv.append(searchBtn);
-    searchBtn.text("Go!");
-    searchField.attr({
-      placeholder: "Search Title or Genre",
-      id: "searchField",
-    });
-    searchField.addClass(input);
-    searchBtn.addClass(btn);
-    searchBarDiv.addClass("tw-flex tw-mb-4");
-
-    searchBtn.on("click", getSearchResults);
+    getSearchBar();
+    getGrid();
     // this array is temporary for the sake of building the components.  It will need to be updated to get search history from localStorage
     let tempArray = [
       {
@@ -232,10 +241,6 @@ $(function () {
       },
     ];
 
-    let gridDiv = $("<div>");
-    root.append(gridDiv);
-    gridDiv.addClass(grid);
-
     // creates a historyCard for every item stored in the array
     $.each(tempArray, function (i) {
       let indexer = tempArray[i];
@@ -253,11 +258,7 @@ $(function () {
   function getFreeGames() {
     freeGames().then(function (gameData) {
       clearDom();
-      console.log(gameData);
-
-      let freeGamesDiv = $("<div>");
-      root.append(freeGamesDiv);
-      freeGamesDiv.addClass(grid);
+      getGrid();
 
       $.each(gameData, function (i) {
         let indexer = gameData[i];
@@ -278,31 +279,8 @@ $(function () {
     getGame().then(function (gameData) {
       // gets Promise from getGame() and loads page when fullfilled.
       clearDom();
-
-      let searchBarDiv = $("<div>");
-      let searchField = $("<input>");
-      let searchBtn = $("<button>");
-
-      searchField.addClass(input);
-      searchBtn.addClass(btn);
-      searchBarDiv.addClass("tw-flex tw-mb-4");
-
-      root.append(searchBarDiv);
-      searchBarDiv.append(searchField);
-      searchBarDiv.append(searchBtn);
-      searchBtn.text("Go!");
-      searchField.attr({
-        placeholder: "Search Title or Genre",
-        id: "searchField",
-      });
-      searchBarDiv.addClass("searchBarDiv");
-      searchBtn.on("click", getSearchResults);
-
-      console.log(gameData);
-
-      let gridDiv = $("<div>");
-      root.append(gridDiv);
-      gridDiv.addClass(grid);
+      getSearchBar();
+      getGrid();
 
       gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
 
@@ -313,7 +291,7 @@ $(function () {
           getCard(
             indexer.background_image,
             indexer.name,
-            indexer.released,
+            formatReleaseDate(indexer.released),
             false,
             indexer.metacritic
           );
