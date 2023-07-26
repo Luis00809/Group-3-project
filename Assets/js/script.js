@@ -56,6 +56,62 @@ $(function () {
     );
   }
 
+  function getCard(imgSrc, titleSrc, releaseSrc, altLabel, altSrc) {
+    // imgSrc = data point for game thumbnail
+    // titleSrc = data point for game title
+    // releaseSrc = data point for game release date
+    // altLabel = (boolean) if true label is 'Value' else 'Avg. Score'
+    // altSrc = value or game rating data point.
+    let thisGrid = $(".tw-grid");
+    let newCard = $("<div>");
+    let img = $("<img>");
+    let title = $("<h3>");
+    let release = $("<p>");
+    let ratingDiv = $("<div>");
+    let ratingLabel = $("<p>");
+    let rating = $("<h2>");
+
+    thisGrid.append(newCard);
+    newCard.append(img);
+
+    newCard.addClass(card);
+    img.addClass("tw-bg-cover");
+    title.addClass(h3 + "tw-mt-4");
+    release.addClass(smTxt + "tw-mb-6 tw-text-neu-3");
+    rating.addClass(h2);
+
+    newCard.append(title);
+
+    newCard.append(release);
+    newCard.append(ratingDiv);
+    ratingDiv.append(ratingLabel);
+
+    if (altLabel) {
+      ratingLabel.text("Value");
+    } else {
+      ratingLabel.text("Avg. Score");
+    }
+    ratingLabel.addClass("tw-text-sm tw-text-neu-3");
+
+    ratingDiv.append(rating);
+
+    // data from returned results goes here
+    img.attr("src", imgSrc);
+    title.text(titleSrc);
+
+    if (!releaseSrc) {
+      releaseSrc = "Release: (TBA)";
+    }
+
+    release.text(releaseSrc);
+
+    if (!altSrc || altSrc == "N/A") {
+      altSrc = "N/A";
+      rating.addClass("tw-text-neu-5");
+    }
+    rating.text(altSrc);
+  }
+
   // converts realease received from RAWG to "Jan 2023 format"
   function formatReleaseDate(u) {
     const releaseUnix = Date.parse(u);
@@ -176,41 +232,21 @@ $(function () {
       },
     ];
 
-    let historyCardDiv = $("<div>");
-    root.append(historyCardDiv);
-    historyCardDiv.addClass(grid);
+    let gridDiv = $("<div>");
+    root.append(gridDiv);
+    gridDiv.addClass(grid);
 
     // creates a historyCard for every item stored in the array
     $.each(tempArray, function (i) {
-      let newCard = $("<div>");
-      let img = $("<img>");
-      let title = $("<h3>");
-      let release = $("<p>");
-      let ratingDiv = $("<div>");
-      let ratingLabel = $('<p class="tw-text-sm tw-text-neu-3">Avg. score</p>');
-      let rating = $("<h2>");
+      let indexer = tempArray[i];
 
-      historyCardDiv.append(newCard);
-      newCard.append(img);
-
-      newCard.addClass(card);
-      img.addClass("tw-bg-cover");
-      title.addClass(h3 + "tw-mt-4");
-      release.addClass(smTxt + "tw-mb-6 tw-text-neu-3");
-      rating.addClass(h2);
-
-      newCard.append(title);
-
-      newCard.append(release);
-      newCard.append(ratingDiv);
-      ratingDiv.append(ratingLabel);
-      ratingDiv.append(rating);
-
-      // data from returned results goes here
-      img.attr("src", tempArray[i].image);
-      title.text(tempArray[i].name);
-      release.text(tempArray[i].release);
-      rating.text(tempArray[i].rating);
+      getCard(
+        indexer.image,
+        indexer.name,
+        indexer.release,
+        false,
+        indexer.rating
+      );
     });
   }
 
@@ -226,34 +262,13 @@ $(function () {
       $.each(gameData, function (i) {
         let indexer = gameData[i];
 
-        let newCard = $("<div>");
-        let img = $("<img>");
-        let title = $("<h3>");
-        let release = $("<p>");
-        let valueDiv = $("<div>");
-        let valueLabel = $('<p class="tw-text-sm tw-text-neu-3">Value</p>');
-        let value = $("<h2>");
-
-        freeGamesDiv.append(newCard);
-        newCard.append(img);
-
-        newCard.append(title);
-
-        newCard.append(release);
-        newCard.append(valueDiv);
-        valueDiv.append(valueLabel);
-        valueDiv.append(value);
-
-        newCard.addClass(card);
-        title.addClass(h3 + "tw-mt-4");
-        release.addClass(smTxt + "tw-mb-6 tw-text-neu-3");
-        value.addClass(h2);
-
-        // data from returned results goes here
-        img.attr("src", indexer.thumbnail);
-        title.text(indexer.title);
-        release.text(indexer.published_date);
-        value.text(indexer.worth);
+        getCard(
+          indexer.thumbnail,
+          indexer.title,
+          indexer.published_date,
+          true,
+          indexer.worth
+        );
       });
     });
   }
@@ -285,57 +300,23 @@ $(function () {
 
       console.log(gameData);
 
-      let searchResultsDiv = $("<div>");
-      root.append(searchResultsDiv);
-      searchResultsDiv.addClass(grid);
+      let gridDiv = $("<div>");
+      root.append(gridDiv);
+      gridDiv.addClass(grid);
 
       gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
 
       $.each(gameData.results, function (i) {
         let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
-
+        let indexer = gameData.results[i];
         if (isOfficial > 10) {
-          let newCard = $("<div>");
-          let img = $("<img>");
-          let title = $("<h3>");
-          let release = $("<p>");
-          let ratingDiv = $("<div>");
-          let ratingLabel = $("<h4>Metacritic Score</h4>");
-          let rating = $("<h2>");
-
-          searchResultsDiv.append(newCard);
-          newCard.append(img);
-          newCard.append(title);
-          newCard.append(release);
-          newCard.append(ratingDiv);
-          ratingDiv.append(ratingLabel);
-          ratingDiv.append(rating);
-
-          newCard.addClass(card);
-          img.addClass("tw-h-144 tw-w-full tw-object-cover");
-          title.addClass(h3 + "tw-mt-4");
-          release.addClass(smTxt + "tw-mb-6 tw-text-neu-3");
-          rating.addClass(h2);
-
-          let indexer = gameData.results[i];
-
-          // data from returned results goes here
-          img.attr("src", indexer.background_image);
-          title.text(indexer.name);
-
-          release.text("Released: " + formatReleaseDate(indexer.released)); // converts date
-
-          // if a game does not have a release date;
-          if (indexer.tba) {
-            release.text("Release: (TBA)");
-          }
-
-          // if a game does not have a meta score;
-          if (!indexer.metacritic) {
-            indexer.metacritic = "N/A";
-            rating.addClass("tw-text-neu-5");
-          }
-          rating.text(indexer.metacritic);
+          getCard(
+            indexer.background_image,
+            indexer.name,
+            indexer.released,
+            false,
+            indexer.metacritic
+          );
         }
       });
     });
