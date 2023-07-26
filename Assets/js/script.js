@@ -1,19 +1,17 @@
-const h1 = " tw-text-h1 tw-font-bold tw-text-neu-0 ";
-const h2 = " tw-text-h2 tw-font-bold tw-text-neu-0 ";
-const h3 = " tw-text-h3 tw-font-semibold tw-text-neu-0 ";
-const h4 = " tw-text-h4 tw-font-medium tw-text-neu-0 ";
+const h1 = "  text-h1  font-bold  text-neu-0 ";
+const h2 = "  text-h2  font-bold  text-neu-0 ";
+const h3 = "  text-h3  font-semibold  text-neu-0 ";
+const h4 = "  text-h4  font-medium  text-neu-0 ";
 
-const smTxt = " tw-text-sm tw-text-neu-0 ";
+const smTxt = "  text-sm  text-neu-0 ";
 
 const btn =
-  " tw-bg-pri-5 tw-rounded tw-px-4 tw-py-3 tw-h-10 tw-cursor-pointer hover:tw-bg-pri-9 " +
-  h4;
-const input =
-  " tw-bg-neu-8 tw-text-neu-0 tw-h-10 tw-rounded tw-px-3 tw-mr-4 tw-w-80 ";
+  "  bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
+const input = "  bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 ";
 
-const grid = " tw-grid tw-grid-cols-auto tw-gap-4 ";
+const grid = "  grid  grid-cols-auto  gap-4 ";
 const card =
-  " tw-p-4 tw-text-neu-0 tw-bg-neu-8 tw-rounded-lg hover:tw-bg-opac-pri hover:tw-translate-y-[-2px] ";
+  "  p-4  text-neu-0  bg-neu-8  rounded-lg  hover:bg-opac-pri  hover:translate-y-[-2px] ";
 
 $(function () {
   let body = $("body");
@@ -50,9 +48,9 @@ $(function () {
   function clearDom() {
     root.text("");
     root.css({ backgroundImage: "none", height: "calc(100vh + 56px)" });
-    root.removeClass("tw-flex");
+    root.removeClass(" flex");
     root.addClass(
-      " tw-mt-14 tw-block tw-bg-cover tw-bg-no-repeat tw-p-8 tw-bg-neu-9 tw-bg-none "
+      "  mt-14  block  bg-cover  bg-no-repeat  p-8  bg-neu-9  bg-none "
     );
   }
 
@@ -63,7 +61,7 @@ $(function () {
 
     searchField.addClass(input);
     searchBtn.addClass(btn);
-    searchBarDiv.addClass("tw-flex tw-mb-4");
+    searchBarDiv.addClass(" flex  mb-4");
 
     root.append(searchBarDiv);
     searchBarDiv.append(searchField);
@@ -101,9 +99,9 @@ $(function () {
     newCard.append(img);
 
     newCard.addClass(card);
-    img.addClass("tw-bg-cover");
-    title.addClass(h3 + "tw-mt-4");
-    release.addClass(smTxt + "tw-mb-6 tw-text-neu-3");
+    img.addClass(" bg-cover");
+    title.addClass(h3 + " mt-4");
+    release.addClass(smTxt + " mb-6  text-neu-3");
     rating.addClass(h2);
 
     newCard.append(title);
@@ -117,7 +115,7 @@ $(function () {
     } else {
       ratingLabel.text("Avg. Score");
     }
-    ratingLabel.addClass("tw-text-sm tw-text-neu-3");
+    ratingLabel.addClass(" text-sm  text-neu-3");
 
     ratingDiv.append(rating);
 
@@ -133,7 +131,7 @@ $(function () {
 
     if (!altSrc || altSrc == "N/A") {
       altSrc = "N/A";
-      rating.addClass("tw-text-neu-5");
+      rating.addClass(" text-neu-5");
     }
     rating.text(altSrc);
   }
@@ -155,7 +153,7 @@ $(function () {
       backgroundImage:
         "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images8.alphacoders.com/954/thumb-1920-954028.jpg)",
     });
-    root.addClass("tw-flex");
+    root.addClass(" flex");
 
     let greetingDiv = $("<div>");
     let greeting = $("<h1>");
@@ -164,24 +162,24 @@ $(function () {
     let searchBtn = $("<button>");
 
     root.append(greetingDiv);
-    greetingDiv.addClass("tw-text-center tw-m-auto");
+    greetingDiv.addClass(" text-center  m-auto");
     greetingDiv.append(greeting);
     greeting.text("Your next adventure awaits...");
-    greeting.addClass(h1 + " tw-mb-1 ");
+    greeting.addClass(h1 + "  mb-1 ");
     greetingDiv.append(subGreeting);
     subGreeting.text(
       "Search from 1000s of games by title or genre to compare reviews and prices"
     );
-    subGreeting.addClass(h3 + " tw-mb-6");
+    subGreeting.addClass(h3 + "  mb-6");
     greetingDiv.append(searchField);
     searchField.attr({
       placeholder: "Search Title or Genre",
       id: "searchField",
     });
-    searchField.addClass(input + "tw-text-center");
+    searchField.addClass(input + " text-center");
     greetingDiv.append(searchBtn);
     searchBtn.text("Show me what you've got!");
-    searchBtn.addClass(btn + " tw-block tw-mt-4 tw-mx-auto");
+    searchBtn.addClass(btn + "  block  mt-4  mx-auto");
 
     searchBtn.on("click", getSearchResults);
   }
