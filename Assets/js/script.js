@@ -49,10 +49,10 @@ $(function () {
   // clears dom before re rendering
   function clearDom() {
     root.text("");
-    root.css({ backgroundImage: "none" });
+    root.css({ backgroundImage: "none", height: "calc(100vh + 56px)" });
     root.removeClass("tw-flex");
     root.addClass(
-      "tw-h-screen tw-mt-14 tw-block tw-bg-cover tw-bg-no-repeat tw-p-8 tw-bg-neu-9 tw-bg-none "
+      " tw-mt-14 tw-block tw-bg-cover tw-bg-no-repeat tw-p-8 tw-bg-neu-9 tw-bg-none "
     );
   }
 
@@ -131,7 +131,7 @@ $(function () {
     searchBtn.addClass(btn);
     searchBarDiv.addClass("tw-flex tw-mb-4");
 
-    searchBtn.on("click", getGame);
+    searchBtn.on("click", getSearchResults);
     // this array is temporary for the sake of building the components.  It will need to be updated to get search history from localStorage
     let tempArray = [
       {
@@ -221,30 +221,33 @@ $(function () {
 
       let freeGamesDiv = $("<div>");
       root.append(freeGamesDiv);
-      freeGamesDiv.addClass("grid");
+      freeGamesDiv.addClass(grid);
 
       $.each(gameData, function (i) {
         let indexer = gameData[i];
 
-        let card = $("<div>");
+        let newCard = $("<div>");
         let img = $("<img>");
         let title = $("<h3>");
         let release = $("<p>");
         let valueDiv = $("<div>");
-        let valueLabel = $('<p class="small-text">value</p>');
+        let valueLabel = $('<p class="tw-text-sm tw-text-neu-3">Value</p>');
         let value = $("<h2>");
 
-        freeGamesDiv.append(card);
-        card.addClass("card");
-        card.append(img);
+        freeGamesDiv.append(newCard);
+        newCard.append(img);
 
-        card.append(title);
+        newCard.append(title);
 
-        card.append(release);
-        release.addClass("small-text release");
-        card.append(valueDiv);
+        newCard.append(release);
+        newCard.append(valueDiv);
         valueDiv.append(valueLabel);
         valueDiv.append(value);
+
+        newCard.addClass(card);
+        title.addClass(h3 + "tw-mt-4");
+        release.addClass(smTxt + "tw-mb-6 tw-text-neu-3");
+        value.addClass(h2);
 
         // data from returned results goes here
         img.attr("src", indexer.thumbnail);
@@ -265,6 +268,10 @@ $(function () {
       let searchField = $("<input>");
       let searchBtn = $("<button>");
 
+      searchField.addClass(input);
+      searchBtn.addClass(btn);
+      searchBarDiv.addClass("tw-flex tw-mb-4");
+
       root.append(searchBarDiv);
       searchBarDiv.append(searchField);
       searchBarDiv.append(searchBtn);
@@ -280,7 +287,7 @@ $(function () {
 
       let searchResultsDiv = $("<div>");
       root.append(searchResultsDiv);
-      searchResultsDiv.addClass("grid");
+      searchResultsDiv.addClass(grid);
 
       gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
 
@@ -288,7 +295,7 @@ $(function () {
         let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
 
         if (isOfficial > 10) {
-          let card = $("<div>");
+          let newCard = $("<div>");
           let img = $("<img>");
           let title = $("<h3>");
           let release = $("<p>");
@@ -296,17 +303,19 @@ $(function () {
           let ratingLabel = $("<h4>Metacritic Score</h4>");
           let rating = $("<h2>");
 
-          searchResultsDiv.append(card);
-          card.addClass("card");
-          card.append(img);
-
-          card.append(title);
-
-          card.append(release);
-          release.addClass("small-text release");
-          card.append(ratingDiv);
+          searchResultsDiv.append(newCard);
+          newCard.append(img);
+          newCard.append(title);
+          newCard.append(release);
+          newCard.append(ratingDiv);
           ratingDiv.append(ratingLabel);
           ratingDiv.append(rating);
+
+          newCard.addClass(card);
+          img.addClass("tw-h-144 tw-w-full tw-object-cover");
+          title.addClass(h3 + "tw-mt-4");
+          release.addClass(smTxt + "tw-mb-6 tw-text-neu-3");
+          rating.addClass(h2);
 
           let indexer = gameData.results[i];
 
@@ -324,7 +333,7 @@ $(function () {
           // if a game does not have a meta score;
           if (!indexer.metacritic) {
             indexer.metacritic = "N/A";
-            rating.css("color", "var(--neutral-500)");
+            rating.addClass("tw-text-neu-5");
           }
           rating.text(indexer.metacritic);
         }
