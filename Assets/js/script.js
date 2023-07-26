@@ -1,20 +1,18 @@
-const h1 = "  text-h1  font-bold  text-neu-0 ";
-const h2 = "  text-h2  font-bold  text-neu-0 ";
-const h3 = "  text-h3  font-semibold  text-neu-0 ";
-const h4 = "  text-h4  font-medium  text-neu-0 ";
-
-const smTxt = "  text-sm  text-neu-0 ";
-
+// common tailwind styles / space is added at beginning and end of string so additional styles can be added after each instance
+const h1 = " text-h1  font-bold  text-neu-0 ";
+const h2 = " text-h2  font-bold  text-neu-0 ";
+const h3 = " text-h3  font-semibold  text-neu-0 ";
+const h4 = " text-h4  font-medium  text-neu-0 ";
+const smTxt = " text-sm  text-neu-0 ";
 const btn =
-  "  bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
-const input = "  bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 ";
-
-const grid = "  grid  grid-cols-auto  gap-4 ";
+  " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
+const input = " bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 ";
+const grid = " grid  grid-cols-auto  gap-4 ";
 const card =
-  "  p-4  text-neu-0  bg-neu-8  rounded-lg  hover:bg-opac-pri  hover:translate-y-[-2px] ";
+  " p-4  text-neu-0  bg-neu-8  rounded-lg cursor-pointer hover:bg-opac-pri  hover:translate-y-[-2px] card";
 
+// CORE APP
 $(function () {
-  let body = $("body");
   let nav = $("nav");
   let root = $("#root");
 
@@ -54,6 +52,7 @@ $(function () {
     );
   }
 
+  // renders searchvar when called
   function getSearchBar() {
     let searchBarDiv = $("<div>");
     let searchField = $("<input>");
@@ -74,19 +73,20 @@ $(function () {
     searchBtn.on("click", getSearchResults);
   }
 
+  // renders card grid when called to house cards
   function getGrid() {
     let gridDiv = $("<div>");
     root.append(gridDiv);
-    gridDiv.addClass(grid + " grid");
+    gridDiv.addClass(grid);
   }
 
+  // renders a card for each game when called in for loop
   function getCard(imgSrc, titleSrc, releaseSrc, altLabel, altSrc) {
     // imgSrc = data point for game thumbnail
     // titleSrc = data point for game title
     // releaseSrc = data point for game release date
     // altLabel = (boolean) if true label is 'Value' else 'Avg. Score'
     // altSrc = value or game rating data point.
-    let thisGrid = $(".grid");
     let newCard = $("<div>");
     let img = $("<img>");
     let title = $("<h3>");
@@ -95,46 +95,55 @@ $(function () {
     let ratingLabel = $("<p>");
     let rating = $("<h2>");
 
-    thisGrid.append(newCard);
-    newCard.append(img);
+    // renders card on .grid
+    $(".grid").append(newCard);
 
+    // renders each line item on card
+    newCard.append(img);
+    newCard.append(title);
+    newCard.append(release);
+    newCard.append(ratingDiv);
+    ratingDiv.append(ratingLabel);
+    ratingDiv.append(rating);
+
+    // sets styles for card
     newCard.addClass(card);
     img.addClass(" bg-cover");
     title.addClass(h3 + " mt-4");
     release.addClass(smTxt + " mb-6  text-neu-3");
     rating.addClass(h2);
+    ratingLabel.addClass(" text-sm  text-neu-3");
 
-    newCard.append(title);
-
-    newCard.append(release);
-    newCard.append(ratingDiv);
-    ratingDiv.append(ratingLabel);
-
+    // conditional for altLabel
     if (altLabel) {
       ratingLabel.text("Value");
     } else {
       ratingLabel.text("Avg. Score");
     }
-    ratingLabel.addClass(" text-sm  text-neu-3");
 
-    ratingDiv.append(rating);
-
-    // data from returned results goes here
-    img.attr("src", imgSrc);
-    title.text(titleSrc);
-
+    // conditional for release date text
     if (!releaseSrc) {
       releaseSrc = "Release: (TBA)";
     }
 
-    release.text(releaseSrc);
-
+    // conditional for altScr text
     if (!altSrc || altSrc == "N/A") {
       altSrc = "N/A";
       rating.addClass(" text-neu-5");
     }
+
+    // data from returned results goes here
+    img.attr("src", imgSrc);
+    title.text(titleSrc);
+    release.text(releaseSrc);
     rating.text(altSrc);
   }
+
+  // listener for cards - temporily prints game title in console - will eventually render that games info page.
+  root.on("click", ".card", function () {
+    let title = $(this).children().eq(1).text();
+    console.log(title);
+  });
 
   // converts realease received from RAWG to "Jan 2023 format"
   function formatReleaseDate(u) {
@@ -145,6 +154,7 @@ $(function () {
     return formattedDate;
   }
 
+  // PAGE RENDERS
   // renders landing page
   function landingPage() {
     clearDom();
@@ -162,33 +172,29 @@ $(function () {
     let searchBtn = $("<button>");
 
     root.append(greetingDiv);
-    greetingDiv.addClass(" text-center  m-auto");
     greetingDiv.append(greeting);
-    greeting.text("Your next adventure awaits...");
-    greeting.addClass(h1 + "  mb-1 ");
     greetingDiv.append(subGreeting);
+    greetingDiv.append(searchField);
+    greetingDiv.append(searchBtn);
+
+    greeting.text("Your next adventure awaits...");
     subGreeting.text(
       "Search from 1000s of games by title or genre to compare reviews and prices"
     );
-    subGreeting.addClass(h3 + "  mb-6");
-    greetingDiv.append(searchField);
     searchField.attr({
       placeholder: "Search Title or Genre",
       id: "searchField",
     });
-    searchField.addClass(input + " text-center");
-    greetingDiv.append(searchBtn);
     searchBtn.text("Show me what you've got!");
+
+    greetingDiv.addClass(" text-center  m-auto");
+    greeting.addClass(h1 + "  mb-1 ");
+    subGreeting.addClass(h3 + "  mb-6");
+    searchField.addClass(input + " text-center");
     searchBtn.addClass(btn + "  block  mt-4  mx-auto");
 
     searchBtn.on("click", getSearchResults);
   }
-
-  // listener for history cards - temporily prints game title in console - will eventually render that games info page.
-  root.on("click", ".historyCard", function () {
-    let title = $(this).children().eq(1).text();
-    console.log(title);
-  });
 
   // renders the Search history (UI only) when nav link is clicked
   function searchHistory() {
@@ -260,7 +266,6 @@ $(function () {
 
       $.each(gameData, function (i) {
         let indexer = gameData[i];
-
         getCard(
           indexer.thumbnail,
           indexer.title,
