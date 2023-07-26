@@ -6,10 +6,11 @@ const h4 = " text-h4  font-medium  text-neu-0 ";
 const smTxt = " text-sm  text-neu-0 ";
 const btn =
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
-const input = " bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 ";
+const input =
+  " bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 outline-none outline-offset-[-2px] focus:outline-pri-5 ";
 const grid = " grid  grid-cols-auto  gap-4 ";
 const card =
-  " p-4  text-neu-0  bg-neu-8  rounded-lg cursor-pointer hover:bg-opac-pri  hover:translate-y-[-2px] card";
+  " card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
 
 // CORE APP
 $(function () {
