@@ -189,6 +189,24 @@ $(function () {
     }
   }
 
+  function saveReviewToLocal(id, title, score, comment) {
+    let thisReview = {
+      thisId: id,
+      thisTitle: title,
+      thisScore: score,
+      thisComment: comment,
+    };
+
+    let existingReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+    if (existingReviews === null) {
+      existingReviews = [];
+    }
+
+    existingReviews.push(thisReview);
+    localStorage.setItem("myReviews", JSON.stringify(existingReviews));
+  }
+
   // PAGE RENDERS
   // renders landing page
   function landingPage() {
