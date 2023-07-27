@@ -29,17 +29,14 @@ $(function () {
   });
 
   freeGamesBtn.on("click", function () {
-    console.log("this render a list of free games");
     getFreeGames();
   });
 
   searchHistoryBtn.on("click", function () {
-    console.log("this renders my search history");
     searchHistory();
   });
 
   iveReviewedBtn.on("click", function () {
-    console.log("this renders games ive reviewed");
     getReviewed();
   });
 
@@ -174,13 +171,23 @@ $(function () {
       existingViewedGames = [];
     }
 
+    console.log(existingViewedGames);
+    console.log(thisGame);
+    console.log(
+      JSON.stringify(existingViewedGames).includes(JSON.stringify(thisGame))
+    );
+    console.log(
+      existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame))
+    );
     // if an id of a clicked card already exists in localStorage this will move that id to be beginning of the array
     if (
       JSON.stringify(existingViewedGames).includes(JSON.stringify(thisGame))
     ) {
+      console.log(JSON.stringify(thisGame));
       existingViewedGames.push(
         existingViewedGames.splice(
-          existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame)),
+          existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame)) +
+            1,
           1
         )[0]
       );
@@ -234,66 +241,68 @@ $(function () {
   }
 
   //renders Stuff I've Reviewed Page when nav link is clicked
-function getReviewed(){
-  clearDom();
-  getSearchBar();
-  getGrid();
-  let getReviewedTemp = [
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-  ]
+  function getReviewed() {
+    clearDom();
+    getSearchBar();
+    getGrid();
+    let getReviewedTemp = [
+      {
+        name: "Warcraft III: Reforged",
+        image:
+          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+        rating: "59",
+        release: "Jan 2020",
+        price: "$10.99",
+      },
+      {
+        name: "Warcraft III: Reforged",
+        image:
+          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+        rating: "59",
+        release: "Jan 2020",
+        price: "$10.99",
+      },
+      {
+        name: "Warcraft III: Reforged",
+        image:
+          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+        rating: "59",
+        release: "Jan 2020",
+        price: "$10.99",
+      },
+      {
+        name: "Warcraft III: Reforged",
+        image:
+          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+        rating: "59",
+        release: "Jan 2020",
+        price: "$10.99",
+      },
+      {
+        name: "Warcraft III: Reforged",
+        image:
+          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+        rating: "59",
+        release: "Jan 2020",
+        price: "$10.99",
+      },
+    ];
 
-  // creates a historyCard for every item stored in the array
-  $.each(getReviewedTemp, function (i) {
-    let indexer = getReviewedTemp[i];
+    // creates a historyCard for every item stored in the array
+    $.each(getReviewedTemp, function (i) {
+      let indexer = getReviewedTemp[i];
 
-    getCard(
-      indexer.image,
-      indexer.name,
-      indexer.release,
-      false,
-      indexer.rating
-    );
-  });
-}
+      console.log(indexer.image);
+      getCard(
+        indexer.id,
+        indexer.image,
+        indexer.name,
+        indexer.release,
+        false,
+        indexer.rating
+      );
+    });
+  }
 
   // renders the Search history (UI only) when nav link is clicked
   function searchHistory() {
