@@ -189,6 +189,7 @@ $(function () {
     }
   }
 
+  // when the review form is done we can plug in the data with this function
   function saveReviewToLocal(id, title, score, comment) {
     let thisReview = {
       thisId: id,
@@ -203,9 +204,57 @@ $(function () {
       existingReviews = [];
     }
 
-    existingReviews.push(thisReview);
-    localStorage.setItem("myReviews", JSON.stringify(existingReviews));
+    if (JSON.stringify(existingReviews).includes(JSON.stringify(thisReview))) {
+      existingReviews.push(
+        existingReviews.splice(
+          existingReviews.findIndex((v) => v == JSON.stringify(thisReview)) + 1,
+          1
+        )[0]
+      );
+      localStorage.setItem("myReviews", JSON.stringify(existingReviews));
+    } else {
+      existingReviews.push(thisReview);
+      localStorage.setItem("myReviews", JSON.stringify(existingReviews));
+    }
   }
+
+  // TEMPORARY FUNCTION TO TEXT REVIEWED GAMES
+  function testReview() {
+    const temp = [
+      {
+        id: "24182",
+        title: "The Legend of Zelda: Twilight Princess HD",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "22511",
+        title: "The Legend of Zelda: Breath of the Wild",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+    ];
+
+    $.each(temp, function (i) {
+      saveReviewToLocal(
+        temp[i].id,
+        temp[i].title,
+        temp[i].score,
+        temp[i].comment
+      );
+    });
+  }
+  testReview();
+  // TEMPORARY FUNCTION TO TEXT REVIEWED GAMES
 
   // PAGE RENDERS
   // renders landing page
@@ -297,19 +346,31 @@ $(function () {
       },
     ];
 
-    // creates a historyCard for every item stored in the array
-    $.each(getReviewedTemp, function (i) {
-      let indexer = getReviewedTemp[i];
+    // gets localStorage 'myReviews' and parses to an array
+    let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+    myReviews.reverse();
 
-      console.log(indexer.image);
-      getCard(
-        indexer.id,
-        indexer.image,
-        indexer.name,
-        indexer.release,
-        false,
-        indexer.rating
-      );
+    // creates a reviewed game for every item stored in the array
+    $.each(getReviewedTemp, function (i) {
+      let indexer = myReviews[i];
+
+      // search for that title but...
+      getGame(indexer.thisTitle).then(function (gameData) {
+        $.each(gameData.results, function (y) {
+          let x = gameData.results[y];
+          // only display that title if the id from RAWG matches the one we stored...
+          if (x.id == indexer.thisId) {
+            getCard(
+              x.id,
+              x.background_image,
+              x.name,
+              formatReleaseDate(x.released),
+              false,
+              indexer.thisScore
+            );
+          }
+        });
+      });
     });
   }
 
@@ -328,8 +389,8 @@ $(function () {
 
       // search for that title but...
       getGame(indexer.thisTitle).then(function (gameData) {
-        $.each(gameData.results, function (i) {
-          let x = gameData.results[i];
+        $.each(gameData.results, function (y) {
+          let x = gameData.results[y];
           // only display that title if the id from RAWG matches the one we stored...
           if (x.id == indexer.thisId) {
             //then print that card
