@@ -607,12 +607,24 @@ video {
   height: 2.5rem;
 }
 
+.h-60 {
+  height: 15rem;
+}
+
+.h-52 {
+  height: 13rem;
+}
+
 .w-80 {
   width: 20rem;
 }
 
 .w-full {
   width: 100%;
+}
+
+.max-w-md {
+  max-width: 28rem;
 }
 
 .cursor-pointer {
@@ -660,6 +672,11 @@ video {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-4 {

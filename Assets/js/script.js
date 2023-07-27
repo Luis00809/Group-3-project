@@ -112,7 +112,7 @@ $(function () {
 
     // sets styles for card
     newCard.addClass(card);
-    img.addClass("img-card bg-cover");
+    img.addClass("w-full  h-52 object-cover");
     title.addClass(h3 + " mt-4");
     release.addClass(smTxt + " mb-6  text-neu-3");
     rating.addClass(h2);
@@ -171,19 +171,10 @@ $(function () {
       existingViewedGames = [];
     }
 
-    console.log(existingViewedGames);
-    console.log(thisGame);
-    console.log(
-      JSON.stringify(existingViewedGames).includes(JSON.stringify(thisGame))
-    );
-    console.log(
-      existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame))
-    );
     // if an id of a clicked card already exists in localStorage this will move that id to be beginning of the array
     if (
       JSON.stringify(existingViewedGames).includes(JSON.stringify(thisGame))
     ) {
-      console.log(JSON.stringify(thisGame));
       existingViewedGames.push(
         existingViewedGames.splice(
           existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame)) +
@@ -312,7 +303,7 @@ $(function () {
 
     // gets localStorate 'viewedGames' and parse to an array
     let history = JSON.parse(localStorage.getItem("viewedGames"));
-
+    history.reverse();
     // for each item in history...
     $.each(history, function (i) {
       let indexer = history[i];
@@ -321,7 +312,6 @@ $(function () {
       getGame(indexer.thisTitle).then(function (gameData) {
         $.each(gameData.results, function (i) {
           let x = gameData.results[i];
-
           // only display that title if the id from RAWG matches the one we stored...
           if (x.id == indexer.thisId) {
             //then print that card
