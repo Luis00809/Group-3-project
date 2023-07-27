@@ -194,7 +194,7 @@ $(function () {
   function formatReleaseDate(u) {
     const releaseUnix = Date.parse(u);
     const date = new Date(releaseUnix);
-    const options = { month: "short", year: "numeric" };
+    const options = { month: "short", day: "numeric", year: "numeric" };
     const formattedDate = date.toLocaleString("en-US", options);
     return formattedDate;
   }
