@@ -676,6 +676,13 @@ video {
   background-repeat: no-repeat;
 }
 
+.img-card{
+  width: 100%;
+  max-width: 400px;
+  height: 240px;
+  object-fit: cover;
+}
+
 .p-4 {
   padding: 1rem;
 }
