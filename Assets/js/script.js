@@ -4,6 +4,7 @@ const h2 = " text-h2  font-bold  text-neu-0 ";
 const h3 = " text-h3  font-semibold  text-neu-0 ";
 const h4 = " text-h4  font-medium  text-neu-0 ";
 const smTxt = " text-sm  text-neu-0 ";
+const mdTxt = " text-med text-neu-0 ";
 const btn =
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
 const input =
@@ -29,17 +30,14 @@ $(function () {
   });
 
   freeGamesBtn.on("click", function () {
-    console.log("this render a list of free games");
     getFreeGames();
   });
 
   searchHistoryBtn.on("click", function () {
-    console.log("this renders my search history");
     searchHistory();
   });
 
   iveReviewedBtn.on("click", function () {
-    console.log("this renders games ive reviewed");
     getReviewed();
   });
 
@@ -83,16 +81,28 @@ $(function () {
   }
 
   // renders a card for each game when called in for loop
-  function getCard(id, imgSrc, titleSrc, releaseSrc, altLabel, altSrc) {
+  function getCard(
+    id,
+    imgSrc,
+    titleSrc,
+    releaseSrc,
+    altLabel,
+    altSrc,
+    timeBool,
+    timeSrc
+  ) {
     // imgSrc = data point for game thumbnail
     // titleSrc = data point for game title
     // releaseSrc = data point for game release date
-    // altLabel = (boolean) if true label is 'Value' else 'Avg. Score'
+    // altLabel = (string) the label for the data point.
     // altSrc = value or game rating data point.
+    // timeBool = (boolean) used for free games to add another line item for givaway end date
+    // timeSrc = value of the end date.
     let newCard = $("<div>");
     let img = $("<img>");
     let title = $("<h3>");
     let release = $("<p>");
+    let altDiv = $("<div>");
     let ratingDiv = $("<div>");
     let ratingLabel = $("<p>");
     let rating = $("<h2>");
@@ -109,40 +119,58 @@ $(function () {
     newCard.append(img);
     newCard.append(title);
     newCard.append(release);
-    newCard.append(ratingDiv);
+    newCard.append(altDiv);
+    altDiv.append(ratingDiv);
     ratingDiv.append(ratingLabel);
     ratingDiv.append(rating);
 
     // sets styles for card
     newCard.addClass(card);
-    img.addClass("img-card bg-cover");
+    img.addClass("w-full  h-52 object-cover");
     title.addClass(h3 + " mt-4");
     release.addClass(smTxt + " mb-6  text-neu-3");
+    altDiv.addClass("flex ");
     rating.addClass(h2);
     ratingLabel.addClass(" text-sm  text-neu-3");
-
-    // conditional for altLabel
-    if (altLabel) {
-      ratingLabel.text("Value");
-    } else {
-      ratingLabel.text("Avg. Score");
-    }
 
     // conditional for release date text
     if (!releaseSrc) {
       releaseSrc = "Release: (TBA)";
     }
 
-    // conditional for altScr text
-    if (!altSrc || altSrc == "N/A") {
-      altSrc = "N/A";
-      rating.addClass(" text-neu-5");
+    if (altSrc == "N/A") {
+      rating.addClass(" text-neu-3 ");
+    }
+
+    if (timeBool) {
+      let timeDiv = $("<div>");
+      let timeLabel = $("<p>");
+      let timeLeft = $("<h2>");
+
+      altDiv.append(timeDiv);
+      timeDiv.append(timeLabel);
+      timeDiv.append(timeLeft);
+
+      timeDiv.addClass("text-right ml-auto");
+      timeLabel.addClass(" text-sm  text-neu-3");
+      timeLeft.addClass(h2);
+
+      timeLabel.text("Giveaway ends");
+
+      if (!timeSrc || timeSrc == "N/A") {
+        timeSrc = "N/A";
+        timeLeft.addClass("text-neu-5");
+        timeLeft.text(timeSrc);
+      } else {
+        timeLeft.text(formatReleaseDate(timeSrc));
+      }
     }
 
     // data from returned results goes here
     img.attr("src", imgSrc);
     title.text(titleSrc);
     release.text(releaseSrc);
+    ratingLabel.text(altLabel);
     rating.text(altSrc);
   }
 
@@ -158,7 +186,7 @@ $(function () {
   function formatReleaseDate(u) {
     const releaseUnix = Date.parse(u);
     const date = new Date(releaseUnix);
-    const options = { month: "short", year: "numeric" };
+    const options = { month: "short", day: "numeric", year: "numeric" };
     const formattedDate = date.toLocaleString("en-US", options);
     return formattedDate;
   }
@@ -180,7 +208,8 @@ $(function () {
     ) {
       existingViewedGames.push(
         existingViewedGames.splice(
-          existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame)),
+          existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame)) +
+            1,
           1
         )[0]
       );
@@ -190,6 +219,74 @@ $(function () {
       localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
     }
   }
+
+  // when the review form is done we can plug in the data with this function
+  function saveReviewToLocal(id, title, score, comment) {
+    // id = RAWG id for recollecting game data later
+    let thisReview = {
+      thisId: id,
+      thisTitle: title,
+      thisScore: score,
+      thisComment: comment,
+    };
+
+    let existingReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+    if (existingReviews === null) {
+      existingReviews = [];
+    }
+
+    if (JSON.stringify(existingReviews).includes(JSON.stringify(thisReview))) {
+      existingReviews.push(
+        existingReviews.splice(
+          existingReviews.findIndex((v) => v == JSON.stringify(thisReview)) + 1,
+          1
+        )[0]
+      );
+      localStorage.setItem("myReviews", JSON.stringify(existingReviews));
+    } else {
+      existingReviews.push(thisReview);
+      localStorage.setItem("myReviews", JSON.stringify(existingReviews));
+    }
+  }
+
+  // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
+  function testReview() {
+    const temp = [
+      {
+        id: "24182",
+        title: "The Legend of Zelda: Twilight Princess HD",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "22511",
+        title: "The Legend of Zelda: Breath of the Wild",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+    ];
+
+    $.each(temp, function (i) {
+      saveReviewToLocal(
+        temp[i].id,
+        temp[i].title,
+        temp[i].score,
+        temp[i].comment
+      );
+    });
+  }
+  testReview();
+  // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
 
   // PAGE RENDERS
   // renders landing page
@@ -234,66 +331,39 @@ $(function () {
   }
 
   //renders Stuff I've Reviewed Page when nav link is clicked
-function getReviewed(){
-  clearDom();
-  getSearchBar();
-  getGrid();
-  let getReviewedTemp = [
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-    {
-      name: "Warcraft III: Reforged",
-      image:
-        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-      rating: "59",
-      release: "Jan 2020",
-      price: "$10.99",
-    },
-  ]
+  function getReviewed() {
+    clearDom();
+    getSearchBar();
+    getGrid();
 
-  // creates a historyCard for every item stored in the array
-  $.each(getReviewedTemp, function (i) {
-    let indexer = getReviewedTemp[i];
+    // gets localStorage 'myReviews' and parses to an array
+    let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+    myReviews.reverse();
 
-    getCard(
-      indexer.image,
-      indexer.name,
-      indexer.release,
-      false,
-      indexer.rating
-    );
-  });
-}
+    // creates a reviewed game for every item stored in the array
+    $.each(myReviews, function (i) {
+      let indexer = myReviews[i];
+
+      // search for that title but...
+      getGame(indexer.thisTitle).then(function (gameData) {
+        $.each(gameData.results, function (y) {
+          let x = gameData.results[y];
+
+          // only display that title if the id from RAWG matches the one we stored...
+          if (x.id == indexer.thisId) {
+            getCard(
+              x.id,
+              x.background_image,
+              x.name,
+              formatReleaseDate(x.released),
+              "My Score",
+              indexer.thisScore + "/10"
+            );
+          }
+        });
+      });
+    });
+  }
 
   // renders the Search history (UI only) when nav link is clicked
   function searchHistory() {
@@ -303,15 +373,23 @@ function getReviewed(){
 
     // gets localStorate 'viewedGames' and parse to an array
     let history = JSON.parse(localStorage.getItem("viewedGames"));
-
+    history.reverse();
     // for each item in history...
     $.each(history, function (i) {
       let indexer = history[i];
 
       // search for that title but...
       getGame(indexer.thisTitle).then(function (gameData) {
-        $.each(gameData.results, function (i) {
-          let x = gameData.results[i];
+        $.each(gameData.results, function (y) {
+          let x = gameData.results[y];
+          let thisScore = x.metacritic;
+
+          // conditional for altScr text
+          if (!thisScore || thisScore == "N/A") {
+            thisScore = "N/A";
+          } else {
+            thisScore = thisScore + "/100";
+          }
 
           // only display that title if the id from RAWG matches the one we stored...
           if (x.id == indexer.thisId) {
@@ -321,8 +399,8 @@ function getReviewed(){
               x.background_image,
               x.name,
               formatReleaseDate(x.released),
-              false,
-              x.metacritic
+              "Metacritic score",
+              thisScore
             );
           }
         });
@@ -333,6 +411,19 @@ function getReviewed(){
   function getFreeGames() {
     freeGames().then(function (gameData) {
       clearDom();
+
+      let heading = $('<h1 class="' + h2 + '">Free Games & DLC!</h1>');
+      let subHeading = $(
+        '<p class="' +
+          mdTxt +
+          ' text-neu-3 ">The following items are currenty available for download for free on Steam<p>'
+      );
+
+      root.append(heading);
+      root.append(subHeading);
+
+      subHeading.addClass(" mb-4");
+
       getGrid();
       console.log(gameData);
 
@@ -342,9 +433,11 @@ function getReviewed(){
           indexer.id,
           indexer.thumbnail,
           indexer.title,
-          indexer.published_date,
+          formatReleaseDate(indexer.published_date),
+          "Value",
+          indexer.worth,
           true,
-          indexer.worth
+          indexer.end_date
         );
       });
     });
@@ -364,14 +457,24 @@ function getReviewed(){
       $.each(gameData.results, function (i) {
         let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
         let indexer = gameData.results[i];
+        let thisScore = indexer.metacritic;
+
+        // conditional for altScr text
+        if (!thisScore || thisScore == "N/A") {
+          thisScore = "N/A";
+        } else {
+          thisScore = thisScore + "/100";
+        }
+
         if (isOfficial > 10) {
           getCard(
             indexer.id,
             indexer.background_image,
             indexer.name,
             formatReleaseDate(indexer.released),
-            false,
-            indexer.metacritic
+            "Metacritic Score",
+            thisScore,
+            false
           );
         }
       });
