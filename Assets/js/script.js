@@ -790,6 +790,7 @@ function getReviewed(){
 =======
 =======
 
+<<<<<<< HEAD
 	// converts realease received from RAWG to "Jan 2023 format"
 	function formatReleaseDate(u) {
 		const releaseUnix = Date.parse(u);
@@ -798,6 +799,57 @@ function getReviewed(){
 		const formattedDate = date.toLocaleString("en-US", options);
 		return formattedDate;
 	}
+=======
+  //renders Stuff I've Reviewed Page when nav link is clicked
+function getReviewed(){
+  clearDom();
+  getSearchBar();
+  getGrid();
+    
+  let getReviewedTemp = [
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+    },
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+    },
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+    },
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+    },
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+        
+    },
+  ]
+>>>>>>> 273269d (fix)
 
 	function saveToLocalStorage(id, title) {
 		let thisGame = {
@@ -1432,12 +1484,64 @@ function getReviewed(){
 		});
 		root.addClass(" flex");
 
+<<<<<<< HEAD
 		let greetingDiv = $("<div>");
 		let greeting = $("<h1>");
 		let subGreeting = $("<h3>");
 		let searchField = $("<input>");
 		let searchBtn = $("<button>");
+<<<<<<< HEAD
 >>>>>>> 05ae230 (game title page, 1st commit)
+=======
+=======
+
+
+  let modalBtn = nav.children().eq(1).children().eq(3);
+  modalBtn.on('click', function(){
+    createModal();
+  })
+  function createModal() {
+    let modalDiv = $("<div>");
+    modalDiv.attr("id", "reviewModal");
+    modalDiv.addClass("fixed inset-0 flex items-center justify-center hidden");
+  
+    let modalH2 = $("<h2>");
+    modalH2.text('videogame title');
+  
+    let modalDeveloper = $("<p>");
+    modalDeveloper.text('developer');
+  
+    let modalScore = $("<p>");
+    modalScore.text('score');
+  
+    let modalRatingButtons = $("<button>");
+  
+    let modalTextarea = $("<textarea>");
+  
+    let modalDeleteRev = $("<button>");
+  
+    let modalSave = $("<button>");
+  
+    modalDiv.append(modalH2);
+    modalDiv.append(modalDeveloper);
+    modalDiv.append(modalScore);
+    modalDiv.append(modalRatingButtons);
+    modalDiv.append(modalTextarea);
+    modalDiv.append(modalDeleteRev);
+    modalDiv.append(modalSave);
+  
+  }
+
+
+  // prints search results on page
+  function getSearchResults() {
+    getGame($("#searchField").val()).then(function (gameData) {
+      // gets Promise from getGame() and loads page when fullfilled.
+      clearDom();
+      getSearchBar();
+      getGrid();
+>>>>>>> 273269d (fix)
+>>>>>>> c8d7068 (branch fix)
 
 		root.append(greetingDiv);
 		greetingDiv.append(greeting);
@@ -1445,6 +1549,7 @@ function getReviewed(){
 		greetingDiv.append(searchField);
 		greetingDiv.append(searchBtn);
 
+<<<<<<< HEAD
 		greeting.text("Your next adventure awaits...");
 		subGreeting.text(
 			"Search from 1000s of games by title or genre to compare reviews and prices"
@@ -1454,6 +1559,13 @@ function getReviewed(){
 			id: "searchField",
 		});
 		searchBtn.text("Show me what you've got!");
+=======
+      $.each(gameData.results, function (i) {
+        
+        let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
+        let indexer = gameData.results[i];
+        let thisScore = indexer.metacritic;
+>>>>>>> 273269d (fix)
 
 		greetingDiv.addClass(" text-center  m-auto");
 		greeting.addClass(h1 + "  mb-1 ");
@@ -1462,7 +1574,11 @@ function getReviewed(){
 		searchBtn.addClass(btn + "  block  mt-4  mx-auto");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 6fa03de (game title page, 1st commit)
+=======
+<<<<<<< HEAD
+>>>>>>> d2ab84b (branch fix)
         if (isOfficial > 10) {
           getCard(
             indexer.id,
@@ -1840,6 +1956,8 @@ function getReviewed(){
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
 =======
 =======
+=======
+>>>>>>> c8d7068 (branch fix)
 		searchBtn.on("click", getSearchResults);
 	}
 
@@ -1995,6 +2113,29 @@ function getReviewed(){
 	}
 
 	landingPage(); // renders the landing page on load
+<<<<<<< HEAD
 >>>>>>> 05ae230 (game title page, 1st commit)
+<<<<<<< HEAD
 >>>>>>> 6fa03de (game title page, 1st commit)
+=======
+=======
+=======
+        if (isOfficial > 10) {
+          getCard(
+            indexer.id,
+            indexer.background_image,
+            indexer.name,
+            formatReleaseDate(indexer.released),
+            "Metacritic Score",
+            thisScore,
+            false
+          );
+        }
+      });
+    });
+  }
+  landingPage(); // renders the landing page on load
+>>>>>>> 273269d (fix)
+>>>>>>> c8d7068 (branch fix)
+>>>>>>> d2ab84b (branch fix)
 });
