@@ -147,8 +147,10 @@ $(function () {
 
   // listener for cards - temporily prints game title in console - will eventually render that games info page.
   root.on("click", ".card", function () {
-    let title = $(this).children("#id").text();
-    saveToLocalStorage(title);
+    let id = $(this).children("#id").text();
+    let title = $(this).children().eq(2).text();
+    saveToLocalStorage(id, title);
+    console.log(title);
   });
 
   // converts realease received from RAWG to "Jan 2023 format"
@@ -160,16 +162,32 @@ $(function () {
     return formattedDate;
   }
 
-  function saveToLocalStorage(id) {
+  function saveToLocalStorage(id, title) {
+    let thisGame = {
+      thisId: id,
+      thisTitle: title,
+    };
+
     let existingViewedGames = JSON.parse(localStorage.getItem("viewedGames"));
     if (existingViewedGames === null) {
       existingViewedGames = [];
     }
 
-    // localStorage.setItem('viewedGames', JSON.stringify(id))
-    existingViewedGames.push(id);
-    localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
-    console.log(id);
+    // if an id of a clicked card already exists in localStorage this will move that id to be beginning of the array
+    if (
+      JSON.stringify(existingViewedGames).includes(JSON.stringify(thisGame))
+    ) {
+      existingViewedGames.push(
+        existingViewedGames.splice(
+          existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame)),
+          1
+        )[0]
+      );
+      localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
+    } else {
+      existingViewedGames.push(thisGame);
+      localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
+    }
   }
 
   // PAGE RENDERS
@@ -219,62 +237,33 @@ $(function () {
     clearDom();
     getSearchBar();
     getGrid();
-    // this array is temporary for the sake of building the components.  It will need to be updated to get search history from localStorage
-    let tempArray = [
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-        price: "$10.99",
-      },
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-        price: "$10.99",
-      },
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-        price: "$10.99",
-      },
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-        price: "$10.99",
-      },
-      {
-        name: "Grand Theft Auto V",
-        image:
-          "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
-        rating: "4.47",
-        release: "2013-09-17",
-        price: "$10.99",
-      },
-    ];
 
-    // creates a historyCard for every item stored in the array
-    $.each(tempArray, function (i) {
-      let indexer = tempArray[i];
+    // gets localStorate 'viewedGames' and parse to an array
+    let history = JSON.parse(localStorage.getItem("viewedGames"));
 
-      getCard(
-        indexer.id,
-        indexer.image,
-        indexer.name,
-        indexer.release,
-        false,
-        indexer.rating
-      );
+    // for each item in history...
+    $.each(history, function (i) {
+      let indexer = history[i];
+
+      // search for that title but...
+      getGame(indexer.thisTitle).then(function (gameData) {
+        $.each(gameData.results, function (i) {
+          let x = gameData.results[i];
+
+          // only display that title if the id from RAWG matches the one we stored...
+          if (x.id == indexer.thisId) {
+            //then print that card
+            getCard(
+              x.id,
+              x.background_image,
+              x.name,
+              formatReleaseDate(x.released),
+              false,
+              x.metacritic
+            );
+          }
+        });
+      });
     });
   }
 
@@ -300,7 +289,7 @@ $(function () {
 
   // prints search results on page
   function getSearchResults() {
-    getGame().then(function (gameData) {
+    getGame($("#searchField").val()).then(function (gameData) {
       // gets Promise from getGame() and loads page when fullfilled.
       clearDom();
       getSearchBar();
