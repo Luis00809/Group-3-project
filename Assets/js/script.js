@@ -82,7 +82,7 @@ $(function () {
   }
 
   // renders a card for each game when called in for loop
-  function getCard(imgSrc, titleSrc, releaseSrc, altLabel, altSrc) {
+  function getCard(id, imgSrc, titleSrc, releaseSrc, altLabel, altSrc) {
     // imgSrc = data point for game thumbnail
     // titleSrc = data point for game title
     // releaseSrc = data point for game release date
@@ -95,9 +95,14 @@ $(function () {
     let ratingDiv = $("<div>");
     let ratingLabel = $("<p>");
     let rating = $("<h2>");
+    let idConst = $("<p>" + id + "</p>");
 
     // renders card on .grid
     $(".grid").append(newCard);
+
+    // holds the id collected from the api for storage
+    newCard.append(idConst);
+    idConst.css("display", "none").attr("id", "id");
 
     // renders each line item on card
     newCard.append(img);
@@ -142,8 +147,8 @@ $(function () {
 
   // listener for cards - temporily prints game title in console - will eventually render that games info page.
   root.on("click", ".card", function () {
-    let title = $(this).children().eq(1).text();
-    console.log(title);
+    let title = $(this).children("#id").text();
+    saveToLocalStorage(title);
   });
 
   // converts realease received from RAWG to "Jan 2023 format"
@@ -153,6 +158,18 @@ $(function () {
     const options = { month: "short", year: "numeric" };
     const formattedDate = date.toLocaleString("en-US", options);
     return formattedDate;
+  }
+
+  function saveToLocalStorage(id) {
+    let existingViewedGames = JSON.parse(localStorage.getItem("viewedGames"));
+    if (existingViewedGames === null) {
+      existingViewedGames = [];
+    }
+
+    // localStorage.setItem('viewedGames', JSON.stringify(id))
+    existingViewedGames.push(id);
+    localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
+    console.log(id);
   }
 
   // PAGE RENDERS
@@ -251,6 +268,7 @@ $(function () {
       let indexer = tempArray[i];
 
       getCard(
+        indexer.id,
         indexer.image,
         indexer.name,
         indexer.release,
@@ -264,10 +282,12 @@ $(function () {
     freeGames().then(function (gameData) {
       clearDom();
       getGrid();
+      console.log(gameData);
 
       $.each(gameData, function (i) {
         let indexer = gameData[i];
         getCard(
+          indexer.id,
           indexer.thumbnail,
           indexer.title,
           indexer.published_date,
@@ -286,6 +306,7 @@ $(function () {
       getSearchBar();
       getGrid();
 
+      console.log(gameData);
       gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
 
       $.each(gameData.results, function (i) {
@@ -293,6 +314,7 @@ $(function () {
         let indexer = gameData.results[i];
         if (isOfficial > 10) {
           getCard(
+            indexer.id,
             indexer.background_image,
             indexer.name,
             formatReleaseDate(indexer.released),
