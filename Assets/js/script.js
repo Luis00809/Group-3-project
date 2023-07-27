@@ -4,6 +4,7 @@ const h2 = " text-h2  font-bold  text-neu-0 ";
 const h3 = " text-h3  font-semibold  text-neu-0 ";
 const h4 = " text-h4  font-medium  text-neu-0 ";
 const smTxt = " text-sm  text-neu-0 ";
+const mdTxt = " text-med text-neu-0 ";
 const btn =
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
 const input =
@@ -80,16 +81,28 @@ $(function () {
   }
 
   // renders a card for each game when called in for loop
-  function getCard(id, imgSrc, titleSrc, releaseSrc, altLabel, altSrc) {
+  function getCard(
+    id,
+    imgSrc,
+    titleSrc,
+    releaseSrc,
+    altBool,
+    altSrc,
+    timeBool,
+    timeSrc
+  ) {
     // imgSrc = data point for game thumbnail
     // titleSrc = data point for game title
     // releaseSrc = data point for game release date
-    // altLabel = (boolean) if true label is 'Value' else 'Avg. Score'
+    // altBool = (boolean) if true label is 'Value' else 'Avg. Score'
     // altSrc = value or game rating data point.
+    // timeBool = (boolean) used for free games to add another line item for givaway end date
+    // timeSrc = value of the end date.
     let newCard = $("<div>");
     let img = $("<img>");
     let title = $("<h3>");
     let release = $("<p>");
+    let altDiv = $("<div>");
     let ratingDiv = $("<div>");
     let ratingLabel = $("<p>");
     let rating = $("<h2>");
@@ -106,7 +119,8 @@ $(function () {
     newCard.append(img);
     newCard.append(title);
     newCard.append(release);
-    newCard.append(ratingDiv);
+    newCard.append(altDiv);
+    altDiv.append(ratingDiv);
     ratingDiv.append(ratingLabel);
     ratingDiv.append(rating);
 
@@ -115,11 +129,12 @@ $(function () {
     img.addClass("w-full  h-52 object-cover");
     title.addClass(h3 + " mt-4");
     release.addClass(smTxt + " mb-6  text-neu-3");
+    altDiv.addClass("flex ");
     rating.addClass(h2);
     ratingLabel.addClass(" text-sm  text-neu-3");
 
-    // conditional for altLabel
-    if (altLabel) {
+    // conditional for altBool
+    if (altBool) {
       ratingLabel.text("Value");
     } else {
       ratingLabel.text("Avg. Score");
@@ -134,6 +149,30 @@ $(function () {
     if (!altSrc || altSrc == "N/A") {
       altSrc = "N/A";
       rating.addClass(" text-neu-5");
+    }
+
+    if (timeBool) {
+      let timeDiv = $("<div>");
+      let timeLabel = $("<p>");
+      let timeLeft = $("<h2>");
+
+      altDiv.append(timeDiv);
+      timeDiv.append(timeLabel);
+      timeDiv.append(timeLeft);
+
+      timeDiv.addClass("text-right ml-auto");
+      timeLabel.addClass(" text-sm  text-neu-3");
+      timeLeft.addClass(h2);
+
+      timeLabel.text("Giveaway ends");
+
+      if (!timeSrc || timeSrc == "N/A") {
+        timeSrc = "N/A";
+        timeLeft.addClass("text-neu-5");
+        timeLeft.text(timeSrc);
+      } else {
+        timeLeft.text(formatReleaseDate(timeSrc));
+      }
     }
 
     // data from returned results goes here
@@ -191,6 +230,7 @@ $(function () {
 
   // when the review form is done we can plug in the data with this function
   function saveReviewToLocal(id, title, score, comment) {
+    // id = RAWG id for recollecting game data later
     let thisReview = {
       thisId: id,
       thisTitle: title,
@@ -218,7 +258,7 @@ $(function () {
     }
   }
 
-  // TEMPORARY FUNCTION TO TEXT REVIEWED GAMES
+  // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
   function testReview() {
     const temp = [
       {
@@ -254,7 +294,7 @@ $(function () {
     });
   }
   testReview();
-  // TEMPORARY FUNCTION TO TEXT REVIEWED GAMES
+  // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
 
   // PAGE RENDERS
   // renders landing page
@@ -303,48 +343,6 @@ $(function () {
     clearDom();
     getSearchBar();
     getGrid();
-    let getReviewedTemp = [
-      {
-        name: "Warcraft III: Reforged",
-        image:
-          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-        rating: "59",
-        release: "Jan 2020",
-        price: "$10.99",
-      },
-      {
-        name: "Warcraft III: Reforged",
-        image:
-          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-        rating: "59",
-        release: "Jan 2020",
-        price: "$10.99",
-      },
-      {
-        name: "Warcraft III: Reforged",
-        image:
-          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-        rating: "59",
-        release: "Jan 2020",
-        price: "$10.99",
-      },
-      {
-        name: "Warcraft III: Reforged",
-        image:
-          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-        rating: "59",
-        release: "Jan 2020",
-        price: "$10.99",
-      },
-      {
-        name: "Warcraft III: Reforged",
-        image:
-          "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
-        rating: "59",
-        release: "Jan 2020",
-        price: "$10.99",
-      },
-    ];
 
     // gets localStorage 'myReviews' and parses to an array
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
@@ -411,6 +409,19 @@ $(function () {
   function getFreeGames() {
     freeGames().then(function (gameData) {
       clearDom();
+
+      let heading = $('<h1 class="' + h2 + '">Free Games & DLC!</h1>');
+      let subHeading = $(
+        '<p class="' +
+          mdTxt +
+          ' text-neu-3 ">The following items are currenty available for download for free on Steam<p>'
+      );
+
+      root.append(heading);
+      root.append(subHeading);
+
+      subHeading.addClass(" mb-4");
+
       getGrid();
       console.log(gameData);
 
@@ -422,7 +433,9 @@ $(function () {
           indexer.title,
           indexer.published_date,
           true,
-          indexer.worth
+          indexer.worth,
+          true,
+          indexer.end_date
         );
       });
     });
