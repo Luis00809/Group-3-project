@@ -431,7 +431,7 @@ $(function () {
           indexer.id,
           indexer.thumbnail,
           indexer.title,
-          indexer.published_date,
+          formatReleaseDate(indexer.published_date),
           true,
           indexer.worth,
           true,
