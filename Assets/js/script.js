@@ -109,7 +109,7 @@ $(function () {
 
     // sets styles for card
     newCard.addClass(card);
-    img.addClass(" bg-cover");
+    img.addClass("img-card bg-cover");
     title.addClass(h3 + " mt-4");
     release.addClass(smTxt + " mb-6  text-neu-3");
     rating.addClass(h2);
