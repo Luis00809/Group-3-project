@@ -365,11 +365,55 @@ $(function () {
     });
   }
 
-  // renders the Search history (UI only) when nav link is clicked
-  function searchHistory() {
-    clearDom();
-    getSearchBar();
-    getGrid();
+  //renders Stuff I've Reviewed Page when nav link is clicked
+function getReviewed(){
+  clearDom();
+  getSearchBar();
+  getGrid();
+    
+  let getReviewedTemp = [
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+    },
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+    },
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+    },
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+    },
+    {
+      name: "Warcraft III: Reforged",
+      image:
+        "https://media.rawg.io/media/games/4e9/4e908c9270228430128105bcd88e51bc.jpg",
+      rating: "59",
+      release: "Jan 2020",
+      price: "$10.99",
+        
+    },
+  ]
 
     // gets localStorate 'viewedGames' and parse to an array
     let history = JSON.parse(localStorage.getItem("viewedGames"));
@@ -443,6 +487,45 @@ $(function () {
     });
   }
 
+
+
+  let modalBtn = nav.children().eq(1).children().eq(3);
+  modalBtn.on('click', function(){
+    createModal();
+  })
+  function createModal() {
+    let modalDiv = $("<div>");
+    modalDiv.attr("id", "reviewModal");
+    modalDiv.addClass("fixed inset-0 flex items-center justify-center hidden");
+  
+    let modalH2 = $("<h2>");
+    modalH2.text('videogame title');
+  
+    let modalDeveloper = $("<p>");
+    modalDeveloper.text('developer');
+  
+    let modalScore = $("<p>");
+    modalScore.text('score');
+  
+    let modalRatingButtons = $("<button>");
+  
+    let modalTextarea = $("<textarea>");
+  
+    let modalDeleteRev = $("<button>");
+  
+    let modalSave = $("<button>");
+  
+    modalDiv.append(modalH2);
+    modalDiv.append(modalDeveloper);
+    modalDiv.append(modalScore);
+    modalDiv.append(modalRatingButtons);
+    modalDiv.append(modalTextarea);
+    modalDiv.append(modalDeleteRev);
+    modalDiv.append(modalSave);
+  
+  }
+
+
   // prints search results on page
   function getSearchResults() {
     getGame($("#searchField").val()).then(function (gameData) {
@@ -455,6 +538,7 @@ $(function () {
       gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
 
       $.each(gameData.results, function (i) {
+        
         let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
         let indexer = gameData.results[i];
         let thisScore = indexer.metacritic;
@@ -480,6 +564,5 @@ $(function () {
       });
     });
   }
-
   landingPage(); // renders the landing page on load
 });
