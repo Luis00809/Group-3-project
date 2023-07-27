@@ -86,7 +86,7 @@ $(function () {
     imgSrc,
     titleSrc,
     releaseSrc,
-    altBool,
+    altLabel,
     altSrc,
     timeBool,
     timeSrc
@@ -94,7 +94,7 @@ $(function () {
     // imgSrc = data point for game thumbnail
     // titleSrc = data point for game title
     // releaseSrc = data point for game release date
-    // altBool = (boolean) if true label is 'Value' else 'Avg. Score'
+    // altLabel = (string) the label for the data point.
     // altSrc = value or game rating data point.
     // timeBool = (boolean) used for free games to add another line item for givaway end date
     // timeSrc = value of the end date.
@@ -133,22 +133,13 @@ $(function () {
     rating.addClass(h2);
     ratingLabel.addClass(" text-sm  text-neu-3");
 
-    // conditional for altBool
-    if (altBool) {
-      ratingLabel.text("Value");
-    } else {
-      ratingLabel.text("Avg. Score");
-    }
-
     // conditional for release date text
     if (!releaseSrc) {
       releaseSrc = "Release: (TBA)";
     }
 
-    // conditional for altScr text
-    if (!altSrc || altSrc == "N/A") {
-      altSrc = "N/A";
-      rating.addClass(" text-neu-5");
+    if (altSrc == "N/A") {
+      rating.addClass(" text-neu-3 ");
     }
 
     if (timeBool) {
@@ -179,6 +170,7 @@ $(function () {
     img.attr("src", imgSrc);
     title.text(titleSrc);
     release.text(releaseSrc);
+    ratingLabel.text(altLabel);
     rating.text(altSrc);
   }
 
@@ -349,13 +341,14 @@ $(function () {
     myReviews.reverse();
 
     // creates a reviewed game for every item stored in the array
-    $.each(getReviewedTemp, function (i) {
+    $.each(myReviews, function (i) {
       let indexer = myReviews[i];
 
       // search for that title but...
       getGame(indexer.thisTitle).then(function (gameData) {
         $.each(gameData.results, function (y) {
           let x = gameData.results[y];
+
           // only display that title if the id from RAWG matches the one we stored...
           if (x.id == indexer.thisId) {
             getCard(
@@ -363,8 +356,8 @@ $(function () {
               x.background_image,
               x.name,
               formatReleaseDate(x.released),
-              false,
-              indexer.thisScore
+              "My Score",
+              indexer.thisScore + "/10"
             );
           }
         });
@@ -389,6 +382,15 @@ $(function () {
       getGame(indexer.thisTitle).then(function (gameData) {
         $.each(gameData.results, function (y) {
           let x = gameData.results[y];
+          let thisScore = x.metacritic;
+
+          // conditional for altScr text
+          if (!thisScore || thisScore == "N/A") {
+            thisScore = "N/A";
+          } else {
+            thisScore = thisScore + "/100";
+          }
+
           // only display that title if the id from RAWG matches the one we stored...
           if (x.id == indexer.thisId) {
             //then print that card
@@ -397,8 +399,8 @@ $(function () {
               x.background_image,
               x.name,
               formatReleaseDate(x.released),
-              false,
-              x.metacritic
+              "Metacritic score",
+              thisScore
             );
           }
         });
@@ -432,7 +434,7 @@ $(function () {
           indexer.thumbnail,
           indexer.title,
           formatReleaseDate(indexer.published_date),
-          true,
+          "Value",
           indexer.worth,
           true,
           indexer.end_date
@@ -455,14 +457,24 @@ $(function () {
       $.each(gameData.results, function (i) {
         let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
         let indexer = gameData.results[i];
+        let thisScore = indexer.metacritic;
+
+        // conditional for altScr text
+        if (!thisScore || thisScore == "N/A") {
+          thisScore = "N/A";
+        } else {
+          thisScore = thisScore + "/100";
+        }
+
         if (isOfficial > 10) {
           getCard(
             indexer.id,
             indexer.background_image,
             indexer.name,
             formatReleaseDate(indexer.released),
-            false,
-            indexer.metacritic
+            "Metacritic Score",
+            thisScore,
+            false
           );
         }
       });
