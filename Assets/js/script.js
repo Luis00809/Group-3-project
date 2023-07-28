@@ -541,7 +541,6 @@ function getReviewed(){
     
     
 
-
     let developer = $('<p>');
     developer.addClass('text-sm text-neu-0 mb-6 text-neu-3');
     developer.text('Developer: ');
