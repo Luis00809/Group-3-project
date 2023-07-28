@@ -34,21 +34,3 @@ function freeGames() {
     return response;
   });
 }
-
-// function emptyState() {
-
-//   let greetingDiv = $("<div>");
-//   let greeting = $("<h1>");
-//   let subGreeting = $("<h3>");
-
-//   root.append(greetingDiv);
-//   greetingDiv.append(greeting);
-//   greetingDiv.append(subGreeting);
-
-//   greetingDiv.addClass(" text-center  m-auto");
-//   greeting.addClass(h1 + "  mb-1 ");
-//   subGreeting.addClass(h3 + "  mb-6");
-
-//   greeting.text("Looks like you need to write some reviews!")
-//   subGreeting.text("Go ahead, search your favorite game and give it a review!")
-// }
