@@ -403,12 +403,11 @@ function getReviewed(){
 
 
 
-  let modalBtn = nav.children().eq(1).children().eq(3);
-  modalBtn.on('click', function(){
   // still need to find proper place to add eventlistener to 
   // need to take in game data for text value
-    displayModal();
-  })
+  // modalBtn.on('click', function(){
+  //   displayModal();
+  // })
 
   
   function displayModal() {
@@ -451,8 +450,6 @@ function getReviewed(){
       console.log('exit')
     });
     
-    
-
     let developer = $('<p>');
     developer.addClass('text-sm text-neu-0 mb-6 text-neu-3');
     developer.text('Developer: ');
@@ -483,7 +480,6 @@ function getReviewed(){
       buttonContainer.append(button);
     }
     cardContainer.append(buttonContainer)
-
 
     let textarea = $('<textarea>');
     textarea.attr('placeholder', 'My Notes');
@@ -522,14 +518,7 @@ function getReviewed(){
   
   }
 
-  // function for removing pop-up
-  // function hideModal (){
-  //   if(cardContainer && overlay) {
-  //     cardContainer.remove();
-  //     overlay.remove();
-  //   }
-    
-  // }
+
 
 
   // prints search results on page
