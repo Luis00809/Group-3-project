@@ -184,8 +184,164 @@ $(function () {
 		getCardData(id,title);
 	});
 
+<<<<<<< HEAD
   function getCardData(id,title) {
 		clearDom();
+=======
+  // converts realease received from RAWG to "Jan 2023 format"
+  function formatReleaseDate(u) {
+    const releaseUnix = Date.parse(u);
+    const date = new Date(releaseUnix);
+    const options = { month: "short", day: "numeric", year: "numeric" };
+    const formattedDate = date.toLocaleString("en-US", options);
+    return formattedDate;
+  }
+
+  function saveToLocalStorage(id, title) {
+    let thisGame = {
+      thisId: id,
+      thisTitle: title,
+    };
+
+    let existingViewedGames = JSON.parse(localStorage.getItem("viewedGames"));
+    if (existingViewedGames === null) {
+      existingViewedGames = [];
+    }
+
+    // if an id of a clicked card already exists in localStorage this will move that id to be beginning of the array
+    if (
+      JSON.stringify(existingViewedGames).includes(JSON.stringify(thisGame))
+    ) {
+      existingViewedGames.push(
+        existingViewedGames.splice(
+          existingViewedGames.findIndex(
+            (v) => v == JSON.stringify(thisGame)
+          ) /* + 1 */,
+          1
+        )[0]
+      );
+      localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
+    } else {
+      existingViewedGames.push(thisGame);
+      localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
+    }
+  }
+
+  // when the review form is done we can plug in the data with this function
+  function saveReviewToLocal(id, title, score, comment) {
+    // id = RAWG id for recollecting game data later
+    let thisReview = {
+      thisId: id,
+      thisTitle: title,
+      thisScore: score,
+      thisComment: comment,
+    };
+
+    let existingReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+    if (existingReviews === null) {
+      existingReviews = [];
+    }
+
+    if (JSON.stringify(existingReviews).includes(JSON.stringify(thisReview))) {
+      existingReviews.push(
+        existingReviews.splice(
+          existingReviews.findIndex((v) => v == JSON.stringify(thisReview)) + 1,
+          1
+        )[0]
+      );
+      localStorage.setItem("myReviews", JSON.stringify(existingReviews));
+    } else {
+      existingReviews.push(thisReview);
+      localStorage.setItem("myReviews", JSON.stringify(existingReviews));
+    }
+  }
+
+  // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
+  function testReview() {
+    const temp = [
+      {
+        id: "24182",
+        title: "The Legend of Zelda: Twilight Princess HD",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "22511",
+        title: "The Legend of Zelda: Breath of the Wild",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+    ];
+
+    $.each(temp, function (i) {
+      saveReviewToLocal(
+        temp[i].id,
+        temp[i].title,
+        temp[i].score,
+        temp[i].comment
+      );
+    });
+  }
+  testReview();
+  // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
+
+  // PAGE RENDERS
+  // renders landing page
+  function landingPage() {
+    clearDom();
+    // sets background image and opacity
+    root.css({
+      backgroundImage:
+        "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images8.alphacoders.com/954/thumb-1920-954028.jpg)",
+    });
+    root.addClass(" flex");
+
+    let greetingDiv = $("<div>");
+    let greeting = $("<h1>");
+    let subGreeting = $("<h3>");
+    let searchField = $("<input>");
+    let searchBtn = $("<button>");
+
+    root.append(greetingDiv);
+    greetingDiv.append(greeting);
+    greetingDiv.append(subGreeting);
+    greetingDiv.append(searchField);
+    greetingDiv.append(searchBtn);
+
+    greeting.text("Your next adventure awaits...");
+    subGreeting.text(
+      "Search from 1000s of games by title or genre to compare reviews and prices"
+    );
+    searchField.attr({
+      placeholder: "Search Title or Genre",
+      id: "searchField",
+    });
+    searchBtn.text("Show me what you've got!");
+
+    greetingDiv.addClass(" text-center  m-auto");
+    greeting.addClass(h1 + "  mb-1 ");
+    subGreeting.addClass(h3 + "  mb-6");
+    searchField.addClass(input + " text-center");
+    searchBtn.addClass(btn + "  block  mt-4  mx-auto");
+
+    searchBtn.on("click", getSearchResults);
+  }
+
+  //renders Stuff I've Reviewed Page when nav link is clicked
+  function getReviewed() {
+    clearDom();
+    getSearchBar();
+>>>>>>> fa0f57a (fixed function that was accidentally renamed)
     getGrid();
 		root.css({
 			backgroundImage:
@@ -234,6 +390,7 @@ $(function () {
 	}
 =======
   //renders Stuff I've Reviewed Page when nav link is clicked
+<<<<<<< HEAD
 function getReviewed(){
   clearDom();
   getSearchBar();
@@ -283,6 +440,12 @@ function getReviewed(){
     },
   ]
 >>>>>>> 273269d (fix)
+=======
+  function searchHistory() {
+    clearDom();
+    getSearchBar();
+    getGrid();
+>>>>>>> fa0f57a (fixed function that was accidentally renamed)
 
 	function saveToLocalStorage(id, title) {
 		let thisGame = {
@@ -393,6 +556,7 @@ function getReviewed(){
 		root.addClass(" flex");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let greetingDiv = $("<div>");
 		let greeting = $("<h1>");
 		let subGreeting = $("<h3>");
@@ -404,122 +568,125 @@ function getReviewed(){
 
 
   // still need to find proper place to add eventlistener to 
+=======
+  // still need to find proper place to add eventlistener to
+>>>>>>> fa0f57a (fixed function that was accidentally renamed)
   // need to take in game data for text value
   // modalBtn.on('click', function(){
   //   displayModal();
   // })
 
-  
   function displayModal() {
-    let cardContainer = $('<div>');
+    let cardContainer = $("<div>");
     // where to append the card container? should I clear the display or just append to root? body?
-    cardContainer.addClass('card p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]');
+    cardContainer.addClass(
+      "card p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]"
+    );
     cardContainer.css({
-      'width': '35%',
-      'top': '50%',
-      'left': '50%',
-      'z-index': '20',
-      'tranform': 'translate(-50%, -50%)',
-      'position': 'fixed',
-      'up': '50px',
-
+      width: "35%",
+      top: "50%",
+      left: "50%",
+      "z-index": "20",
+      tranform: "translate(-50%, -50%)",
+      position: "fixed",
+      up: "50px",
     });
-    $('body').append(cardContainer);
+    $("body").append(cardContainer);
 
-    let headingDiv = $('<div>');
+    let headingDiv = $("<div>");
     headingDiv.css({
-      'display': 'flex',
-      'justify-content': 'space-between',
-      'padding-bottom': '20px'
-    })
+      display: "flex",
+      "justify-content": "space-between",
+      "padding-bottom": "20px",
+    });
     cardContainer.append(headingDiv);
 
-    let gameTitle = $('<h3>');
-    gameTitle.text('Game Name');
+    let gameTitle = $("<h3>");
+    gameTitle.text("Game Name");
     headingDiv.append(gameTitle);
 
-    let exitBtn = $('<button>');
-    exitBtn.attr('id', 'exitBtn'); 
-    exitBtn.text('\u00D7');
+    let exitBtn = $("<button>");
+    exitBtn.attr("id", "exitBtn");
+    exitBtn.text("\u00D7");
     headingDiv.append(exitBtn);
-    $(document).on('click', '#exitBtn', function() {
-      if(cardContainer && overlay) {
+    $(document).on("click", "#exitBtn", function () {
+      if (cardContainer && overlay) {
         cardContainer.remove();
         overlay.remove();
       }
-      console.log('exit')
+      console.log("exit");
     });
-    
-    let developer = $('<p>');
-    developer.addClass('text-sm text-neu-0 mb-6 text-neu-3');
-    developer.text('Developer: ');
+
+    let developer = $("<p>");
+    developer.addClass("text-sm text-neu-0 mb-6 text-neu-3");
+    developer.text("Developer: ");
     cardContainer.append(developer);
 
-    let myScore = $('<p>');
-    myScore.addClass('text-sm text-neu-0 mb-1 text-neu-3');
-    myScore.text('My Score: ')
+    let myScore = $("<p>");
+    myScore.addClass("text-sm text-neu-0 mb-1 text-neu-3");
+    myScore.text("My Score: ");
     cardContainer.append(myScore);
 
-    let buttonContainer = $('<div>');
+    let buttonContainer = $("<div>");
     buttonContainer.css({
-      'display': 'flex',
-      'background-color:': 'white',
-      'justify-content': 'space-evenly'
-      
-    })
-    for (let i = 1; i <= 10; i++){
-      let button = $('<button>')
-      button.attr('type', 'button');
+      display: "flex",
+      "background-color:": "white",
+      "justify-content": "space-evenly",
+    });
+    for (let i = 1; i <= 10; i++) {
+      let button = $("<button>");
+      button.attr("type", "button");
       button.text(i);
-      button.addClass("text-neu-0 text-center rounded cursor-pointer hover:bg-pri-9 text-h4 font-medium mb-6 mx-auto")
+      button.addClass(
+        "text-neu-0 text-center rounded cursor-pointer hover:bg-pri-9 text-h4 font-medium mb-6 mx-auto"
+      );
       button.css({
-        'width': '25px',
-        'height': '25px',
-        'margin-right': '5px',
-        'background-color': 'grey'})      
+        width: "25px",
+        height: "25px",
+        "margin-right": "5px",
+        "background-color": "grey",
+      });
       buttonContainer.append(button);
     }
-    cardContainer.append(buttonContainer)
+    cardContainer.append(buttonContainer);
 
-    let textarea = $('<textarea>');
-    textarea.attr('placeholder', 'My Notes');
-    textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-40   ')
+    let textarea = $("<textarea>");
+    textarea.attr("placeholder", "My Notes");
+    textarea.addClass(" bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-40   ");
     cardContainer.append(textarea);
 
-    let buttonDivs = $('<div>');
+    let buttonDivs = $("<div>");
     buttonDivs.css({
-      'display': 'flex',
-      'justify-content': 'space-between',
-      'padding-top': '20px'
-    })
-    let deleteBtn = $('<button>');
+      display: "flex",
+      "justify-content": "space-between",
+      "padding-top": "20px",
+    });
+    let deleteBtn = $("<button>");
     // deleteBtn.addClass('hover:bg-pri-9')
     deleteBtn.css({
-      'color': 'red'
-    })
-    deleteBtn.text('Delete Review');
+      color: "red",
+    });
+    deleteBtn.text("Delete Review");
     buttonDivs.append(deleteBtn);
 
-    let savebtn = $('<button>');
-    savebtn.addClass('bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0')
-    savebtn.text('Save');
+    let savebtn = $("<button>");
+    savebtn.addClass(
+      "bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
+    );
+    savebtn.text("Save");
     buttonDivs.append(savebtn);
 
     cardContainer.append(buttonDivs);
 
-    let overlay = $('<div>');
+    let overlay = $("<div>");
     overlay.css({
-      'pointer-events': 'all',
-      'background-color': 'rgba(0, 0, 0, .5)',
-      'z-index': '30'
-    })
-    overlay.text('hello')
-    $('body').append(overlay);
-  
+      "pointer-events": "all",
+      "background-color": "rgba(0, 0, 0, .5)",
+      "z-index": "30",
+    });
+    overlay.text("hello");
+    $("body").append(overlay);
   }
-
-
-
 
   // prints search results on page
   function getSearchResults() {
@@ -548,7 +715,6 @@ function getReviewed(){
 		searchBtn.text("Show me what you've got!");
 =======
       $.each(gameData.results, function (i) {
-        
         let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
         let indexer = gameData.results[i];
         let thisScore = indexer.metacritic;
