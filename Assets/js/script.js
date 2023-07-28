@@ -9,6 +9,7 @@ const lgTxt = " text-lg text-neu-0 ";
 const btn =
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
 =======
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4 ;
@@ -16,11 +17,20 @@ const btn =
 =======
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
+=======
+  " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
+=======
+	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
+>>>>>>> 05ae230 (game title page, 1st commit)
+>>>>>>> 6fa03de (game title page, 1st commit)
 const input =
 	" bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 outline-none outline-offset-[-2px] focus:outline-pri-5 ";
 const grid = " grid  grid-cols-auto  gap-4 ";
 const card =
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6fa03de (game title page, 1st commit)
 	" card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
 
 =======
@@ -176,6 +186,7 @@ $(function () {
 			timeLabel.text("Giveaway ends");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if (!timeSrc || timeSrc == "N/A") {
 				timeSrc = "N/A";
 				timeLeft.addClass("text-neu-5");
@@ -185,6 +196,8 @@ $(function () {
 			}
 		}
 =======
+=======
+>>>>>>> 6fa03de (game title page, 1st commit)
       if (!timeSrc || timeSrc == "N/A") {
         timeSrc = "N/A";
         timeLeft.addClass("text-neu-5");
@@ -193,7 +206,20 @@ $(function () {
         timeLeft.text(formatDate(timeSrc));
       }
     }
+<<<<<<< HEAD
 >>>>>>> 9ad6903 (adds date of review to localStorage Logic)
+=======
+=======
+			if (!timeSrc || timeSrc == "N/A") {
+				timeSrc = "N/A";
+				timeLeft.addClass("text-neu-5");
+				timeLeft.text(timeSrc);
+			} else {
+				timeLeft.text(formatReleaseDate(timeSrc));
+			}
+		}
+>>>>>>> 05ae230 (game title page, 1st commit)
+>>>>>>> 6fa03de (game title page, 1st commit)
 
 		// data from returned results goes here
 		img.attr("src", imgSrc);
@@ -203,6 +229,7 @@ $(function () {
 		rating.text(altSrc);
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// listener for cards - temporily prints game title in console - will eventually render that games info page.
 	root.on("click", ".card", function () {
@@ -214,6 +241,8 @@ $(function () {
 		getCardData(id,title);
 	});
 =======
+=======
+>>>>>>> 6fa03de (game title page, 1st commit)
   // listener for cards - temporily prints game title in console - will eventually render that games info page.
   root.on("click", ".card", function () {
     let id = $(this).children("#id").text();
@@ -482,6 +511,7 @@ $(function () {
   function getReviewed() {
     clearDom();
     getSearchBar();
+<<<<<<< HEAD
 >>>>>>> fa0f57a (fixed function that was accidentally renamed)
     getGrid();
 		root.css({
@@ -522,6 +552,33 @@ $(function () {
     // Displays message or 
     
 =======
+=======
+=======
+	// listener for cards - temporily prints game title in console - will eventually render that games info page.
+	root.on("click", ".card", function () {
+		let id = $(this).children("#id").text();
+		let title = $(this).children().eq(2).text();
+		saveToLocalStorage(id, title);
+		console.log(title);
+ 
+		getCardData(id,title);
+	});
+
+  function getCardData(id,title) {
+		clearDom();
+>>>>>>> 05ae230 (game title page, 1st commit)
+    getGrid();
+		root.css({
+			backgroundImage:
+				"linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images8.alphacoders.com/954/thumb-1920-954028.jpg)",
+		});
+		getGame(title).then(function (gameData) {
+			$.each(gameData.results, function (y) {
+				let x = gameData.results[y];
+				let thisScore = x.metacritic;
+
+<<<<<<< HEAD
+>>>>>>> 6fa03de (game title page, 1st commit)
     // Displays message or
 
 >>>>>>> abf1bb3 (adds my review logic when a page renders that has a review in the past)
@@ -552,12 +609,43 @@ $(function () {
 
 >>>>>>> c68a832 (added empty search state for when user enters nothing or a game that isn't in the database)
     myReviews.reverse();
+<<<<<<< HEAD
 >>>>>>> abf1bb3 (adds my review logic when a page renders that has a review in the past)
+=======
+=======
+				// conditional for altScr text
+				if (!thisScore || thisScore == "N/A") {
+					thisScore = "N/A";
+				} else {
+					thisScore = thisScore + "/100";
+				}
+        console.log(x.id)
+				// only display that title if the id from RAWG matches the one we stored...
+				if (x.id == id) {
+					//then print that card
+					getCard(
+						x.id,
+						x.background_image,
+						x.name,
+						formatReleaseDate(x.released),
+						"Metacritic score",
+						thisScore
+					);
+				}
+			});
+		});
+	};
+  
+>>>>>>> 05ae230 (game title page, 1st commit)
+>>>>>>> 6fa03de (game title page, 1st commit)
 
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 6fa03de (game title page, 1st commit)
           // only display that title if the id from RAWG matches the one we stored...
           if (x.id == indexer.thisId) {
             getCard(
@@ -662,6 +750,7 @@ function getReviewed(){
     // for each item in history...
     $.each(history, function (i) {
       let indexer = history[i];
+<<<<<<< HEAD
 >>>>>>> 9467f45 (added function to display message when the history and the review pages are empty)
 
 		let existingViewedGames = JSON.parse(localStorage.getItem("viewedGames"));
@@ -698,6 +787,50 @@ function getReviewed(){
 			thisComment: comment,
 		};
 =======
+=======
+=======
+
+	// converts realease received from RAWG to "Jan 2023 format"
+	function formatReleaseDate(u) {
+		const releaseUnix = Date.parse(u);
+		const date = new Date(releaseUnix);
+		const options = { month: "short", day: "numeric", year: "numeric" };
+		const formattedDate = date.toLocaleString("en-US", options);
+		return formattedDate;
+	}
+
+	function saveToLocalStorage(id, title) {
+		let thisGame = {
+			thisId: id,
+			thisTitle: title,
+		};
+>>>>>>> 05ae230 (game title page, 1st commit)
+
+		let existingViewedGames = JSON.parse(localStorage.getItem("viewedGames"));
+		if (existingViewedGames === null) {
+			existingViewedGames = [];
+		}
+
+		// if an id of a clicked card already exists in localStorage this will move that id to be beginning of the array
+		if (
+			JSON.stringify(existingViewedGames).includes(JSON.stringify(thisGame))
+		) {
+			existingViewedGames.push(
+				existingViewedGames.splice(
+					existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame)) +
+						1,
+					1
+				)[0]
+			);
+			localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
+		} else {
+			existingViewedGames.push(thisGame);
+			localStorage.setItem("viewedGames", JSON.stringify(existingViewedGames));
+		}
+	}
+
+<<<<<<< HEAD
+>>>>>>> 6fa03de (game title page, 1st commit)
           // only display that title if the id from RAWG matches the one we stored...
           if (x.id == indexer.thisId) {
             //then print that card
@@ -755,7 +888,21 @@ function getReviewed(){
 >>>>>>> e39ebbd (fixed search history page to show free games history)
     });
   }
+<<<<<<< HEAD
 >>>>>>> 9ad6903 (adds date of review to localStorage Logic)
+=======
+=======
+	// when the review form is done we can plug in the data with this function
+	function saveReviewToLocal(id, title, score, comment) {
+		// id = RAWG id for recollecting game data later
+		let thisReview = {
+			thisId: id,
+			thisTitle: title,
+			thisScore: score,
+			thisComment: comment,
+		};
+>>>>>>> 05ae230 (game title page, 1st commit)
+>>>>>>> 6fa03de (game title page, 1st commit)
 
 		let existingReviews = JSON.parse(localStorage.getItem("myReviews"));
 
@@ -816,6 +963,7 @@ function getReviewed(){
 	// TEMPORARY FUNCTION TO TEST REVIEWED GAMES
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// PAGE RENDERS
 	// renders landing page
 	function landingPage() {
@@ -827,6 +975,8 @@ function getReviewed(){
 		});
 		root.addClass(" flex");
 =======
+=======
+>>>>>>> 6fa03de (game title page, 1st commit)
       $.each(gameData, function (i) {
         let indexer = gameData[i];
         getCard(
@@ -1080,6 +1230,7 @@ function getReviewed(){
       clearDom();
       getSearchBar();
       getGrid();
+<<<<<<< HEAD
 >>>>>>> 273269d (fix)
 
 		root.append(greetingDiv);
@@ -1268,6 +1419,50 @@ function getReviewed(){
 
 	landingPage(); // renders the landing page on load
 =======
+=======
+=======
+	// PAGE RENDERS
+	// renders landing page
+	function landingPage() {
+		clearDom();
+		// sets background image and opacity
+		root.css({
+			backgroundImage:
+				"linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images8.alphacoders.com/954/thumb-1920-954028.jpg)",
+		});
+		root.addClass(" flex");
+
+		let greetingDiv = $("<div>");
+		let greeting = $("<h1>");
+		let subGreeting = $("<h3>");
+		let searchField = $("<input>");
+		let searchBtn = $("<button>");
+>>>>>>> 05ae230 (game title page, 1st commit)
+
+		root.append(greetingDiv);
+		greetingDiv.append(greeting);
+		greetingDiv.append(subGreeting);
+		greetingDiv.append(searchField);
+		greetingDiv.append(searchBtn);
+
+		greeting.text("Your next adventure awaits...");
+		subGreeting.text(
+			"Search from 1000s of games by title or genre to compare reviews and prices"
+		);
+		searchField.attr({
+			placeholder: "Search Title or Genre",
+			id: "searchField",
+		});
+		searchBtn.text("Show me what you've got!");
+
+		greetingDiv.addClass(" text-center  m-auto");
+		greeting.addClass(h1 + "  mb-1 ");
+		subGreeting.addClass(h3 + "  mb-6");
+		searchField.addClass(input + " text-center");
+		searchBtn.addClass(btn + "  block  mt-4  mx-auto");
+
+<<<<<<< HEAD
+>>>>>>> 6fa03de (game title page, 1st commit)
         if (isOfficial > 10) {
           getCard(
             indexer.id,
@@ -1637,9 +1832,169 @@ function getReviewed(){
     });
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> e36a0c3 (builds the single title page and links up all of the logic)
 =======
 >>>>>>> 470f40a (builds the single title page and links up all of the logic)
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+=======
+		searchBtn.on("click", getSearchResults);
+	}
+
+	//renders Stuff I've Reviewed Page when nav link is clicked
+	function getReviewed() {
+		clearDom();
+		getSearchBar();
+		getGrid();
+
+		// gets localStorage 'myReviews' and parses to an array
+		let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+		myReviews.reverse();
+
+		// creates a reviewed game for every item stored in the array
+		$.each(myReviews, function (i) {
+			let indexer = myReviews[i];
+
+			// search for that title but...
+			getGame(indexer.thisTitle).then(function (gameData) {
+				$.each(gameData.results, function (y) {
+					let x = gameData.results[y];
+
+					// only display that title if the id from RAWG matches the one we stored...
+					if (x.id == indexer.thisId) {
+						getCard(
+							x.id,
+							x.background_image,
+							x.name,
+							formatReleaseDate(x.released),
+							"My Score",
+							indexer.thisScore + "/10"
+						);
+					}
+				});
+			});
+		});
+	}
+
+	// renders the Search history (UI only) when nav link is clicked
+	function searchHistory() {
+		clearDom();
+		getSearchBar();
+		getGrid();
+
+		// gets localStorate 'viewedGames' and parse to an array
+		let history = JSON.parse(localStorage.getItem("viewedGames"));
+		history.reverse();
+		// for each item in history...
+		$.each(history, function (i) {
+			let indexer = history[i];
+
+			// search for that title but...
+			getGame(indexer.thisTitle).then(function (gameData) {
+				$.each(gameData.results, function (y) {
+					let x = gameData.results[y];
+					let thisScore = x.metacritic;
+
+					// conditional for altScr text
+					if (!thisScore || thisScore == "N/A") {
+						thisScore = "N/A";
+					} else {
+						thisScore = thisScore + "/100";
+					}
+
+					// only display that title if the id from RAWG matches the one we stored...
+					if (x.id == indexer.thisId) {
+						//then print that card
+						getCard(
+							x.id,
+							x.background_image,
+							x.name,
+							formatReleaseDate(x.released),
+							"Metacritic score",
+							thisScore
+						);
+					}
+				});
+			});
+		});
+	}
+
+	function getFreeGames() {
+		freeGames().then(function (gameData) {
+			clearDom();
+
+			let heading = $('<h1 class="' + h2 + '">Free Games & DLC!</h1>');
+			let subHeading = $(
+				'<p class="' +
+					mdTxt +
+					' text-neu-3 ">The following items are currenty available for download for free on Steam<p>'
+			);
+
+			root.append(heading);
+			root.append(subHeading);
+
+			subHeading.addClass(" mb-4");
+
+			getGrid();
+			console.log(gameData);
+
+			$.each(gameData, function (i) {
+				let indexer = gameData[i];
+				getCard(
+					indexer.id,
+					indexer.thumbnail,
+					indexer.title,
+					formatReleaseDate(indexer.published_date),
+					"Value",
+					indexer.worth,
+					true,
+					indexer.end_date
+				);
+			});
+		});
+	}
+
+	// prints search results on page
+	function getSearchResults() {
+		getGame($("#searchField").val()).then(function (gameData) {
+			// gets Promise from getGame() and loads page when fullfilled.
+			clearDom();
+			getSearchBar();
+			getGrid();
+
+			console.log(gameData);
+			gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
+
+			$.each(gameData.results, function (i) {
+				let isOfficial = gameData.results[i].added; // The RAWG API has a lot of unofficial data.  This will help us condition if content is legitimate.  We may need to use other keypairs in the object
+				let indexer = gameData.results[i];
+				let thisScore = indexer.metacritic;
+
+				// conditional for altScr text
+				if (!thisScore || thisScore == "N/A") {
+					thisScore = "N/A";
+				} else {
+					thisScore = thisScore + "/100";
+				}
+
+				if (isOfficial > 10) {
+					getCard(
+						indexer.id,
+						indexer.background_image,
+						indexer.name,
+						formatReleaseDate(indexer.released),
+						"Metacritic Score",
+						thisScore,
+						false
+					);
+				}
+			});
+		});
+	}
+
+	landingPage(); // renders the landing page on load
+>>>>>>> 05ae230 (game title page, 1st commit)
+>>>>>>> 6fa03de (game title page, 1st commit)
 });
