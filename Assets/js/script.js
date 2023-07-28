@@ -5,6 +5,7 @@ const h3 = " text-h3  font-semibold  text-neu-0 ";
 const h4 = " text-h4  font-medium  text-neu-0 ";
 const smTxt = " text-sm  text-neu-0 ";
 const mdTxt = " text-med text-neu-0 ";
+const lgTxt = " text-lg text-neu-0 ";
 const btn =
 	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
 const input =
@@ -353,6 +354,7 @@ $(function () {
 				let thisScore = x.metacritic;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 				// conditional for altScr text
 				if (!thisScore || thisScore == "N/A") {
 					thisScore = "N/A";
@@ -379,19 +381,24 @@ $(function () {
 =======
     // Displays message or 
     
+=======
+    // Displays message or
+
+>>>>>>> abf1bb3 (adds my review logic when a page renders that has a review in the past)
     // gets localStorage 'myReviews' and parses to an array
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
-    if(!myReviews){
+    if (!myReviews) {
       emptyStateReview();
-      console.log('please add a review')
-      return
+      console.log("please add a review");
+      return;
     }
-    
-    myReviews.reverse();
-    
 
+<<<<<<< HEAD
 >>>>>>> 9467f45 (added function to display message when the history and the review pages are empty)
+=======
+    myReviews.reverse();
+>>>>>>> abf1bb3 (adds my review logic when a page renders that has a review in the past)
 
 
 
@@ -474,14 +481,14 @@ function getReviewed(){
     // gets localStorate 'viewedGames' and parse to an array
     let history = JSON.parse(localStorage.getItem("viewedGames"));
 
-    if(!history) {
+    if (!history) {
       emptyStateHistory();
-      console.log('please search something');
-      return
+      console.log("please search something");
+      return;
     }
-    
+
     history.reverse();
-    
+
     // for each item in history...
     $.each(history, function (i) {
       let indexer = history[i];
@@ -934,41 +941,135 @@ function getReviewed(){
 
   // renders message when reviews page has no data saved to local storage
   function emptyStateReview() {
-
     let messageDiv = $("<div>");
     let message = $("<h2>");
     let subMessage = $("<h4>");
-  
+
     root.append(messageDiv);
     messageDiv.append(message);
     messageDiv.append(subMessage);
-  
+
     messageDiv.addClass(" text-center  mt-4 ");
     message.addClass(h2 + "  mb-1 ");
     subMessage.addClass(h4);
-  
-    message.text("Looks like you need to write some reviews!")
-    subMessage.text("Go ahead, search your favorite game and give it a review!")
+
+    message.text("Looks like you need to write some reviews!");
+    subMessage.text(
+      "Go ahead, search your favorite game and give it a review!"
+    );
   }
 
   // renders message when history page has no data saved to local storage
   function emptyStateHistory() {
-
     let messageDiv = $("<div>");
     let message = $("<h2>");
     let subMessage = $("<h4>");
-  
+
     root.append(messageDiv);
     messageDiv.append(message);
     messageDiv.append(subMessage);
-  
+
     messageDiv.addClass(" text-center  mt-4 ");
     message.addClass(h2 + "  mb-1 ");
     subMessage.addClass(h4);
-  
-    message.text("You haven't searched anything yet?")
-    subMessage.text("Games you search for will hang out here on this page.")
+
+    message.text("You haven't searched anything yet?");
+    subMessage.text("Games you search for will hang out here on this page.");
   }
+
+  function testPrint(paramId) {
+    clearDom();
+
+    let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+    $.each(myReviews, function (i) {
+      let x = myReviews[i];
+
+      if (x.thisId == paramId) {
+        printReview(x.thisTitle, "Jul 28, 2023", x.thisComment, x.thisScore);
+
+        function printReview(title, date, notes, score) {
+          // elements to be rendered
+          let reviewCard = $("<div>");
+          let headerDiv = $("<div>");
+          let titleDiv = $("<div>");
+          let titleText = $("<h1>");
+          let reviewDate = $("<p>");
+          let editBtn = $("<button>");
+          let bodyDiv = $("<div>");
+          let notesDiv = $("<div>");
+          let notesLabel = $("<h3>");
+          let notesText = $("<p>");
+          let scoreDiv = $("<div>");
+          let scoreTextDiv = $("<div>");
+          let scoreValueText = $("<h1>");
+          let scoreOutOfText = $("<h3>");
+          let scoreBarDiv = $("<div>");
+          let scoreValue = $("<div>");
+
+          root.append(reviewCard);
+          reviewCard.addClass("p-4 bg-neu-8 rounded-lg");
+
+          // HEADER DIV SECTION
+          reviewCard.append(headerDiv);
+          headerDiv.append(titleDiv);
+          titleDiv.append(titleText);
+          titleDiv.append(reviewDate);
+          headerDiv.append(editBtn);
+
+          headerDiv.addClass("flex mb-8");
+          titleText.addClass(h1 + "mr-4 mb-1");
+          reviewDate.addClass(lgTxt + "text-neu-3");
+          editBtn.addClass(btn + " ml-auto ");
+
+          titleText.text("My review of " + title);
+          reviewDate.text(date);
+          editBtn.text("Edit My Review");
+
+          // BODY DIV SECTION
+          reviewCard.append(bodyDiv);
+          bodyDiv.append(notesDiv);
+          notesDiv.append(notesLabel);
+          notesDiv.append(notesText);
+          bodyDiv.append(scoreDiv);
+          scoreDiv.append(scoreTextDiv);
+          scoreTextDiv.append(scoreValueText);
+          scoreTextDiv.append(scoreOutOfText);
+          scoreDiv.append(scoreBarDiv);
+          scoreBarDiv.append(scoreValue);
+
+          bodyDiv.addClass("flex");
+          notesDiv.addClass("mr-4 w-full");
+          notesLabel.addClass(h3 + " mb-2");
+          notesText.addClass(mdTxt);
+          scoreDiv.addClass("center p-8 w-full grid place-items-center");
+          scoreTextDiv.addClass("flex mb-6");
+          scoreValueText.addClass(h1);
+          scoreOutOfText.addClass(h3 + " text-neu-3 mt-auto mb-1");
+          scoreBarDiv
+            .attr({ id: "scoreBarDiv" })
+            .addClass("bg-neu-7 w-full h-10 rounded-lg overflow-hidden");
+          scoreValue.addClass("bg-pri-5 w-full h-full");
+
+          notesLabel.text("My Notes");
+          notesText.text(notes);
+          scoreValueText.text(score);
+          scoreOutOfText.text("/10");
+
+          // logic to get chart proportions
+          let inputScore = parseInt(score); // parse score to a number
+          let barWidth = $("#scoreBarDiv").width(); // gets the width of the bar which changes at different view ports
+          let scoreBarValue = barWidth - (barWidth / 10) * inputScore; // calculates what the right padding should be
+          scoreBarDiv.css("padding-right", scoreBarValue + "px"); // sets the right padding the offsets the bar to communicate the score
+        }
+      }
+    });
+  }
+
   landingPage(); // renders the landing page on load
+<<<<<<< HEAD
 >>>>>>> 273269d (fix)
+=======
+  // testPrint(24182); // Test prints the my review seciton
+>>>>>>> abf1bb3 (adds my review logic when a page renders that has a review in the past)
 });
