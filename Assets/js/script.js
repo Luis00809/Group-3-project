@@ -163,7 +163,7 @@ $(function () {
         timeLeft.addClass("text-neu-5");
         timeLeft.text(timeSrc);
       } else {
-        timeLeft.text(formatReleaseDate(timeSrc));
+        timeLeft.text(formatDate(timeSrc));
       }
     }
 
@@ -184,7 +184,7 @@ $(function () {
   });
 
   // converts realease received from RAWG to "Jan 2023 format"
-  function formatReleaseDate(u) {
+  function formatDate(u) {
     const releaseUnix = Date.parse(u);
     const date = new Date(releaseUnix);
     const options = { month: "short", day: "numeric", year: "numeric" };
@@ -225,11 +225,14 @@ $(function () {
   // when the review form is done we can plug in the data with this function
   function saveReviewToLocal(id, title, score, comment) {
     // id = RAWG id for recollecting game data later
+    let dateOfReview = formatDate(new Date());
+
     let thisReview = {
       thisId: id,
       thisTitle: title,
       thisScore: score,
       thisComment: comment,
+      thisDate: dateOfReview,
     };
 
     let existingReviews = JSON.parse(localStorage.getItem("myReviews"));
@@ -366,7 +369,7 @@ $(function () {
               x.id,
               x.background_image,
               x.name,
-              formatReleaseDate(x.released),
+              "Reviewed on: " + indexer.thisDate,
               "My Score",
               indexer.thisScore + "/10"
             );
@@ -417,7 +420,7 @@ $(function () {
               x.id,
               x.background_image,
               x.name,
-              formatReleaseDate(x.released),
+              formatDate(x.released),
               "Metacritic score",
               thisScore
             );
@@ -452,7 +455,7 @@ $(function () {
           indexer.id,
           indexer.thumbnail,
           indexer.title,
-          formatReleaseDate(indexer.published_date),
+          formatDate(indexer.published_date),
           "Value",
           indexer.worth,
           true,
@@ -608,7 +611,7 @@ $(function () {
             indexer.id,
             indexer.background_image,
             indexer.name,
-            formatReleaseDate(indexer.released),
+            formatDate(indexer.released),
             "Metacritic Score",
             thisScore,
             false
@@ -656,9 +659,9 @@ $(function () {
     subMessage.text("Games you search for will hang out here on this page.");
   }
 
-  function testPrint(paramId) {
-    clearDom();
-
+  // call this function in the single title page and pass in the id
+  function isGameReviewed(paramId) {
+    clearDom(); // remove this when added to single title screen
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
     $.each(myReviews, function (i) {
@@ -702,7 +705,7 @@ $(function () {
           editBtn.addClass(btn + " ml-auto ");
 
           titleText.text("My review of " + title);
-          reviewDate.text(date);
+          reviewDate.text("Reviewed on: " + date);
           editBtn.text("Edit My Review");
 
           // BODY DIV SECTION
@@ -746,5 +749,5 @@ $(function () {
   }
 
   landingPage(); // renders the landing page on load
-  // testPrint(24182); // Test prints the my review seciton
+  // isGameReviewed(24182); // Test prints the my review seciton
 });
