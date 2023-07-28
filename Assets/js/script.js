@@ -158,6 +158,7 @@ $(function () {
 
 			timeLabel.text("Giveaway ends");
 
+<<<<<<< HEAD
 			if (!timeSrc || timeSrc == "N/A") {
 				timeSrc = "N/A";
 				timeLeft.addClass("text-neu-5");
@@ -166,6 +167,16 @@ $(function () {
 				timeLeft.text(formatReleaseDate(timeSrc));
 			}
 		}
+=======
+      if (!timeSrc || timeSrc == "N/A") {
+        timeSrc = "N/A";
+        timeLeft.addClass("text-neu-5");
+        timeLeft.text(timeSrc);
+      } else {
+        timeLeft.text(formatDate(timeSrc));
+      }
+    }
+>>>>>>> 9ad6903 (adds date of review to localStorage Logic)
 
 		// data from returned results goes here
 		img.attr("src", imgSrc);
@@ -190,7 +201,7 @@ $(function () {
 		clearDom();
 =======
   // converts realease received from RAWG to "Jan 2023 format"
-  function formatReleaseDate(u) {
+  function formatDate(u) {
     const releaseUnix = Date.parse(u);
     const date = new Date(releaseUnix);
     const options = { month: "short", day: "numeric", year: "numeric" };
@@ -231,11 +242,14 @@ $(function () {
   // when the review form is done we can plug in the data with this function
   function saveReviewToLocal(id, title, score, comment) {
     // id = RAWG id for recollecting game data later
+    let dateOfReview = formatDate(new Date());
+
     let thisReview = {
       thisId: id,
       thisTitle: title,
       thisScore: score,
       thisComment: comment,
+      thisDate: dateOfReview,
     };
 
     let existingReviews = JSON.parse(localStorage.getItem("myReviews"));
@@ -402,6 +416,24 @@ $(function () {
 
 
 
+<<<<<<< HEAD
+=======
+          // only display that title if the id from RAWG matches the one we stored...
+          if (x.id == indexer.thisId) {
+            getCard(
+              x.id,
+              x.background_image,
+              x.name,
+              "Reviewed on: " + indexer.thisDate,
+              "My Score",
+              indexer.thisScore + "/10"
+            );
+          }
+        });
+      });
+    });
+  }
+>>>>>>> 9ad6903 (adds date of review to localStorage Logic)
 
 <<<<<<< HEAD
 	// converts realease received from RAWG to "Jan 2023 format"
@@ -517,6 +549,7 @@ function getReviewed(){
 		}
 	}
 
+<<<<<<< HEAD
 	// when the review form is done we can plug in the data with this function
 	function saveReviewToLocal(id, title, score, comment) {
 		// id = RAWG id for recollecting game data later
@@ -526,6 +559,24 @@ function getReviewed(){
 			thisScore: score,
 			thisComment: comment,
 		};
+=======
+          // only display that title if the id from RAWG matches the one we stored...
+          if (x.id == indexer.thisId) {
+            //then print that card
+            getCard(
+              x.id,
+              x.background_image,
+              x.name,
+              formatDate(x.released),
+              "Metacritic score",
+              thisScore
+            );
+          }
+        });
+      });
+    });
+  }
+>>>>>>> 9ad6903 (adds date of review to localStorage Logic)
 
 		let existingReviews = JSON.parse(localStorage.getItem("myReviews"));
 
@@ -585,6 +636,7 @@ function getReviewed(){
 	testReview();
 	// TEMPORARY FUNCTION TO TEST REVIEWED GAMES
 
+<<<<<<< HEAD
 	// PAGE RENDERS
 	// renders landing page
 	function landingPage() {
@@ -595,6 +647,23 @@ function getReviewed(){
 				"linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images8.alphacoders.com/954/thumb-1920-954028.jpg)",
 		});
 		root.addClass(" flex");
+=======
+      $.each(gameData, function (i) {
+        let indexer = gameData[i];
+        getCard(
+          indexer.id,
+          indexer.thumbnail,
+          indexer.title,
+          formatDate(indexer.published_date),
+          "Value",
+          indexer.worth,
+          true,
+          indexer.end_date
+        );
+      });
+    });
+  }
+>>>>>>> 9ad6903 (adds date of review to localStorage Logic)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -929,7 +998,7 @@ function getReviewed(){
             indexer.id,
             indexer.background_image,
             indexer.name,
-            formatReleaseDate(indexer.released),
+            formatDate(indexer.released),
             "Metacritic Score",
             thisScore,
             false
@@ -977,9 +1046,9 @@ function getReviewed(){
     subMessage.text("Games you search for will hang out here on this page.");
   }
 
-  function testPrint(paramId) {
-    clearDom();
-
+  // call this function in the single title page and pass in the id
+  function isGameReviewed(paramId) {
+    clearDom(); // remove this when added to single title screen
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
     $.each(myReviews, function (i) {
@@ -1023,7 +1092,7 @@ function getReviewed(){
           editBtn.addClass(btn + " ml-auto ");
 
           titleText.text("My review of " + title);
-          reviewDate.text(date);
+          reviewDate.text("Reviewed on: " + date);
           editBtn.text("Edit My Review");
 
           // BODY DIV SECTION
@@ -1068,8 +1137,12 @@ function getReviewed(){
 
   landingPage(); // renders the landing page on load
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 273269d (fix)
 =======
   // testPrint(24182); // Test prints the my review seciton
 >>>>>>> abf1bb3 (adds my review logic when a page renders that has a review in the past)
+=======
+  // isGameReviewed(24182); // Test prints the my review seciton
+>>>>>>> 9ad6903 (adds date of review to localStorage Logic)
 });
