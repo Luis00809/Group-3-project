@@ -337,9 +337,20 @@ $(function () {
     getSearchBar();
     getGrid();
 
+    // Displays message or 
+    
     // gets localStorage 'myReviews' and parses to an array
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+    if(!myReviews){
+      emptyStateReview();
+      console.log('please add a review')
+      return
+    }
+    
     myReviews.reverse();
+    
+
 
     // creates a reviewed game for every item stored in the array
     $.each(myReviews, function (i) {
@@ -374,7 +385,15 @@ $(function () {
 
     // gets localStorate 'viewedGames' and parse to an array
     let history = JSON.parse(localStorage.getItem("viewedGames"));
+
+    if(!history) {
+      emptyStateHistory();
+      console.log('please search something');
+      return
+    }
+    
     history.reverse();
+    
     // for each item in history...
     $.each(history, function (i) {
       let indexer = history[i];
@@ -598,6 +617,44 @@ $(function () {
         }
       });
     });
+  }
+
+  // renders message when reviews page has no data saved to local storage
+  function emptyStateReview() {
+
+    let messageDiv = $("<div>");
+    let message = $("<h2>");
+    let subMessage = $("<h4>");
+  
+    root.append(messageDiv);
+    messageDiv.append(message);
+    messageDiv.append(subMessage);
+  
+    messageDiv.addClass(" text-center  mt-4 ");
+    message.addClass(h2 + "  mb-1 ");
+    subMessage.addClass(h4);
+  
+    message.text("Looks like you need to write some reviews!")
+    subMessage.text("Go ahead, search your favorite game and give it a review!")
+  }
+
+  // renders message when history page has no data saved to local storage
+  function emptyStateHistory() {
+
+    let messageDiv = $("<div>");
+    let message = $("<h2>");
+    let subMessage = $("<h4>");
+  
+    root.append(messageDiv);
+    messageDiv.append(message);
+    messageDiv.append(subMessage);
+  
+    messageDiv.addClass(" text-center  mt-4 ");
+    message.addClass(h2 + "  mb-1 ");
+    subMessage.addClass(h4);
+  
+    message.text("You haven't searched anything yet?")
+    subMessage.text("Games you search for will hang out here on this page.")
   }
   landingPage(); // renders the landing page on load
 });
