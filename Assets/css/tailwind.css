@@ -568,6 +568,7 @@ video {
   }
 }
 
+<<<<<<< HEAD
 .ratingBtnClass{
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -587,6 +588,8 @@ video {
 
 
 
+=======
+>>>>>>> 4f8fd8f (adds my review logic when a page renders that has)
 .fixed {
   position: fixed;
 }
@@ -745,6 +748,7 @@ video {
   grid-template-columns: repeat(auto-fit, minmax(332px, 1fr));
 }
 
+<<<<<<< HEAD
 .placeHolderColor::placeholder{
   color: rgb(246, 85, 85)
 }
@@ -856,6 +860,8 @@ video {
   grid-column-end: 4;
 }
 
+=======
+>>>>>>> 4f8fd8f (adds my review logic when a page renders that has)
 .place-items-center {
   place-items: center;
 }
@@ -864,10 +870,13 @@ video {
   gap: 1rem;
 }
 
+<<<<<<< HEAD
 .gap{
   gap: .5rem;
 }
 
+=======
+>>>>>>> 4f8fd8f (adds my review logic when a page renders that has)
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1079,6 +1088,7 @@ video {
   outline-color: #872eb8;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
@@ -1089,3 +1099,6 @@ video {
 }
 
 >>>>>>> 9a20e07 (form-modal)
+=======
+}
+>>>>>>> 4f8fd8f (adds my review logic when a page renders that has)
