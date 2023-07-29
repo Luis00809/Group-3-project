@@ -553,10 +553,7 @@ $(function () {
     cardContainer.append(buttonContainer)
 
     let textarea = $('<textarea>');
-    textarea.attr({
-      'placeholder': 'My Notes',
-      'id': 'ReviewtextArea'
-    });
+    textarea.attr('placeholder', 'My Notes');
     textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-40 ')
     cardContainer.append(textarea);
 
@@ -577,7 +574,7 @@ $(function () {
     buttonDivs.append(deleteBtn);
     deleteBtn.on('click', function(){
       textarea.val('')
-      console.log('works')
+      buttons.forEach(btn => btn.removeClass('bg-pri-5'));
     })
 
     let savebtn = $("<button>");
