@@ -710,12 +710,11 @@ function getReviewed(){
   
   function displayModal() {
     let cardContainer = $("<div>");
-    // where to append the card container? should I clear the display or just append to root? body?
     cardContainer.addClass(
       "card p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]"
     );
     cardContainer.css({
-      width: "35%",
+      width: "45%",
       top: "50%",
       left: "50%",
       "z-index": "20",
@@ -767,26 +766,36 @@ function getReviewed(){
     })
 
     let buttons = [];
-
+    let reviewScore;
     for (let i = 1; i <= 10; i++){
       let button = $('<button>');
       button.text(i);
       button.addClass("bg-neu-8 rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9");
+      button.css({
+        'margin-right': '1px'
+      })
       buttons.push(button);
       
       // this event listener mimicks a radio-button
       button.on('click', function() {
         buttons.forEach(btn => btn.removeClass('bg-pri-5'));
         $(this).addClass('bg-pri-5');
+        if(($(this).hasClass('bg-pri-5'))){
+          reviewScore = $(this).text();
+          console.log('reviewScore = ' + reviewScore);
+        }
       });
   
-  buttonContainer.append(button);
-}
-    cardContainer.append(buttonContainer)
+      // setting score value
+      // let score = 
+      buttonContainer.append(button);
+    }
+    cardContainer.append(buttonContainer);
+
 
     let textarea = $('<textarea>');
     textarea.attr('placeholder', 'My Notes');
-    textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-40 ')
+    textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-6\/12  ')
     cardContainer.append(textarea);
 
     let buttonDivs = $("<div>");
@@ -805,8 +814,10 @@ function getReviewed(){
     deleteBtn.text("Delete Review");
     buttonDivs.append(deleteBtn);
     deleteBtn.on('click', function(){
-      textarea.val('')
+      textarea.val('');
       buttons.forEach(btn => btn.removeClass('bg-pri-5'));
+      reviewScore = null;
+      console.log('reviewScore = ' + reviewScore);
     })
 
     let savebtn = $("<button>");
@@ -815,6 +826,10 @@ function getReviewed(){
     );
     savebtn.text("Save");
     buttonDivs.append(savebtn);
+    savebtn.on('click', function(){
+      // saveReviewToLocal(id, title, score, comment)
+      console.log('saved');
+    })
 
     cardContainer.append(buttonDivs);
 
