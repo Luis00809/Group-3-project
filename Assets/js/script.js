@@ -785,7 +785,10 @@ function getReviewed(){
     cardContainer.append(buttonContainer)
 
     let textarea = $('<textarea>');
-    textarea.attr('placeholder', 'My Notes');
+    textarea.attr({
+      'placeholder': 'My Notes',
+      'id': 'ReviewtextArea'
+    });
     textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-40 ')
     cardContainer.append(textarea);
 
@@ -795,13 +798,19 @@ function getReviewed(){
       "justify-content": "space-between",
       "padding-top": "20px",
     });
+
     let deleteBtn = $("<button>");
     // deleteBtn.addClass('hover:bg-pri-9')
     deleteBtn.css({
       color: "red",
     });
+
     deleteBtn.text("Delete Review");
     buttonDivs.append(deleteBtn);
+    deleteBtn.on('click', function(){
+      textarea.val('')
+      console.log('works')
+    })
 
     let savebtn = $("<button>");
     savebtn.addClass(
