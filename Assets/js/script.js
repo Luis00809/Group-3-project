@@ -700,27 +700,19 @@ function getReviewed(){
 
 
 
-  let modalBtn = nav.children().eq(1).children().eq(3);
-  // still need to find proper place to add eventlistener to 
-  // need to take in game data for text value
-  modalBtn.on('click', function(){
-    displayModal();
-  })
-
   
   function displayModal() {
     let cardContainer = $("<div>");
-    cardContainer.addClass(
-      "card p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]"
-    );
+    cardContainer.addClass("p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]");
     cardContainer.css({
-      width: "45%",
-      top: "50%",
-      left: "50%",
       "z-index": "20",
-      tranform: "translate(-50%, -50%)",
+      height: '50%',
+      width: '30%',
       position: "fixed",
-      up: "50px",
+      top: "25%",
+      bottom: '25%',
+      right: '20%',
+      left: "30%"
     });
     $("body").append(cardContainer);
 
@@ -733,6 +725,7 @@ function getReviewed(){
     cardContainer.append(headingDiv);
 
     let gameTitle = $("<h3>");
+    gameTitle.addClass('text-h3 font-semibold text-neu-0 mt-4')
     gameTitle.text("Game Name");
     headingDiv.append(gameTitle);
 
@@ -740,39 +733,32 @@ function getReviewed(){
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
     headingDiv.append(exitBtn);
-    $(document).on("click", "#exitBtn", function () {
-      if (cardContainer && overlay) {
-        cardContainer.remove();
-        overlay.remove();
-      }
+    exitBtn.on('click', function(){
+      cardContainer.remove();
+      overlay.remove();
       console.log("exit");
-    });
+    })
 
     let developer = $("<p>");
-    developer.addClass("text-sm text-neu-0 mb-6 text-neu-3");
+    developer.addClass("text-medium text-neu-0 mb-6 text-neu-3");
     developer.text("Developer: ");
     cardContainer.append(developer);
 
     let myScore = $("<p>");
-    myScore.addClass("text-sm text-neu-0 mb-1 text-neu-3");
+    myScore.addClass(" text-neu-0 mb-4 text-neu-3 text-medium ");
     myScore.text("My Score: ");
     cardContainer.append(myScore);
 
      
     let buttonContainer = $('<div>');
-    buttonContainer.css({
-      'display': 'flex',
-      'justify-content': 'space-evenly'
-    })
-
     let buttons = [];
     let reviewScore;
     for (let i = 1; i <= 10; i++){
       let button = $('<button>');
       button.text(i);
-      button.addClass("bg-neu-8 rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9");
+      button.addClass("bg-neu-8  rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9");
       button.css({
-        'margin-right': '1px'
+        'margin-right': '2.5px'
       })
       buttons.push(button);
       
@@ -785,18 +771,19 @@ function getReviewed(){
           console.log('reviewScore = ' + reviewScore);
         }
       });
-  
-      // setting score value
-      // let score = 
       buttonContainer.append(button);
     }
     cardContainer.append(buttonContainer);
 
-
     let textarea = $('<textarea>');
     textarea.attr('placeholder', 'My Notes');
-    textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-6\/12  ')
+    textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full ')
+    let gameComment;
     cardContainer.append(textarea);
+
+    textarea.on('input', function(){
+      gameComment = $(this).val()
+    });
 
     let buttonDivs = $("<div>");
     buttonDivs.css({
@@ -806,18 +793,19 @@ function getReviewed(){
     });
 
     let deleteBtn = $("<button>");
-    // deleteBtn.addClass('hover:bg-pri-9')
     deleteBtn.css({
       color: "red",
     });
-
     deleteBtn.text("Delete Review");
     buttonDivs.append(deleteBtn);
+
     deleteBtn.on('click', function(){
       textarea.val('');
       buttons.forEach(btn => btn.removeClass('bg-pri-5'));
       reviewScore = null;
+      gameComment = null;
       console.log('reviewScore = ' + reviewScore);
+      console.log('gameComment = ' + gameComment);
     })
 
     let savebtn = $("<button>");
@@ -827,20 +815,20 @@ function getReviewed(){
     savebtn.text("Save");
     buttonDivs.append(savebtn);
     savebtn.on('click', function(){
-      // saveReviewToLocal(id, title, score, comment)
+      // saveReviewToLocal(id, title, score, comment);
       console.log('saved');
+      console.log('review comment: ' + gameComment)
+      cardContainer.remove();
+      overlay.remove();
+
     })
 
     cardContainer.append(buttonDivs);
 
     let overlay = $("<div>");
-    overlay.css({
-      "pointer-events": "all",
-      "background-color": "rgba(0, 0, 0, .5)",
-      "z-index": "30",
-    });
-    overlay.text("hello");
-    $("body").append(overlay);
+    overlay.addClass('fixed top-0 left-0 w-full h-full z-10 ')
+    overlay.css('background', "rgba(0, 0, 0, 0.6)");
+    $('body').append(overlay);
   }
 
   // prints search results on page
