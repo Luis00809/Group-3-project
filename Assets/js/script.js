@@ -10,6 +10,7 @@ const btn =
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
 =======
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4 ;
@@ -18,29 +19,48 @@ const btn =
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
 =======
+=======
+>>>>>>> 16ee697 (fix merge)
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
 =======
 	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
 >>>>>>> 05ae230 (game title page, 1st commit)
+<<<<<<< HEAD
 >>>>>>> 6fa03de (game title page, 1st commit)
+=======
+=======
+	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
+=======
+  " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4 ;
+>>>>>>> e56250a (fix merge)
+>>>>>>> d42bb94 (fix merge)
+>>>>>>> 16ee697 (fix merge)
 const input =
 	" bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 outline-none outline-offset-[-2px] focus:outline-pri-5 ";
 const grid = " grid  grid-cols-auto  gap-4 ";
 const card =
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 6fa03de (game title page, 1st commit)
+=======
+>>>>>>> 16ee697 (fix merge)
 	" card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
 
 =======
   " card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
+<<<<<<< HEAD
 <<<<<<< HEAD
  
 >>>>>>> e56250a (fix merge)
 =======
 
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
+=======
+ 
+>>>>>>> e56250a (fix merge)
+>>>>>>> 16ee697 (fix merge)
 // CORE APP
 $(function () {
 	let nav = $("nav");
@@ -1804,6 +1824,7 @@ function getReviewed(){
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let greetingDiv = $("<div>");
 		let greeting = $("<h1>");
 		let subGreeting = $("<h3>");
@@ -1824,9 +1845,27 @@ function getReviewed(){
   // still need to find proper place to add eventlistener to
 >>>>>>> fa0f57a (fixed function that was accidentally renamed)
   // need to take in game data for text value
+<<<<<<< HEAD
+    displayModal();
+  })
+=======
+  // modalBtn.on('click', function(){
+  //   displayModal();
+  // })
+=======
+>>>>>>> e56250a (fix merge)
+>>>>>>> d42bb94 (fix merge)
+
+
+
+  let modalBtn = nav.children().eq(1).children().eq(3);
+  // still need to find proper place to add eventlistener to 
+  // need to take in game data for text value
+  modalBtn.on('click', function(){
     displayModal();
   })
 
+  
   function displayModal() {
     let cardContainer = $("<div>");
     // where to append the card container? should I clear the display or just append to root? body?
@@ -1888,29 +1927,14 @@ function getReviewed(){
     myScore.text("My Score: ");
     cardContainer.append(myScore);
 
-    let buttonContainer = $("<div>");
+     
+    let buttonContainer = $('<div>');
     buttonContainer.css({
-      display: "flex",
-      "background-color:": "white",
-      "justify-content": "space-evenly",
-    });
-    for (let i = 1; i <= 10; i++) {
-      let button = $("<button>");
-      button.attr("type", "button");
-      button.text(i);
-      button.addClass(
-        "text-neu-0 text-center rounded cursor-pointer hover:bg-pri-9 text-h4 font-medium mb-6 mx-auto"
-      );
-      button.css({
-        width: "25px",
-        height: "25px",
-        "margin-right": "5px",
-        "background-color": "grey",
-      });
-      buttonContainer.append(button);
-    }
-    cardContainer.append(buttonContainer);
+      'display': 'flex',
+      'justify-content': 'space-evenly'
+    })
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     let textarea = $('<textarea>');
@@ -1921,6 +1945,29 @@ function getReviewed(){
     textarea.attr("placeholder", "My Notes");
     textarea.addClass(" bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-40   ");
 >>>>>>> 038d040 (fixed function that accidentally renamed)
+=======
+    let buttons = [];
+
+    for (let i = 1; i <= 10; i++){
+      let button = $('<button>');
+      button.text(i);
+      button.addClass("bg-neu-8 rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9");
+      buttons.push(button);
+      
+      // this event listener mimicks a radio-button
+      button.on('click', function() {
+        buttons.forEach(btn => btn.removeClass('bg-pri-5'));
+        $(this).addClass('bg-pri-5');
+      });
+  
+  buttonContainer.append(button);
+}
+    cardContainer.append(buttonContainer)
+
+    let textarea = $('<textarea>');
+    textarea.attr('placeholder', 'My Notes');
+    textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-40 ')
+>>>>>>> d42bb94 (fix merge)
     cardContainer.append(textarea);
 
     let buttonDivs = $("<div>");
