@@ -7,13 +7,13 @@ const smTxt = " text-sm  text-neu-0 ";
 const mdTxt = " text-med text-neu-0 ";
 const lgTxt = " text-lg text-neu-0 ";
 const btn =
-  " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4 ;
+  " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
 const input =
   " bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 outline-none outline-offset-[-2px] focus:outline-pri-5 ";
 const grid = " grid  grid-cols-auto  gap-4 ";
 const card =
   " card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
- 
+
 // CORE APP
 $(function () {
   let nav = $("nav");
@@ -465,22 +465,20 @@ $(function () {
     });
   }
 
-
-
-
-  
-  function displayModal() {
+  function displayModal(id, title) {
     let cardContainer = $("<div>");
-    cardContainer.addClass("p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]");
+    cardContainer.addClass(
+      "p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]"
+    );
     cardContainer.css({
       "z-index": "20",
-      height: '50%',
-      width: '30%',
+      height: "50%",
+      width: "30%",
       position: "fixed",
       top: "25%",
-      bottom: '25%',
-      right: '20%',
-      left: "30%"
+      bottom: "25%",
+      right: "20%",
+      left: "30%",
     });
     $("body").append(cardContainer);
 
@@ -493,7 +491,7 @@ $(function () {
     cardContainer.append(headingDiv);
 
     let gameTitle = $("<h3>");
-    gameTitle.addClass('text-h3 font-semibold text-neu-0 mt-4')
+    gameTitle.addClass("text-h3 font-semibold text-neu-0 mt-4");
     gameTitle.text("Game Name");
     headingDiv.append(gameTitle);
 
@@ -501,11 +499,11 @@ $(function () {
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
     headingDiv.append(exitBtn);
-    exitBtn.on('click', function(){
+    exitBtn.on("click", function () {
       cardContainer.remove();
       overlay.remove();
       console.log("exit");
-    })
+    });
 
     let developer = $("<p>");
     developer.addClass("text-medium text-neu-0 mb-6 text-neu-3");
@@ -517,40 +515,43 @@ $(function () {
     myScore.text("My Score: ");
     cardContainer.append(myScore);
 
-     
-    let buttonContainer = $('<div>');
+    let buttonContainer = $("<div>");
     let buttons = [];
     let reviewScore;
-    for (let i = 1; i <= 10; i++){
-      let button = $('<button>');
+    for (let i = 1; i <= 10; i++) {
+      let button = $("<button>");
       button.text(i);
-      button.addClass("bg-neu-8  rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9");
+      button.addClass(
+        "bg-neu-8  rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9"
+      );
       button.css({
-        'margin-right': '2.5px'
-      })
+        "margin-right": "2.5px",
+      });
       buttons.push(button);
-      
+
       // this event listener mimicks a radio-button
-      button.on('click', function() {
-        buttons.forEach(btn => btn.removeClass('bg-pri-5'));
-        $(this).addClass('bg-pri-5');
-        if(($(this).hasClass('bg-pri-5'))){
+      button.on("click", function () {
+        buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
+        $(this).addClass("bg-pri-5");
+        if ($(this).hasClass("bg-pri-5")) {
           reviewScore = $(this).text();
-          console.log('reviewScore = ' + reviewScore);
+          console.log("reviewScore = " + reviewScore);
         }
       });
       buttonContainer.append(button);
     }
     cardContainer.append(buttonContainer);
 
-    let textarea = $('<textarea>');
-    textarea.attr('placeholder', 'My Notes');
-    textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full ')
+    let textarea = $("<textarea>");
+    textarea.attr("placeholder", "My Notes");
+    textarea.addClass(
+      " bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full "
+    );
     let gameComment;
     cardContainer.append(textarea);
 
-    textarea.on('input', function(){
-      gameComment = $(this).val()
+    textarea.on("input", function () {
+      gameComment = $(this).val();
     });
 
     let buttonDivs = $("<div>");
@@ -567,14 +568,14 @@ $(function () {
     deleteBtn.text("Delete Review");
     buttonDivs.append(deleteBtn);
 
-    deleteBtn.on('click', function(){
-      textarea.val('');
-      buttons.forEach(btn => btn.removeClass('bg-pri-5'));
+    deleteBtn.on("click", function () {
+      textarea.val("");
+      buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
       reviewScore = null;
       gameComment = null;
-      console.log('reviewScore = ' + reviewScore);
-      console.log('gameComment = ' + gameComment);
-    })
+      console.log("reviewScore = " + reviewScore);
+      console.log("gameComment = " + gameComment);
+    });
 
     let savebtn = $("<button>");
     savebtn.addClass(
@@ -582,21 +583,20 @@ $(function () {
     );
     savebtn.text("Save");
     buttonDivs.append(savebtn);
-    savebtn.on('click', function(){
-      // saveReviewToLocal(id, title, score, comment);
-      console.log('saved');
-      console.log('review comment: ' + gameComment)
+    savebtn.on("click", function () {
+      saveReviewToLocal(id, title, reviewScore, gameComment); ///  ITS RIGHT HHHHHERE
+      console.log("saved");
+      console.log("review comment: " + gameComment);
       cardContainer.remove();
       overlay.remove();
-
-    })
+    });
 
     cardContainer.append(buttonDivs);
 
     let overlay = $("<div>");
-    overlay.addClass('fixed top-0 left-0 w-full h-full z-10 ')
-    overlay.css('background', "rgba(0, 0, 0, 0.6)");
-    $('body').append(overlay);
+    overlay.addClass("fixed top-0 left-0 w-full h-full z-10 ");
+    overlay.css("background", "rgba(0, 0, 0, 0.6)");
+    $("body").append(overlay);
   }
 
   // prints search results on page
@@ -766,4 +766,5 @@ $(function () {
 
   landingPage(); // renders the landing page on load
   // isGameReviewed(24182); // Test prints the my review seciton
+  displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
 });
