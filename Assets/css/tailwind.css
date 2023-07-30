@@ -749,6 +749,9 @@ video {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b4bd842 (added grid)
 .placeHolderColor::placeholder{
   color: rgb(246, 85, 85)
 }
@@ -860,8 +863,11 @@ video {
   grid-column-end: 4;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 4f8fd8f (adds my review logic when a page renders that has)
+=======
+>>>>>>> b4bd842 (added grid)
 .place-items-center {
   place-items: center;
 }

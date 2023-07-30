@@ -1846,6 +1846,7 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let greetingDiv = $("<div>");
 		let greeting = $("<h1>");
 		let subGreeting = $("<h3>");
@@ -1855,12 +1856,18 @@ function getReviewed(){
 >>>>>>> 05ae230 (game title page, 1st commit)
 =======
 =======
+=======
+>>>>>>> 2e631b2 (added grid)
 
 
 
 
+<<<<<<< HEAD
   let modalBtn = nav.children().eq(1).children().eq(3);
   modalBtn.on('click', function(){
+=======
+<<<<<<< HEAD
+>>>>>>> b4bd842 (added grid)
   // still need to find proper place to add eventlistener to 
 =======
   // still need to find proper place to add eventlistener to
@@ -1889,9 +1896,12 @@ function getReviewed(){
   
   function displayModal() {
 =======
+=======
+>>>>>>> 2e631b2 (added grid)
   function displayModal(id, title) {
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
     let cardContainer = $("<div>");
+<<<<<<< HEAD
 <<<<<<< HEAD
     // where to append the card container? should I clear the display or just append to root? body?
     cardContainer.addClass(
@@ -1901,46 +1911,59 @@ function getReviewed(){
       "p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]"
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
     );
+=======
+    cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
+>>>>>>> b4bd842 (added grid)
     cardContainer.css({
       width: "35%",
       top: "50%",
       left: "50%",
       "z-index": "20",
 <<<<<<< HEAD
+<<<<<<< HEAD
       tranform: "translate(-50%, -50%)",
       position: "fixed",
       up: "50px",
 =======
       height: "50%",
+=======
+      height: "45%",
+>>>>>>> b4bd842 (added grid)
       width: "30%",
+      margin: '0 auto',
       position: "fixed",
       top: "25%",
       bottom: "25%",
+<<<<<<< HEAD
       right: "20%",
       left: "30%",
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
+=======
+      right: "25%",
+      left: "25%",
+>>>>>>> b4bd842 (added grid)
     });
     $("body").append(cardContainer);
 
-    let headingDiv = $("<div>");
-    headingDiv.css({
-      display: "flex",
-      "justify-content": "space-between",
-      "padding-bottom": "20px",
-    });
-    cardContainer.append(headingDiv);
+  
 
     let gameTitle = $("<h3>");
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     gameTitle.addClass("text-h3 font-semibold text-neu-0 mt-4");
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
+=======
+    gameTitle.addClass("col-span-1 text-h3 font-semibold text-neu-0 mt-4 ");
+>>>>>>> b4bd842 (added grid)
     gameTitle.text("Game Name");
-    headingDiv.append(gameTitle);
+    cardContainer.append(gameTitle);
 
     let exitBtn = $("<button>");
+    exitBtn.addClass('col-start-3  ')
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
+<<<<<<< HEAD
     headingDiv.append(exitBtn);
 <<<<<<< HEAD
     $(document).on("click", "#exitBtn", function () {
@@ -1960,6 +1983,10 @@ function getReviewed(){
     developer.text('Developer: ');
 =======
 =======
+=======
+    cardContainer.append(exitBtn);
+
+>>>>>>> b4bd842 (added grid)
     exitBtn.on("click", function () {
       cardContainer.remove();
       overlay.remove();
@@ -1968,13 +1995,21 @@ function getReviewed(){
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
 
     let developer = $("<p>");
+<<<<<<< HEAD
     developer.addClass("text-sm text-neu-0 mb-6 text-neu-3");
+=======
+    developer.addClass(" col-span-3 text-medium text-neu-0 mb-6 text-neu-3 ");
+>>>>>>> b4bd842 (added grid)
     developer.text("Developer: ");
 >>>>>>> 038d040 (fixed function that accidentally renamed)
     cardContainer.append(developer);
 
     let myScore = $("<p>");
+<<<<<<< HEAD
     myScore.addClass("text-sm text-neu-0 mb-1 text-neu-3");
+=======
+    myScore.addClass(" col-span-2 text-neu-0 mb-4 text-neu-3 text-medium ");
+>>>>>>> b4bd842 (added grid)
     myScore.text("My Score: ");
     cardContainer.append(myScore);
 
@@ -2006,14 +2041,17 @@ function getReviewed(){
       button.addClass("bg-neu-8 rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9");
 =======
     let buttonContainer = $("<div>");
+    buttonContainer.addClass('col-span-3 grid-cols-10 ')
+
     let buttons = [];
     let reviewScore;
     for (let i = 1; i <= 10; i++) {
       let button = $("<button>");
       button.text(i);
       button.addClass(
-        "bg-neu-8  rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9"
+        "bg-neu-8 rounded mb-4 py-3 h-10 cursor-pointer hover:bg-pri-9"
       );
+<<<<<<< HEAD
       button.css({
         "margin-right": "2.5px",
       });
@@ -2026,6 +2064,10 @@ function getReviewed(){
         buttons.forEach(btn => btn.removeClass('bg-pri-5'));
         $(this).addClass('bg-pri-5');
 =======
+=======
+      buttons.push(button);
+
+>>>>>>> b4bd842 (added grid)
       button.on("click", function () {
         buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
         $(this).addClass("bg-pri-5");
@@ -2050,9 +2092,7 @@ function getReviewed(){
 =======
     let textarea = $("<textarea>");
     textarea.attr("placeholder", "My Notes");
-    textarea.addClass(
-      " bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full "
-    );
+    textarea.addClass( "col-span-3  bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full ");
     let gameComment;
     cardContainer.append(textarea);
 
@@ -2060,6 +2100,7 @@ function getReviewed(){
       gameComment = $(this).val();
     });
 
+<<<<<<< HEAD
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
     let buttonDivs = $("<div>");
     buttonDivs.css({
@@ -2072,8 +2113,12 @@ function getReviewed(){
     deleteBtn.css({
       color: "red",
     });
+=======
+    let deleteBtn = $("<button>");
+>>>>>>> b4bd842 (added grid)
     deleteBtn.text("Delete Review");
-    buttonDivs.append(deleteBtn);
+    deleteBtn.addClass('px-4 py-3 h-10 text-red-600 hover:scale-[1.02] redT')
+    cardContainer.append(deleteBtn);
 
 <<<<<<< HEAD
 =======
@@ -2088,24 +2133,37 @@ function getReviewed(){
 
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
     let savebtn = $("<button>");
-    savebtn.addClass(
-      "bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
-    );
+    savebtn.addClass(" col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0");
+    savebtn.css({
+      width: '80%'
+    })
     savebtn.text("Save");
+<<<<<<< HEAD
     buttonDivs.append(savebtn);
 <<<<<<< HEAD
 =======
+=======
+    cardContainer.append(savebtn);
+>>>>>>> b4bd842 (added grid)
     savebtn.on("click", function () {
-      saveReviewToLocal(id, title, reviewScore, gameComment); ///  ITS RIGHT HHHHHERE
-      console.log("saved");
-      console.log("review comment: " + gameComment);
-      cardContainer.remove();
-      overlay.remove();
+
+      if (!gameComment) {
+        textarea.addClass('placeHolderColor')
+        textarea.attr('placeholder', 'Plese leave a review and select a button in order to save!');
+      } else if(!reviewScore){
+        console.log('select a button');
+      } else{
+        saveReviewToLocal(id, title, reviewScore, gameComment); ///  ITS RIGHT HHHHHERE
+        console.log("saved");
+        console.log("review comment: " + gameComment);
+        cardContainer.remove();
+        overlay.remove();
+      }
+      
     });
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
 
-    cardContainer.append(buttonDivs);
-
+    
     let overlay = $("<div>");
 <<<<<<< HEAD
     overlay.css({
@@ -2884,6 +2942,7 @@ function getReviewed(){
 =======
   // isGameReviewed(24182); // Test prints the my review seciton
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 9ad6903 (adds date of review to localStorage Logic)
 <<<<<<< HEAD
 >>>>>>> 733236a (adds date of review to localStorage Logic)
@@ -2894,6 +2953,15 @@ function getReviewed(){
 =======
   displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
+<<<<<<< HEAD
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
+<<<<<<< HEAD
 >>>>>>> 480cb33 (updates review modal to process the id and game)
+=======
+=======
+=======
+  // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
+>>>>>>> 2e631b2 (added grid)
+>>>>>>> b4bd842 (added grid)
+>>>>>>> 4fa3ad5 (added grid)
 });
