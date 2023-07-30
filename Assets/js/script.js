@@ -11,6 +11,7 @@ const btn =
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
 =======
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4 ;
@@ -21,6 +22,8 @@ const btn =
 =======
 =======
 >>>>>>> 16ee697 (fix merge)
+=======
+>>>>>>> 480cb33 (updates review modal to process the id and game)
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
 =======
 	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
@@ -29,12 +32,23 @@ const btn =
 >>>>>>> 6fa03de (game title page, 1st commit)
 =======
 =======
+=======
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
 	" bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer  hover:bg-pri-9 " + h4;
 =======
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4 ;
 >>>>>>> e56250a (fix merge)
+<<<<<<< HEAD
 >>>>>>> d42bb94 (fix merge)
+<<<<<<< HEAD
 >>>>>>> 16ee697 (fix merge)
+=======
+=======
+=======
+  " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
+>>>>>>> 329e182 (updates review modal to process the id and game title passed in)
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
+>>>>>>> 480cb33 (updates review modal to process the id and game)
 const input =
 	" bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 outline-none outline-offset-[-2px] focus:outline-pri-5 ";
 const grid = " grid  grid-cols-auto  gap-4 ";
@@ -52,15 +66,21 @@ const card =
   " card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 480cb33 (updates review modal to process the id and game)
  
 >>>>>>> e56250a (fix merge)
 =======
 
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
+<<<<<<< HEAD
 =======
  
 >>>>>>> e56250a (fix merge)
 >>>>>>> 16ee697 (fix merge)
+=======
+>>>>>>> 480cb33 (updates review modal to process the id and game)
 // CORE APP
 $(function () {
 	let nav = $("nav");
@@ -1825,6 +1845,7 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let greetingDiv = $("<div>");
 		let greeting = $("<h1>");
 		let subGreeting = $("<h3>");
@@ -1867,19 +1888,37 @@ function getReviewed(){
 
   
   function displayModal() {
+=======
+  function displayModal(id, title) {
+>>>>>>> 329e182 (updates review modal to process the id and game title passed in)
     let cardContainer = $("<div>");
+<<<<<<< HEAD
     // where to append the card container? should I clear the display or just append to root? body?
     cardContainer.addClass(
       "card p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]"
+=======
+    cardContainer.addClass(
+      "p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer hover:scale-[1.02]"
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
     );
     cardContainer.css({
       width: "35%",
       top: "50%",
       left: "50%",
       "z-index": "20",
+<<<<<<< HEAD
       tranform: "translate(-50%, -50%)",
       position: "fixed",
       up: "50px",
+=======
+      height: "50%",
+      width: "30%",
+      position: "fixed",
+      top: "25%",
+      bottom: "25%",
+      right: "20%",
+      left: "30%",
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
     });
     $("body").append(cardContainer);
 
@@ -1892,6 +1931,10 @@ function getReviewed(){
     cardContainer.append(headingDiv);
 
     let gameTitle = $("<h3>");
+<<<<<<< HEAD
+=======
+    gameTitle.addClass("text-h3 font-semibold text-neu-0 mt-4");
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
     gameTitle.text("Game Name");
     headingDiv.append(gameTitle);
 
@@ -1899,6 +1942,7 @@ function getReviewed(){
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
     headingDiv.append(exitBtn);
+<<<<<<< HEAD
     $(document).on("click", "#exitBtn", function () {
       if (cardContainer && overlay) {
         cardContainer.remove();
@@ -1915,6 +1959,13 @@ function getReviewed(){
     developer.addClass('text-sm text-neu-0 mb-6 text-neu-3');
     developer.text('Developer: ');
 =======
+=======
+    exitBtn.on("click", function () {
+      cardContainer.remove();
+      overlay.remove();
+      console.log("exit");
+    });
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
 
     let developer = $("<p>");
     developer.addClass("text-sm text-neu-0 mb-6 text-neu-3");
@@ -1927,6 +1978,7 @@ function getReviewed(){
     myScore.text("My Score: ");
     cardContainer.append(myScore);
 
+<<<<<<< HEAD
      
     let buttonContainer = $('<div>');
     buttonContainer.css({
@@ -1952,24 +2004,63 @@ function getReviewed(){
       let button = $('<button>');
       button.text(i);
       button.addClass("bg-neu-8 rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9");
+=======
+    let buttonContainer = $("<div>");
+    let buttons = [];
+    let reviewScore;
+    for (let i = 1; i <= 10; i++) {
+      let button = $("<button>");
+      button.text(i);
+      button.addClass(
+        "bg-neu-8  rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9"
+      );
+      button.css({
+        "margin-right": "2.5px",
+      });
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
       buttons.push(button);
-      
+
       // this event listener mimicks a radio-button
+<<<<<<< HEAD
       button.on('click', function() {
         buttons.forEach(btn => btn.removeClass('bg-pri-5'));
         $(this).addClass('bg-pri-5');
+=======
+      button.on("click", function () {
+        buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
+        $(this).addClass("bg-pri-5");
+        if ($(this).hasClass("bg-pri-5")) {
+          reviewScore = $(this).text();
+          console.log("reviewScore = " + reviewScore);
+        }
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
       });
   
   buttonContainer.append(button);
 }
     cardContainer.append(buttonContainer)
 
+<<<<<<< HEAD
     let textarea = $('<textarea>');
     textarea.attr('placeholder', 'My Notes');
     textarea.addClass(' bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 w-40 ')
 >>>>>>> d42bb94 (fix merge)
     cardContainer.append(textarea);
 
+=======
+    let textarea = $("<textarea>");
+    textarea.attr("placeholder", "My Notes");
+    textarea.addClass(
+      " bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full "
+    );
+    let gameComment;
+    cardContainer.append(textarea);
+
+    textarea.on("input", function () {
+      gameComment = $(this).val();
+    });
+
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
     let buttonDivs = $("<div>");
     buttonDivs.css({
       display: "flex",
@@ -1984,22 +2075,49 @@ function getReviewed(){
     deleteBtn.text("Delete Review");
     buttonDivs.append(deleteBtn);
 
+<<<<<<< HEAD
+=======
+    deleteBtn.on("click", function () {
+      textarea.val("");
+      buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
+      reviewScore = null;
+      gameComment = null;
+      console.log("reviewScore = " + reviewScore);
+      console.log("gameComment = " + gameComment);
+    });
+
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
     let savebtn = $("<button>");
     savebtn.addClass(
       "bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
     );
     savebtn.text("Save");
     buttonDivs.append(savebtn);
+<<<<<<< HEAD
+=======
+    savebtn.on("click", function () {
+      saveReviewToLocal(id, title, reviewScore, gameComment); ///  ITS RIGHT HHHHHERE
+      console.log("saved");
+      console.log("review comment: " + gameComment);
+      cardContainer.remove();
+      overlay.remove();
+    });
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
 
     cardContainer.append(buttonDivs);
 
     let overlay = $("<div>");
+<<<<<<< HEAD
     overlay.css({
       "pointer-events": "all",
       "background-color": "rgba(0, 0, 0, .5)",
       "z-index": "30",
     });
     overlay.text("hello");
+=======
+    overlay.addClass("fixed top-0 left-0 w-full h-full z-10 ");
+    overlay.css("background", "rgba(0, 0, 0, 0.6)");
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
     $("body").append(overlay);
   }
 
@@ -2765,7 +2883,17 @@ function getReviewed(){
 =======
 =======
   // isGameReviewed(24182); // Test prints the my review seciton
+<<<<<<< HEAD
 >>>>>>> 9ad6903 (adds date of review to localStorage Logic)
+<<<<<<< HEAD
 >>>>>>> 733236a (adds date of review to localStorage Logic)
+<<<<<<< HEAD
 >>>>>>> 6e3abc7 (adds date of review to localStorage Logic)
+=======
+=======
+=======
+  displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
+>>>>>>> 329e182 (updates review modal to process the id and game title passed in)
+>>>>>>> 238d4d1 (updates review modal to process the id and game)
+>>>>>>> 480cb33 (updates review modal to process the id and game)
 });
