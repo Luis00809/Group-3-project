@@ -715,6 +715,9 @@ $(function () {
       existingReviews.splice(oldReview, 1);
       existingReviews.push(thisReview);
 
+      existingReviews.splice(oldReview, 1);
+      existingReviews.push(thisReview);
+
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -745,6 +748,18 @@ $(function () {
         score: "7",
         comment:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "6",
+        comment: "Test",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
       },
       {
         id: "56092",
@@ -1515,12 +1530,16 @@ function getReviewed(){
     let cardContainer = $("<div>");
     cardContainer.addClass(
 <<<<<<< HEAD
+<<<<<<< HEAD
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer  "
 =======
       
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
     
 >>>>>>> 9ec7ce1 (updates review local storage function to allow new)
+=======
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
+>>>>>>> a138787 (updates review local storage function to allow new)
     );
     cardContainer.css({
       "z-index": "20",
@@ -3063,6 +3082,7 @@ function getReviewed(){
   // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2e631b2 (added grid)
 <<<<<<< HEAD
 >>>>>>> b4bd842 (added grid)
@@ -3071,6 +3091,8 @@ function getReviewed(){
 =======
 =======
 =======
+=======
+>>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
 
   function singleTitle(id, title) {
     getGame(title).then(function (gameData) {
@@ -3083,6 +3105,14 @@ function getReviewed(){
           let gameImgDiv = $("<div>");
           let gameImg = $("<img>");
           let ratingDiv = $("<div>");
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          let metacriticScore = $("<h2>");
+          let metacriticLabel = $("<p>");
+=======
+>>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+>>>>>>> a138787 (updates review local storage function to allow new)
           let detailsDiv = $("<div>");
           let topDiv = $("<div>");
           let platformsDiv = $("<div>");
@@ -3101,6 +3131,13 @@ function getReviewed(){
           gameDetailsCard.append(gameImgDiv);
           gameImgDiv.append(gameImg);
           gameImgDiv.append(ratingDiv);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          ratingDiv.append(metacriticScore, metacriticLabel);
+=======
+>>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+>>>>>>> a138787 (updates review local storage function to allow new)
           gameDetailsCard.append(detailsDiv);
           detailsDiv.append(topDiv);
           topDiv.append(platformsDiv);
@@ -3111,6 +3148,16 @@ function getReviewed(){
           detailsDiv.append(descriptionText);
 
           // STYLES
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          gameImgDiv.addClass("w-full mr-4 relative ");
+          ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
+          metacriticScore.addClass(h2);
+          metacriticLabel.addClass(h4);
+=======
+>>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+>>>>>>> a138787 (updates review local storage function to allow new)
           gameImgDiv.addClass("w-full mr-4 ");
           ratingDiv.addClass(" flex  ");
           detailsDiv.addClass(" w-full ");
@@ -3128,6 +3175,22 @@ function getReviewed(){
           // prints the list of platforms the game is available on
 
           gameImg.attr({ src: indexer.background_image });
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          let thisScore = indexer.metacritic;
+
+          // conditional for altScr text
+          if (!thisScore || thisScore == "N/A") {
+            thisScore = "N/A";
+          } else {
+            thisScore = thisScore + "/100";
+          }
+          metacriticScore.text(thisScore);
+          metacriticLabel.text("Metacritic Score");
+=======
+>>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+>>>>>>> a138787 (updates review local storage function to allow new)
           gameTitleText.text(title);
           developerText.text("Developer: ");
           descriptionLabel.text("Game Description");
@@ -3162,6 +3225,7 @@ function getReviewed(){
       });
     });
   }
+<<<<<<< HEAD
 >>>>>>> e36a0c3 (builds the single title page and links up all of the logic)
 <<<<<<< HEAD
 >>>>>>> bb48425 (builds the single title page and links up all of)
@@ -3171,6 +3235,14 @@ function getReviewed(){
 =======
 =======
 >>>>>>> 470f40a (builds the single title page and links up all of the logic)
+<<<<<<< HEAD
 >>>>>>> e5db787 (builds the single title page and links up all of)
+<<<<<<< HEAD
 >>>>>>> 3b2c674 (builds the single title page and links up all of)
+=======
+=======
+=======
+>>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+>>>>>>> a138787 (updates review local storage function to allow new)
+>>>>>>> cad21a5 (updates review local storage function to allow new)
 });
