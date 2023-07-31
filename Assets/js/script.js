@@ -296,9 +296,6 @@ $(function () {
       existingReviews.splice(oldReview, 1);
       existingReviews.push(thisReview);
 
-      existingReviews.splice(oldReview, 1);
-      existingReviews.push(thisReview);
-
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -337,6 +334,7 @@ $(function () {
         comment: "Test",
       },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       {
         id: "56092",
@@ -360,6 +358,8 @@ $(function () {
         comment: "This is the most recent wind waker review",
       },
 >>>>>>> f6760f6 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+>>>>>>> 5338269 (rebase)
     ];
 
     $.each(temp, function (i) {
