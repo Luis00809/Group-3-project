@@ -252,6 +252,9 @@ $(function () {
       existingReviews.splice(oldReview, 1);
       existingReviews.push(thisReview);
 
+      existingReviews.splice(oldReview, 1);
+      existingReviews.push(thisReview);
+
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -282,6 +285,18 @@ $(function () {
         score: "7",
         comment:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "6",
+        comment: "Test",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
       },
       {
         id: "56092",
@@ -497,11 +512,8 @@ $(function () {
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
-    
     );
-    cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
     cardContainer.css({
       "z-index": "20",
       height: "45%",
@@ -814,4 +826,95 @@ $(function () {
   landingPage(); // renders the landing page on load
   // isGameReviewed(24182); // Test prints the my review seciton
   // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
+
+  function singleTitle(id, title) {
+    getGame(title).then(function (gameData) {
+      $.each(gameData.results, function (x) {
+        let indexer = gameData.results[x];
+        if (indexer.id == id) {
+          clearDom();
+
+          let gameDetailsCard = $("<div>");
+          let gameImgDiv = $("<div>");
+          let gameImg = $("<img>");
+          let ratingDiv = $("<div>");
+          let detailsDiv = $("<div>");
+          let topDiv = $("<div>");
+          let platformsDiv = $("<div>");
+          let submitReviewBtn = $("<button>");
+          let gameTitleText = $("<h1>");
+          let developerText = $("<p>");
+          let descriptionLabel = $("<h3>");
+          let descriptionText = $("<p>");
+
+          root.append(gameDetailsCard);
+          gameDetailsCard.addClass(
+            " p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md flex "
+          );
+
+          // RENDERS
+          gameDetailsCard.append(gameImgDiv);
+          gameImgDiv.append(gameImg);
+          gameImgDiv.append(ratingDiv);
+          gameDetailsCard.append(detailsDiv);
+          detailsDiv.append(topDiv);
+          topDiv.append(platformsDiv);
+          // topDiv.append(submitReviewBtn);
+          detailsDiv.append(gameTitleText);
+          detailsDiv.append(developerText);
+          detailsDiv.append(descriptionLabel);
+          detailsDiv.append(descriptionText);
+
+          // STYLES
+          gameImgDiv.addClass("w-full mr-4 ");
+          ratingDiv.addClass(" flex  ");
+          detailsDiv.addClass(" w-full ");
+          topDiv.addClass(" flex").css("margin-bottom", "32px");
+          platformsDiv.addClass(" flex  border-opac-neu ");
+          platformsDiv.css("border-bottom", "solid 1px ");
+          gameTitleText.addClass(h1 + " mb-1 ");
+          developerText
+            .addClass(lgTxt + " text-neu-3 mb-5")
+            .css("margin-bottom", "32px");
+          descriptionLabel.addClass(h3 + " mb-2 ");
+          descriptionText.addClass(mdTxt);
+
+          // DATA INPUT
+          // prints the list of platforms the game is available on
+
+          gameImg.attr({ src: indexer.background_image });
+          gameTitleText.text(title);
+          developerText.text("Developer: ");
+          descriptionLabel.text("Game Description");
+          descriptionText.text("Lorem Ipsum");
+
+          for (let p = 0; p < indexer.platforms.length; p++) {
+            let platformItem = $("<p>");
+            platformsDiv.append(platformItem);
+            platformsDiv.addClass("pb-2");
+            platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
+            platformItem.css("padding", "4px 12px");
+            platformItem.text(indexer.platforms[p].platform.name);
+            if (p > 0) {
+              platformItem.css("border-left", "solid 1px");
+            }
+          }
+
+          // if this game has a review it will print it below the deteails card.
+          let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+          if (myReviews.filter((e) => e.thisId == id).length > 0) {
+            isGameReviewed(id);
+          } else {
+            topDiv.append(submitReviewBtn);
+            submitReviewBtn.addClass(btn + " ml-auto");
+            submitReviewBtn.text("Submit a Review");
+            submitReviewBtn.on("click", function () {
+              displayModal(id, title);
+            });
+          }
+        }
+      });
+    });
+  }
 });
