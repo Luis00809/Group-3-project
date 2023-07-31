@@ -1303,10 +1303,15 @@ function getReviewed(){
           let gameImg = $("<img>");
           let ratingDiv = $("<div>");
 <<<<<<< HEAD
+<<<<<<< HEAD
           let metacriticScore = $("<h2>");
           let metacriticLabel = $("<p>");
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+          let metacriticScore = $("<h2>");
+          let metacriticLabel = $("<p>");
+>>>>>>> c98449c (add metacritic to single page)
           let detailsDiv = $("<div>");
           let topDiv = $("<div>");
           let platformsDiv = $("<div>");
@@ -1326,9 +1331,13 @@ function getReviewed(){
           gameImgDiv.append(gameImg);
           gameImgDiv.append(ratingDiv);
 <<<<<<< HEAD
+<<<<<<< HEAD
           ratingDiv.append(metacriticScore, metacriticLabel);
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+          ratingDiv.append(metacriticScore, metacriticLabel);
+>>>>>>> c98449c (add metacritic to single page)
           gameDetailsCard.append(detailsDiv);
           detailsDiv.append(topDiv);
           topDiv.append(platformsDiv);
@@ -1340,14 +1349,20 @@ function getReviewed(){
 
           // STYLES
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c98449c (add metacritic to single page)
           gameImgDiv.addClass("w-full mr-4 relative ");
           ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
           metacriticScore.addClass(h2);
           metacriticLabel.addClass(h4);
+<<<<<<< HEAD
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
           gameImgDiv.addClass("w-full mr-4 ");
           ratingDiv.addClass(" flex  ");
+=======
+>>>>>>> c98449c (add metacritic to single page)
           detailsDiv.addClass(" w-full ");
           topDiv.addClass(" flex").css("margin-bottom", "32px");
           platformsDiv.addClass(" flex  border-opac-neu ");
@@ -1364,6 +1379,9 @@ function getReviewed(){
 
           gameImg.attr({ src: indexer.background_image });
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c98449c (add metacritic to single page)
           let thisScore = indexer.metacritic;
 
           // conditional for altScr text
@@ -1374,8 +1392,11 @@ function getReviewed(){
           }
           metacriticScore.text(thisScore);
           metacriticLabel.text("Metacritic Score");
+<<<<<<< HEAD
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+>>>>>>> c98449c (add metacritic to single page)
           gameTitleText.text(title);
           developerText.text("Developer: ");
           descriptionLabel.text("Game Description");
