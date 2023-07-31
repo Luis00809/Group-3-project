@@ -850,6 +850,7 @@ function getReviewed(){
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
     
     );
+    cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
     cardContainer.css({
       "z-index": "20",
       height: "45%",
@@ -1422,12 +1423,17 @@ function getReviewed(){
           metacriticScore.addClass(h2);
           metacriticLabel.addClass(h4);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
           gameImgDiv.addClass("w-full mr-4 ");
           ratingDiv.addClass(" flex  ");
 =======
 >>>>>>> c98449c (add metacritic to single page)
+=======
+          gameImgDiv.addClass("w-full mr-4 ");
+          ratingDiv.addClass(" flex  ");
+>>>>>>> 07f06a3 (builds the single title page and links up all of the logic)
           detailsDiv.addClass(" w-full ");
           topDiv.addClass(" flex").css("margin-bottom", "32px");
           platformsDiv.addClass(" flex  border-opac-neu ");
