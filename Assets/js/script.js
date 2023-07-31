@@ -296,9 +296,6 @@ $(function () {
       existingReviews.splice(oldReview, 1);
       existingReviews.push(thisReview);
 
-      existingReviews.splice(oldReview, 1);
-      existingReviews.push(thisReview);
-
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -335,24 +332,6 @@ $(function () {
         title: "The Legend of Zelda: The Wind Waker",
         score: "6",
         comment: "Test",
-      },
-      {
-        id: "56092",
-        title: "The Legend of Zelda: The Wind Waker",
-        score: "7",
-        comment: "This is the most recent wind waker review",
-      },
-      {
-        id: "56092",
-        title: "The Legend of Zelda: The Wind Waker",
-        score: "6",
-        comment: "Test",
-      },
-      {
-        id: "56092",
-        title: "The Legend of Zelda: The Wind Waker",
-        score: "7",
-        comment: "This is the most recent wind waker review",
       },
     ];
 
