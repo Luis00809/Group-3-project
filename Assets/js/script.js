@@ -292,6 +292,7 @@ $(function () {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// listener for cards - temporily prints game title in console - will eventually render that games info page.
 	root.on("click", ".card", function () {
 		let id = $(this).children("#id").text();
@@ -304,6 +305,8 @@ $(function () {
 =======
 =======
 >>>>>>> 6fa03de (game title page, 1st commit)
+=======
+>>>>>>> 6f1343e (builds the single title page and links up all of)
   // listener for cards - temporily prints game title in console - will eventually render that games info page.
   root.on("click", ".card", function () {
     let id = $(this).children("#id").text();
@@ -615,6 +618,8 @@ $(function () {
 =======
 =======
 =======
+=======
+>>>>>>> bb48425 (builds the single title page and links up all of)
 	// listener for cards - temporily prints game title in console - will eventually render that games info page.
 	root.on("click", ".card", function () {
 		let id = $(this).children("#id").text();
@@ -624,6 +629,16 @@ $(function () {
  
 		getCardData(id,title);
 	});
+=======
+  // listener for cards - temporily prints game title in console - will eventually render that games info page.
+  root.on("click", ".card", function () {
+    let id = $(this).children("#id").text();
+    let title = $(this).children().eq(2).text();
+    saveToLocalStorage(id, title);
+    singleTitle(id, title);
+    console.log(title);
+  });
+>>>>>>> e36a0c3 (builds the single title page and links up all of the logic)
 
 <<<<<<< HEAD
   function getCardData(id,title) {
@@ -1859,6 +1874,7 @@ function getReviewed(){
 =======
 >>>>>>> 2e631b2 (added grid)
 
+<<<<<<< HEAD
 
 
 
@@ -1900,7 +1916,11 @@ function getReviewed(){
 >>>>>>> 2e631b2 (added grid)
   function displayModal(id, title) {
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
+=======
+  function displayModal(id, title, text, score) {
+>>>>>>> e36a0c3 (builds the single title page and links up all of the logic)
     let cardContainer = $("<div>");
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     // where to append the card container? should I clear the display or just append to root? body?
@@ -1914,6 +1934,11 @@ function getReviewed(){
 =======
     cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
 >>>>>>> b4bd842 (added grid)
+=======
+    cardContainer.addClass(
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
+    );
+>>>>>>> bb48425 (builds the single title page and links up all of)
     cardContainer.css({
       width: "35%",
       top: "50%",
@@ -1930,7 +1955,7 @@ function getReviewed(){
       height: "45%",
 >>>>>>> b4bd842 (added grid)
       width: "30%",
-      margin: '0 auto',
+      margin: "0 auto",
       position: "fixed",
       top: "25%",
       bottom: "25%",
@@ -1945,8 +1970,6 @@ function getReviewed(){
     });
     $("body").append(cardContainer);
 
-  
-
     let gameTitle = $("<h3>");
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1955,12 +1978,16 @@ function getReviewed(){
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
 =======
     gameTitle.addClass("col-span-1 text-h3 font-semibold text-neu-0 mt-4 ");
+<<<<<<< HEAD
 >>>>>>> b4bd842 (added grid)
     gameTitle.text("Game Name");
+=======
+    gameTitle.text(title);
+>>>>>>> bb48425 (builds the single title page and links up all of)
     cardContainer.append(gameTitle);
 
     let exitBtn = $("<button>");
-    exitBtn.addClass('col-start-3  ')
+    exitBtn.addClass("col-start-3  ");
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
 <<<<<<< HEAD
@@ -2041,10 +2068,17 @@ function getReviewed(){
       button.addClass("bg-neu-8 rounded mb-4 px-4 py-3 h-10 cursor-pointer hover:bg-pri-9");
 =======
     let buttonContainer = $("<div>");
-    buttonContainer.addClass('col-span-3 grid-cols-10 ')
+    buttonContainer.addClass("col-span-3 grid-cols-10 ");
 
     let buttons = [];
     let reviewScore;
+
+    // if a score is passed in it will set the default score in the modal
+    if (score) {
+      reviewScore = score;
+    }
+
+    console.log(reviewScore);
     for (let i = 1; i <= 10; i++) {
       let button = $("<button>");
       button.text(i);
@@ -2077,10 +2111,21 @@ function getReviewed(){
         }
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
       });
+<<<<<<< HEAD
   
   buttonContainer.append(button);
 }
     cardContainer.append(buttonContainer)
+=======
+      buttonContainer.append(button);
+
+      // sets background color of score level on load if i am in edit mode
+      if (i == score) {
+        button.addClass("bg-pri-5");
+      }
+    }
+    cardContainer.append(buttonContainer);
+>>>>>>> bb48425 (builds the single title page and links up all of)
 
 <<<<<<< HEAD
     let textarea = $('<textarea>');
@@ -2092,9 +2137,15 @@ function getReviewed(){
 =======
     let textarea = $("<textarea>");
     textarea.attr("placeholder", "My Notes");
-    textarea.addClass( "col-span-3  bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full ");
+    textarea.addClass(
+      "col-span-3  bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full "
+    );
     let gameComment;
     cardContainer.append(textarea);
+    // populates the text area if i am in edit mode
+    if (text) {
+      textarea.text(text);
+    }
 
     textarea.on("input", function () {
       gameComment = $(this).val();
@@ -2117,7 +2168,7 @@ function getReviewed(){
     let deleteBtn = $("<button>");
 >>>>>>> b4bd842 (added grid)
     deleteBtn.text("Delete Review");
-    deleteBtn.addClass('px-4 py-3 h-10 text-red-600 hover:scale-[1.02] redT')
+    deleteBtn.addClass("px-4 py-3 h-10 text-red-600 hover:scale-[1.02] redT");
     cardContainer.append(deleteBtn);
 
 <<<<<<< HEAD
@@ -2133,10 +2184,12 @@ function getReviewed(){
 
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
     let savebtn = $("<button>");
-    savebtn.addClass(" col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0");
+    savebtn.addClass(
+      " col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
+    );
     savebtn.css({
-      width: '80%'
-    })
+      width: "80%",
+    });
     savebtn.text("Save");
 <<<<<<< HEAD
     buttonDivs.append(savebtn);
@@ -2146,24 +2199,24 @@ function getReviewed(){
     cardContainer.append(savebtn);
 >>>>>>> b4bd842 (added grid)
     savebtn.on("click", function () {
-
       if (!gameComment) {
-        textarea.addClass('placeHolderColor')
-        textarea.attr('placeholder', 'Plese leave a review and select a button in order to save!');
-      } else if(!reviewScore){
-        console.log('select a button');
-      } else{
+        textarea.addClass("placeHolderColor");
+        textarea.attr(
+          "placeholder",
+          "Plese leave a review and select a button in order to save!"
+        );
+      } else if (!reviewScore) {
+        console.log("select a button");
+      } else {
         saveReviewToLocal(id, title, reviewScore, gameComment); ///  ITS RIGHT HHHHHERE
         console.log("saved");
         console.log("review comment: " + gameComment);
         cardContainer.remove();
         overlay.remove();
       }
-      
     });
 >>>>>>> 238d4d1 (updates review modal to process the id and game)
 
-    
     let overlay = $("<div>");
 <<<<<<< HEAD
     overlay.css({
@@ -2833,14 +2886,14 @@ function getReviewed(){
 
   // call this function in the single title page and pass in the id
   function isGameReviewed(paramId) {
-    clearDom(); // remove this when added to single title screen
+    // clearDom(); // remove this when added to single title screen
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
     $.each(myReviews, function (i) {
       let x = myReviews[i];
 
       if (x.thisId == paramId) {
-        printReview(x.thisTitle, "Jul 28, 2023", x.thisComment, x.thisScore);
+        printReview(x.thisTitle, x.thisDate, x.thisComment, x.thisScore);
 
         function printReview(title, date, notes, score) {
           // elements to be rendered
@@ -2915,6 +2968,10 @@ function getReviewed(){
           let barWidth = $("#scoreBarDiv").width(); // gets the width of the bar which changes at different view ports
           let scoreBarValue = barWidth - (barWidth / 10) * inputScore; // calculates what the right padding should be
           scoreBarDiv.css("padding-right", scoreBarValue + "px"); // sets the right padding the offsets the bar to communicate the score
+
+          editBtn.on("click", function () {
+            displayModal(paramId, x.thisTitle, x.thisComment, x.thisScore);
+          });
         }
       }
     });
@@ -2961,7 +3018,107 @@ function getReviewed(){
 =======
 =======
   // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
+<<<<<<< HEAD
 >>>>>>> 2e631b2 (added grid)
+<<<<<<< HEAD
 >>>>>>> b4bd842 (added grid)
+<<<<<<< HEAD
 >>>>>>> 4fa3ad5 (added grid)
+=======
+=======
+=======
+
+  function singleTitle(id, title) {
+    getGame(title).then(function (gameData) {
+      $.each(gameData.results, function (x) {
+        let indexer = gameData.results[x];
+        if (indexer.id == id) {
+          clearDom();
+
+          let gameDetailsCard = $("<div>");
+          let gameImgDiv = $("<div>");
+          let gameImg = $("<img>");
+          let ratingDiv = $("<div>");
+          let detailsDiv = $("<div>");
+          let topDiv = $("<div>");
+          let platformsDiv = $("<div>");
+          let submitReviewBtn = $("<button>");
+          let gameTitleText = $("<h1>");
+          let developerText = $("<p>");
+          let descriptionLabel = $("<h3>");
+          let descriptionText = $("<p>");
+
+          root.append(gameDetailsCard);
+          gameDetailsCard.addClass(
+            " p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md flex "
+          );
+
+          // RENDERS
+          gameDetailsCard.append(gameImgDiv);
+          gameImgDiv.append(gameImg);
+          gameImgDiv.append(ratingDiv);
+          gameDetailsCard.append(detailsDiv);
+          detailsDiv.append(topDiv);
+          topDiv.append(platformsDiv);
+          // topDiv.append(submitReviewBtn);
+          detailsDiv.append(gameTitleText);
+          detailsDiv.append(developerText);
+          detailsDiv.append(descriptionLabel);
+          detailsDiv.append(descriptionText);
+
+          // STYLES
+          gameImgDiv.addClass("w-full mr-4 ");
+          ratingDiv.addClass(" flex  ");
+          detailsDiv.addClass(" w-full ");
+          topDiv.addClass(" flex").css("margin-bottom", "32px");
+          platformsDiv.addClass(" flex  border-opac-neu ");
+          platformsDiv.css("border-bottom", "solid 1px ");
+          gameTitleText.addClass(h1 + " mb-1 ");
+          developerText
+            .addClass(lgTxt + " text-neu-3 mb-5")
+            .css("margin-bottom", "32px");
+          descriptionLabel.addClass(h3 + " mb-2 ");
+          descriptionText.addClass(mdTxt);
+
+          // DATA INPUT
+          // prints the list of platforms the game is available on
+
+          gameImg.attr({ src: indexer.background_image });
+          gameTitleText.text(title);
+          developerText.text("Developer: ");
+          descriptionLabel.text("Game Description");
+          descriptionText.text("Lorem Ipsum");
+
+          for (let p = 0; p < indexer.platforms.length; p++) {
+            let platformItem = $("<p>");
+            platformsDiv.append(platformItem);
+            platformsDiv.addClass("pb-2");
+            platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
+            platformItem.css("padding", "4px 12px");
+            platformItem.text(indexer.platforms[p].platform.name);
+            if (p > 0) {
+              platformItem.css("border-left", "solid 1px");
+            }
+          }
+
+          // if this game has a review it will print it below the deteails card.
+          let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+          if (myReviews.filter((e) => e.thisId == id).length > 0) {
+            isGameReviewed(id);
+          } else {
+            topDiv.append(submitReviewBtn);
+            submitReviewBtn.addClass(btn + " ml-auto");
+            submitReviewBtn.text("Submit a Review");
+            submitReviewBtn.on("click", function () {
+              displayModal(id, title);
+            });
+          }
+        }
+      });
+    });
+  }
+>>>>>>> e36a0c3 (builds the single title page and links up all of the logic)
+>>>>>>> bb48425 (builds the single title page and links up all of)
+>>>>>>> 6f1343e (builds the single title page and links up all of)
 });
