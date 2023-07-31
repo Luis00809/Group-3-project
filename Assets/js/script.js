@@ -373,12 +373,28 @@ $(function () {
     let searchField = $("<input>");
     let searchBtn = $("<button>");
 
+    // my code:
+    let apiP = $('<p>');
+    let apiDiv = $('<div>');
+    let apiImgGamer = $('<img>');
+    let apiAmper = $('<p>');
+    let apiRawg = $('<img>');
+    // 
+
     root.append(greetingDiv);
     greetingDiv.append(greeting);
     greetingDiv.append(subGreeting);
     greetingDiv.append(searchField);
     greetingDiv.append(searchBtn);
 
+    // my code
+    greetingDiv.append(apiP);
+    greetingDiv.append(apiDiv);
+    apiDiv.append(apiImgGamer);
+    apiDiv.append(apiAmper);
+    apiDiv.append(apiRawg);
+    // 
+    
     greeting.text("Your next adventure awaits...");
     subGreeting.text(
       "Search from 1000s of games by title or genre to compare reviews and prices"
@@ -388,7 +404,17 @@ $(function () {
       id: "searchField",
     });
     searchBtn.text("Show me what you've got!");
+    // my code
+    apiP.text('Powered BY');
+    // apiImgGamer.attr('src', './pathway to gamer');
+    apiAmper.text('&');
+    // apiRawg.attr('src', './pathwatToRawg');
 
+    // need to link to images
+    // need to resize images
+    // need to set div to flex
+    // need to space elements
+    // 
     greetingDiv.addClass(" text-center  m-auto");
     greeting.addClass(h1 + "  mb-1 ");
     subGreeting.addClass(h3 + "  mb-6");
