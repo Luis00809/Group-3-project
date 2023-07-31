@@ -389,6 +389,9 @@ $(function () {
       existingReviews.splice(oldReview, 1);
       existingReviews.push(thisReview);
 
+      existingReviews.splice(oldReview, 1);
+      existingReviews.push(thisReview);
+
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -767,6 +770,7 @@ $(function () {
         comment: "This is the most recent wind waker review",
       },
 <<<<<<< HEAD
+<<<<<<< HEAD
       {
         id: "56092",
         title: "The Legend of Zelda: The Wind Waker",
@@ -782,6 +786,23 @@ $(function () {
 =======
 >>>>>>> 971a0cd (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
 >>>>>>> 2c7a3bd (updates review local storage function to allow new)
+=======
+>>>>>>> 971a0cd (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "6",
+        comment: "Test",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
+      },
+>>>>>>> f6760f6 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+>>>>>>> 91b5cbc (updates review local storage function to allow new)
     ];
 
     $.each(temp, function (i) {
@@ -1646,6 +1667,7 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer  "
 =======
       
@@ -1668,8 +1690,10 @@ function getReviewed(){
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
     
 >>>>>>> 76cff42 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
+>>>>>>> 91b5cbc (updates review local storage function to allow new)
     );
-    cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
     cardContainer.css({
       "z-index": "20",
       height: "45%",
