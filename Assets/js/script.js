@@ -3312,6 +3312,7 @@ function getReviewed(){
 <<<<<<< HEAD
           let metacriticScore = $("<h2>");
           let metacriticLabel = $("<p>");
+<<<<<<< HEAD
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
 <<<<<<< HEAD
@@ -3321,7 +3322,14 @@ function getReviewed(){
           let metacriticScore = $("<h2>");
           let metacriticLabel = $("<p>");
 >>>>>>> c98449c (add metacritic to single page)
+<<<<<<< HEAD
 >>>>>>> d1fbcae (add metacritic to single page)
+=======
+=======
+          let metacriticScore = $("<h2>");
+          let metacriticLabel = $("<p>");
+>>>>>>> b9ce93e (add metacritic to single page)
+>>>>>>> ddb13ca (add metacritic to single page)
           let detailsDiv = $("<div>");
           let topDiv = $("<div>");
           let platformsDiv = $("<div>");
@@ -3368,6 +3376,7 @@ function getReviewed(){
           // STYLES
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -3383,7 +3392,12 @@ function getReviewed(){
 <<<<<<< HEAD
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+<<<<<<< HEAD
 >>>>>>> a138787 (updates review local storage function to allow new)
+=======
+=======
+>>>>>>> b9ce93e (add metacritic to single page)
+>>>>>>> ddb13ca (add metacritic to single page)
           gameImgDiv.addClass("w-full mr-4 ");
           ratingDiv.addClass(" flex  ");
 =======
