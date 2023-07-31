@@ -252,6 +252,9 @@ $(function () {
       existingReviews.splice(oldReview, 1);
       existingReviews.push(thisReview);
 
+      existingReviews.splice(oldReview, 1);
+      existingReviews.push(thisReview);
+
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -282,6 +285,18 @@ $(function () {
         score: "7",
         comment:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "6",
+        comment: "Test",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
       },
       {
         id: "56092",
@@ -497,11 +512,8 @@ $(function () {
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
-    
     );
-    cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
     cardContainer.css({
       "z-index": "20",
       height: "45%",
