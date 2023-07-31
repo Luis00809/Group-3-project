@@ -819,6 +819,8 @@ $(function () {
           let ratingDiv = $("<div>");
           let metacriticScore = $("<h2>");
           let metacriticLabel = $("<p>");
+          let metacriticScore = $("<h2>");
+          let metacriticLabel = $("<p>");
           let detailsDiv = $("<div>");
           let topDiv = $("<div>");
           let platformsDiv = $("<div>");
@@ -848,10 +850,6 @@ $(function () {
           detailsDiv.append(descriptionText);
 
           // STYLES
-          gameImgDiv.addClass("w-full mr-4 relative ");
-          ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
-          metacriticScore.addClass(h2);
-          metacriticLabel.addClass(h4);
           gameImgDiv.addClass("w-full mr-4 ");
           ratingDiv.addClass(" flex  ");
           detailsDiv.addClass(" w-full ");
