@@ -1278,6 +1278,7 @@ function getReviewed(){
 =======
   // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2e631b2 (added grid)
 =======
 
@@ -1389,4 +1390,6 @@ function getReviewed(){
     });
   }
 >>>>>>> e36a0c3 (builds the single title page and links up all of the logic)
+=======
+>>>>>>> 470f40a (builds the single title page and links up all of the logic)
 });
