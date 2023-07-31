@@ -817,6 +817,8 @@ $(function () {
           let gameImgDiv = $("<div>");
           let gameImg = $("<img>");
           let ratingDiv = $("<div>");
+          let metacriticScore = $("<h2>");
+          let metacriticLabel = $("<p>");
           let detailsDiv = $("<div>");
           let topDiv = $("<div>");
           let platformsDiv = $("<div>");
@@ -835,6 +837,7 @@ $(function () {
           gameDetailsCard.append(gameImgDiv);
           gameImgDiv.append(gameImg);
           gameImgDiv.append(ratingDiv);
+          ratingDiv.append(metacriticScore, metacriticLabel);
           gameDetailsCard.append(detailsDiv);
           detailsDiv.append(topDiv);
           topDiv.append(platformsDiv);
@@ -845,8 +848,10 @@ $(function () {
           detailsDiv.append(descriptionText);
 
           // STYLES
-          gameImgDiv.addClass("w-full mr-4 ");
-          ratingDiv.addClass(" flex  ");
+          gameImgDiv.addClass("w-full mr-4 relative ");
+          ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
+          metacriticScore.addClass(h2);
+          metacriticLabel.addClass(h4);
           detailsDiv.addClass(" w-full ");
           topDiv.addClass(" flex").css("margin-bottom", "32px");
           platformsDiv.addClass(" flex  border-opac-neu ");
@@ -862,6 +867,16 @@ $(function () {
           // prints the list of platforms the game is available on
 
           gameImg.attr({ src: indexer.background_image });
+          let thisScore = indexer.metacritic;
+
+          // conditional for altScr text
+          if (!thisScore || thisScore == "N/A") {
+            thisScore = "N/A";
+          } else {
+            thisScore = thisScore + "/100";
+          }
+          metacriticScore.text(thisScore);
+          metacriticLabel.text("Metacritic Score");
           gameTitleText.text(title);
           developerText.text("Developer: ");
           descriptionLabel.text("Game Description");
