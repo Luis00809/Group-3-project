@@ -879,7 +879,9 @@ function getReviewed(){
 >>>>>>> 75a6e37 (adds main)
     let cardContainer = $("<div>");
     cardContainer.addClass(
+      
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
+    
     );
     cardContainer.css({
       "z-index": "20",
