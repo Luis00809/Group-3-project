@@ -18,7 +18,7 @@ function getGame(gameName) {
     });
 }
 
-function freeGames() {
+function freeGames(getFreeGame) {
   const settings = {
     async: true,
     crossDomain: true,
