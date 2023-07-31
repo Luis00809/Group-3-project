@@ -296,6 +296,9 @@ $(function () {
       existingReviews.splice(oldReview, 1);
       existingReviews.push(thisReview);
 
+      existingReviews.splice(oldReview, 1);
+      existingReviews.push(thisReview);
+
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -341,7 +344,22 @@ $(function () {
         score: "7",
         comment: "This is the most recent wind waker review",
       },
+<<<<<<< HEAD
 >>>>>>> 971a0cd (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "6",
+        comment: "Test",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
+      },
+>>>>>>> f6760f6 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
     ];
 
     $.each(temp, function (i) {
@@ -846,11 +864,8 @@ function getReviewed(){
 >>>>>>> 45ee0e8 (adds main)
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
-    
     );
-    cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
     cardContainer.css({
       "z-index": "20",
       height: "45%",
