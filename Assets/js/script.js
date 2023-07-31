@@ -1463,6 +1463,7 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let greetingDiv = $("<div>");
 		let greeting = $("<h1>");
 		let subGreeting = $("<h3>");
@@ -1502,10 +1503,57 @@ function getReviewed(){
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
 =======
   function displayModal(id, title, text, score) {
+=======
+  function displayModal(id, title, text, score) {
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+		let greetingDiv = $("<div>");
+		let greeting = $("<h1>");
+		let subGreeting = $("<h3>");
+		let searchField = $("<input>");
+		let searchBtn = $("<button>");
+=======
+=======
+>>>>>>> 2e631b2 (added grid)
+
+<<<<<<< HEAD
+
+
+
+<<<<<<< HEAD
+  // still need to find proper place to add eventlistener to 
+=======
+  // still need to find proper place to add eventlistener to
+>>>>>>> fa0f57a (fixed function that was accidentally renamed)
+  // need to take in game data for text value
+  // modalBtn.on('click', function(){
+  //   displayModal();
+  // })
+=======
+>>>>>>> e56250a (fix merge)
+
+
+
+  
+  function displayModal() {
+=======
+=======
+>>>>>>> 2e631b2 (added grid)
+  function displayModal(id, title) {
+>>>>>>> 329e182 (updates review modal to process the id and game title passed in)
+=======
+  function displayModal(id, title, text, score) {
+>>>>>>> 2ac97dd (adds main)
 >>>>>>> e36a0c3 (builds the single title page and links up all of the logic)
 =======
   function displayModal(id, title) {
 >>>>>>> e200033 (adds main)
+<<<<<<< HEAD
 =======
   function displayModal(id, title) {
 =======
@@ -1527,6 +1575,9 @@ function getReviewed(){
 =======
   function displayModal(id, title, text, score) {
 >>>>>>> 75a6e37 (adds main)
+=======
+>>>>>>> 6c05519 (adds main)
+>>>>>>> 2ac97dd (adds main)
     let cardContainer = $("<div>");
     cardContainer.addClass(
 <<<<<<< HEAD
