@@ -748,7 +748,7 @@ $(function () {
           let scoreValue = $("<div>");
 
           root.append(reviewCard);
-          reviewCard.addClass("p-4 bg-neu-8 rounded-lg");
+          reviewCard.addClass("p-4 bg-neu-8 rounded-lg mt-4");
 
           // HEADER DIV SECTION
           reviewCard.append(headerDiv);
