@@ -333,6 +333,15 @@ $(function () {
         score: "6",
         comment: "Test",
       },
+<<<<<<< HEAD
+=======
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
+      },
+>>>>>>> 971a0cd (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
     ];
 
     $.each(temp, function (i) {
@@ -440,6 +449,7 @@ $(function () {
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (!myReviews) {
       emptyStateReview();
       console.log("please add a review");
@@ -451,6 +461,8 @@ $(function () {
 =======
 =======
 >>>>>>> 7ac952f (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+>>>>>>> 971a0cd (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
     myReviews.reverse();
 >>>>>>> abf1bb3 (adds my review logic when a page renders that has a review in the past)
 
@@ -762,6 +774,7 @@ function getReviewed(){
 
 <<<<<<< HEAD
 
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
@@ -783,6 +796,8 @@ function getReviewed(){
 =======
 =======
 >>>>>>> 2e631b2 (added grid)
+=======
+>>>>>>> 971a0cd (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
   function displayModal(id, title) {
 >>>>>>> 329e182 (updates review modal to process the id and game title passed in)
 =======
