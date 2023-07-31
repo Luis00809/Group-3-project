@@ -509,7 +509,7 @@ $(function () {
     });
   }
 
-  function displayModal(id, title, text, score) {
+  function displayModal(id, title) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
