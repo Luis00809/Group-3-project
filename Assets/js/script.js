@@ -629,10 +629,14 @@ function getReviewed(){
               x.thumbnail,
               x.title,
 <<<<<<< HEAD
+<<<<<<< HEAD
               formatDate(x.published_date),
 =======
               formatReleaseDate(x.published_date),
 >>>>>>> e39ebbd (fixed search history page to show free games history)
+=======
+              formatDate(x.published_date),
+>>>>>>> 238d3ca (revised function names after pull)
               "Value",
               x.worth,
               true,
