@@ -1262,8 +1262,11 @@ function getReviewed(){
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 765569b (fixes truncate)
+=======
+>>>>>>> d92b183 (fixed search history page to show free games)
           if (x.id == indexer.thisId) {
 =======
           if(x.id == indexer.thisId){
@@ -1274,13 +1277,19 @@ function getReviewed(){
               x.title,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d92b183 (fixed search history page to show free games)
               formatDate(x.published_date),
 =======
               formatReleaseDate(x.published_date),
 >>>>>>> e39ebbd (fixed search history page to show free games history)
+<<<<<<< HEAD
 =======
               formatDate(x.published_date),
 >>>>>>> 238d3ca (revised function names after pull)
+=======
+>>>>>>> d92b183 (fixed search history page to show free games)
               "Value",
               x.worth,
               true,
