@@ -607,7 +607,7 @@ function getReviewed(){
         $.each(gameData, function (i) {
           let x = gameData[i];
 
-          if(x.id == indexer.thisId){
+          if (x.id == indexer.thisId) {
             getCard(
               x.id,
               x.thumbnail,
@@ -617,10 +617,10 @@ function getReviewed(){
               x.worth,
               true,
               x.end_date
-              )
-            }
-        })
-      })
+            );
+          }
+        });
+      });
     });
   }
 >>>>>>> 9ad6903 (adds date of review to localStorage Logic)
