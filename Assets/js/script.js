@@ -750,6 +750,7 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let greetingDiv = $("<div>");
 		let greeting = $("<h1>");
 		let subGreeting = $("<h3>");
@@ -787,6 +788,9 @@ function getReviewed(){
 =======
   function displayModal(id, title, text, score) {
 >>>>>>> e36a0c3 (builds the single title page and links up all of the logic)
+=======
+  function displayModal(id, title) {
+>>>>>>> e200033 (adds main)
     let cardContainer = $("<div>");
     cardContainer.addClass(
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
