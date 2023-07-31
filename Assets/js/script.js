@@ -1513,6 +1513,7 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let greetingDiv = $("<div>");
 		let greeting = $("<h1>");
 		let subGreeting = $("<h3>");
@@ -1589,8 +1590,17 @@ function getReviewed(){
   function displayModal(id, title, text, score) {
 >>>>>>> 5fc26bc (pull down from main)
 >>>>>>> dc63900 (pull down from main)
+<<<<<<< HEAD
 >>>>>>> 3e2a640 (pull down from main)
+<<<<<<< HEAD
 >>>>>>> 16b191a (pull down from main)
+=======
+=======
+=======
+  function displayModal(id, title, text, score) {
+>>>>>>> 45ee0e8 (adds main)
+>>>>>>> ffd484f (adds main)
+>>>>>>> f23594c (adds main)
     let cardContainer = $("<div>");
     cardContainer.addClass(
 <<<<<<< HEAD
