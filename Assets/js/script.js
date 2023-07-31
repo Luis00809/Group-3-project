@@ -242,13 +242,16 @@ $(function () {
       existingReviews = [];
     }
 
-    if (JSON.stringify(existingReviews).includes(JSON.stringify(thisReview))) {
-      existingReviews.push(
-        existingReviews.splice(
-          existingReviews.findIndex((v) => v == JSON.stringify(thisReview)) + 1,
-          1
-        )[0]
+    // if a review for a game exists already this will over ride it and move it to the end of the array
+    if (
+      existingReviews.filter((e) => e.thisId == thisReview.thisId).length > 0
+    ) {
+      let oldReview = existingReviews.findIndex(
+        (e) => e.thisId == thisReview.thisId
       );
+      existingReviews.splice(oldReview, 1);
+      existingReviews.push(thisReview);
+
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -279,6 +282,18 @@ $(function () {
         score: "7",
         comment:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "6",
+        comment: "Test",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
       },
     ];
 
@@ -346,12 +361,6 @@ $(function () {
 
     // gets localStorage 'myReviews' and parses to an array
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
-
-    if (!myReviews) {
-      emptyStateReview();
-      console.log("please add a review");
-      return;
-    }
 
     myReviews.reverse();
 
@@ -488,7 +497,9 @@ $(function () {
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
+      
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
+    
     );
     cardContainer.css({
       "z-index": "20",
