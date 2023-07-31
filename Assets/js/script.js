@@ -438,7 +438,7 @@ $(function () {
               x.id,
               x.thumbnail,
               x.title,
-              formatReleaseDate(x.published_date),
+              formatDate(x.published_date),
               "Value",
               x.worth,
               true,
