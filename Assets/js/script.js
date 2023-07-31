@@ -1278,18 +1278,27 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> d92b183 (fixed search history page to show free games)
+=======
+>>>>>>> 2626b0f (revised function names after pull)
               formatDate(x.published_date),
 =======
               formatReleaseDate(x.published_date),
 >>>>>>> e39ebbd (fixed search history page to show free games history)
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
               formatDate(x.published_date),
 >>>>>>> 238d3ca (revised function names after pull)
 =======
 >>>>>>> d92b183 (fixed search history page to show free games)
+=======
+=======
+              formatDate(x.published_date),
+>>>>>>> 238d3ca (revised function names after pull)
+>>>>>>> 2626b0f (revised function names after pull)
               "Value",
               x.worth,
               true,
