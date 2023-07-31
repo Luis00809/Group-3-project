@@ -241,13 +241,16 @@ $(function () {
       existingReviews = [];
     }
 
-    if (JSON.stringify(existingReviews).includes(JSON.stringify(thisReview))) {
-      existingReviews.push(
-        existingReviews.splice(
-          existingReviews.findIndex((v) => v == JSON.stringify(thisReview)) + 1,
-          1
-        )[0]
+    // if a review for a game exists already this will over ride it and move it to the end of the array
+    if (
+      existingReviews.filter((e) => e.thisId == thisReview.thisId).length > 0
+    ) {
+      let oldReview = existingReviews.findIndex(
+        (e) => e.thisId == thisReview.thisId
       );
+      existingReviews.splice(oldReview, 1);
+      existingReviews.push(thisReview);
+
       localStorage.setItem("myReviews", JSON.stringify(existingReviews));
     } else {
       existingReviews.push(thisReview);
@@ -278,6 +281,18 @@ $(function () {
         score: "7",
         comment:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "6",
+        comment: "Test",
+      },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
       },
     ];
 
@@ -345,12 +360,6 @@ $(function () {
 
     // gets localStorage 'myReviews' and parses to an array
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
-
-    if (!myReviews) {
-      emptyStateReview();
-      console.log("please add a review");
-      return;
-    }
 
     myReviews.reverse();
 
@@ -484,18 +493,16 @@ $(function () {
     });
   }
 
-
-
-
-
   function displayModal(id, title) {
     let cardContainer = $("<div>");
-    cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
+    cardContainer.addClass(
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
+    );
     cardContainer.css({
       "z-index": "20",
       height: "45%",
       width: "30%",
-      margin: '0 auto',
+      margin: "0 auto",
       position: "fixed",
       top: "25%",
       bottom: "25%",
@@ -504,15 +511,13 @@ $(function () {
     });
     $("body").append(cardContainer);
 
-  
-
     let gameTitle = $("<h3>");
     gameTitle.addClass("col-span-1 text-h3 font-semibold text-neu-0 mt-4 ");
     gameTitle.text("Game Name");
     cardContainer.append(gameTitle);
 
     let exitBtn = $("<button>");
-    exitBtn.addClass('col-start-3  ')
+    exitBtn.addClass("col-start-3  ");
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
     cardContainer.append(exitBtn);
@@ -534,7 +539,7 @@ $(function () {
     cardContainer.append(myScore);
 
     let buttonContainer = $("<div>");
-    buttonContainer.addClass('col-span-3 grid-cols-10 ')
+    buttonContainer.addClass("col-span-3 grid-cols-10 ");
 
     let buttons = [];
     let reviewScore;
@@ -560,7 +565,9 @@ $(function () {
 
     let textarea = $("<textarea>");
     textarea.attr("placeholder", "My Notes");
-    textarea.addClass( "col-span-3  bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full ");
+    textarea.addClass(
+      "col-span-3  bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full "
+    );
     let gameComment;
     cardContainer.append(textarea);
 
@@ -570,7 +577,7 @@ $(function () {
 
     let deleteBtn = $("<button>");
     deleteBtn.text("Delete Review");
-    deleteBtn.addClass('px-4 py-3 h-10 text-red-600 hover:scale-[1.02] redT')
+    deleteBtn.addClass("px-4 py-3 h-10 text-red-600 hover:scale-[1.02] redT");
     cardContainer.append(deleteBtn);
 
     deleteBtn.on("click", function () {
@@ -583,30 +590,32 @@ $(function () {
     });
 
     let savebtn = $("<button>");
-    savebtn.addClass(" col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0");
+    savebtn.addClass(
+      " col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
+    );
     savebtn.css({
-      width: '80%'
-    })
+      width: "80%",
+    });
     savebtn.text("Save");
     cardContainer.append(savebtn);
     savebtn.on("click", function () {
-
       if (!gameComment) {
-        textarea.addClass('placeHolderColor')
-        textarea.attr('placeholder', 'Plese leave a review and select a button in order to save!');
-      } else if(!reviewScore){
-        console.log('select a button');
-      } else{
+        textarea.addClass("placeHolderColor");
+        textarea.attr(
+          "placeholder",
+          "Plese leave a review and select a button in order to save!"
+        );
+      } else if (!reviewScore) {
+        console.log("select a button");
+      } else {
         saveReviewToLocal(id, title, reviewScore, gameComment); ///  ITS RIGHT HHHHHERE
         console.log("saved");
         console.log("review comment: " + gameComment);
         cardContainer.remove();
         overlay.remove();
       }
-      
     });
 
-    
     let overlay = $("<div>");
     overlay.addClass("fixed top-0 left-0 w-full h-full z-10 ");
     overlay.css("background", "rgba(0, 0, 0, 0.6)");
@@ -720,7 +729,7 @@ $(function () {
           let scoreValue = $("<div>");
 
           root.append(reviewCard);
-          reviewCard.addClass("p-4 bg-neu-8 rounded-lg");
+          reviewCard.addClass("p-4 bg-neu-8 rounded-lg mt-4");
 
           // HEADER DIV SECTION
           reviewCard.append(headerDiv);
