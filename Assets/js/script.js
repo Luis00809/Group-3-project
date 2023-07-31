@@ -619,20 +619,35 @@ function getReviewed(){
         $.each(gameData, function (i) {
           let x = gameData[i];
 
+<<<<<<< HEAD
           if (x.id == indexer.thisId) {
+=======
+          if(x.id == indexer.thisId){
+>>>>>>> e39ebbd (fixed search history page to show free games history)
             getCard(
               x.id,
               x.thumbnail,
               x.title,
+<<<<<<< HEAD
               formatDate(x.published_date),
+=======
+              formatReleaseDate(x.published_date),
+>>>>>>> e39ebbd (fixed search history page to show free games history)
               "Value",
               x.worth,
               true,
               x.end_date
+<<<<<<< HEAD
             );
           }
         });
       });
+=======
+              )
+            }
+        })
+      })
+>>>>>>> e39ebbd (fixed search history page to show free games history)
     });
   }
 >>>>>>> 9ad6903 (adds date of review to localStorage Logic)
