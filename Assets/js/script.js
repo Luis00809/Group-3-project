@@ -427,6 +427,25 @@ $(function () {
           }
         });
       });
+
+      freeGames().then(function (gameData) {
+        $.each(gameData, function (i) {
+          let x = gameData[i];
+
+          if(x.id == indexer.thisId){
+            getCard(
+              x.id,
+              x.thumbnail,
+              x.title,
+              formatDate(x.published_date),
+              "Value",
+              x.worth,
+              true,
+              x.end_date
+              )
+            }
+        })
+      })
     });
   }
 
