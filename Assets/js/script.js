@@ -501,6 +501,7 @@ $(function () {
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
     
     );
+    cardContainer.addClass(" grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer ");
     cardContainer.css({
       "z-index": "20",
       height: "45%",
@@ -860,6 +861,8 @@ $(function () {
           ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
           metacriticScore.addClass(h2);
           metacriticLabel.addClass(h4);
+          gameImgDiv.addClass("w-full mr-4 ");
+          ratingDiv.addClass(" flex  ");
           detailsDiv.addClass(" w-full ");
           topDiv.addClass(" flex").css("margin-bottom", "32px");
           platformsDiv.addClass(" flex  border-opac-neu ");
