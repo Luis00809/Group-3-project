@@ -1645,6 +1645,7 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer  "
 =======
       
@@ -1662,6 +1663,11 @@ function getReviewed(){
 =======
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
 >>>>>>> c60385d (resolving commit)
+=======
+      
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
+    
+>>>>>>> 76cff42 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
     );
     cardContainer.css({
       "z-index": "20",
