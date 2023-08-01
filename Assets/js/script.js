@@ -125,11 +125,11 @@ $(function () {
     ratingDiv.append(rating);
 
     // sets styles for card
-    newCard.addClass(card + " max-w-[332px]");
-    img.addClass("w-full  h-52 object-cover");
-    title.addClass(h3 + " mt-4");
+    newCard.addClass(card + " max-w-[332px] relative h-[360px] ");
+    img.addClass("w-full  object-cover");
+    title.addClass(h3 + " mt-4 line-clamp-2 mx-h-[40px]");
     release.addClass(smTxt + " mb-6  text-neu-3");
-    altDiv.addClass("flex ");
+    altDiv.addClass("flex w-full absolute left-0 bottom-4 px-4");
     rating.addClass(h2);
     ratingLabel.addClass(" text-sm  text-neu-3");
 
