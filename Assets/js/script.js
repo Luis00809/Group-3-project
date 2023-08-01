@@ -658,6 +658,9 @@ function getReviewed(){
           let x = gameData[i];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 765569b (fixes truncate)
           if (x.id == indexer.thisId) {
 =======
           if(x.id == indexer.thisId){
@@ -1471,6 +1474,11 @@ function getReviewed(){
             platformItem.text(indexer.platforms[p].platform.name);
             if (p > 0) {
               platformItem.css("border-left", "solid 1px");
+            }
+
+            if (p == 3) {
+              platformItem.text("+" + (indexer.platforms.length - 3));
+              return;
             }
           }
 
