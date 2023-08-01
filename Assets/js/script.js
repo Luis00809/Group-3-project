@@ -259,50 +259,6 @@ $(function () {
     }
   }
 
-  // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
-  function testReview() {
-    const temp = [
-      {
-        id: "24182",
-        title: "The Legend of Zelda: Twilight Princess HD",
-        score: "7",
-        comment:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
-      },
-      {
-        id: "22511",
-        title: "The Legend of Zelda: Breath of the Wild",
-        score: "7",
-        comment:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
-      },
-      {
-        id: "56092",
-        title: "The Legend of Zelda: The Wind Waker",
-        score: "7",
-        comment:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut vehicula urna. Etiam blandit elementum sem ac feugiat. Maecenas porttitor rhoncus libero a iaculis. Pellentesque accumsan volutpat odio, et rhoncus tortor vehicula non. Vestibulum tempus metus sed pellentesque pharetra. Integer tempus",
-      },
-      {
-        id: "56092",
-        title: "The Legend of Zelda: The Wind Waker",
-        score: "6",
-        comment: "Test",
-      },
-    ];
-
-    $.each(temp, function (i) {
-      saveReviewToLocal(
-        temp[i].id,
-        temp[i].title,
-        temp[i].score,
-        temp[i].comment
-      );
-    });
-  }
-  testReview();
-  // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
-
   // PAGE RENDERS
   // renders landing page
   function landingPage() {
@@ -320,11 +276,11 @@ $(function () {
     let searchField = $("<input>");
     let searchBtn = $("<button>");
 
-    let apiP = $('<p>');
-    let apiDiv = $('<div>');
-    let apiImgGamer = $('<img>');
-    let apiAmper = $('<h2>');
-    let apiRawg = $('<img>');
+    let apiP = $("<p>");
+    let apiDiv = $("<div>");
+    let apiImgGamer = $("<img>");
+    let apiAmper = $("<h2>");
+    let apiRawg = $("<img>");
 
     root.append(greetingDiv);
     greetingDiv.append(greeting);
@@ -337,7 +293,7 @@ $(function () {
     apiDiv.append(apiImgGamer);
     apiDiv.append(apiAmper);
     apiDiv.append(apiRawg);
-    
+
     greeting.text("Your next adventure awaits...");
     subGreeting.text(
       "Search from 1000s of games by title or genre to compare reviews and prices"
@@ -348,19 +304,19 @@ $(function () {
     });
     searchBtn.text("Show me what you've got!");
 
-    apiP.text('Powered by');
-    apiP.addClass(h4 + 'mt-8')
+    apiP.text("Powered by");
+    apiP.addClass(h4 + "mt-8");
 
-    apiDiv.addClass('flex justify-center align-center gap mr-8 mt-2')
-    apiImgGamer.attr('src', 'images/gamerpower.png ');
+    apiDiv.addClass("flex justify-center align-center gap mr-8 mt-2");
+    apiImgGamer.attr("src", "images/gamerpower.png ");
     apiAmper.css({
-      position: 'relative',
-      top: '10px',
-      'margin': '0 5px'
-    })
-    apiAmper.text('&');
-    apiAmper.addClass(h2)
-    apiRawg.attr('src', 'images/RAWG.png');
+      position: "relative",
+      top: "10px",
+      margin: "0 5px",
+    });
+    apiAmper.text("&");
+    apiAmper.addClass(h2);
+    apiRawg.attr("src", "images/RAWG.png");
 
     greetingDiv.addClass(" text-center  m-auto");
     greeting.addClass(h1 + "  mb-1 ");
@@ -375,18 +331,18 @@ $(function () {
     let fetchGame =
       "https://api.rawg.io/api/games?search=" +
       gameName +
-      "&search_exact=true&page_size=5000&ordering=released&key=decffd508da34a34bc289acf081e71c0"
+      "&search_exact=true&page_size=5000&ordering=released&key=decffd508da34a34bc289acf081e71c0";
 
-      if (!gameName) {
-        emptyStateSearch()
-        return;
-      }
-  
+    if (!gameName) {
+      emptyStateSearch();
+      return;
+    }
+
     const response = await fetch(fetchGame);
     const data = await response.json();
     return data;
   }
-  
+
   function freeGames(getFreeGame) {
     const settings = {
       async: true,
@@ -398,11 +354,11 @@ $(function () {
         "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
       },
     };
-  
+
     return $.ajax(settings).done(function (response) {
       return response;
     });
-  }  
+  }
 
   //renders Stuff I've Reviewed Page when nav link is clicked
   function getReviewed() {
@@ -697,9 +653,8 @@ $(function () {
   // prints search results on page
   function getSearchResults() {
     getGame($("#searchField").val()).then(function (gameData) {
-
       if (gameData.results.length == 0) {
-        emptyStateSearch()
+        emptyStateSearch();
         return;
       }
 
@@ -744,16 +699,18 @@ $(function () {
     let messageDiv = $("<div>");
     let message = $("<h2>");
     let subMessage = $("<h4>");
-  
+
     root.append(messageDiv);
     messageDiv.append(message);
     messageDiv.append(subMessage);
-  
+
     messageDiv.addClass(" text-center  mt-4 ");
     message.addClass(h2 + "  mb-1 ");
     subMessage.addClass(h4);
-  
-    message.text("It looks like the game you're searching for is not in our database.");
+
+    message.text(
+      "It looks like the game you're searching for is not in our database."
+    );
     subMessage.text(
       "Please search for another game or make sure your spelling is correct."
     );
