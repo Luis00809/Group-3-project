@@ -26,7 +26,6 @@ $(function () {
   let iveReviewedBtn = nav.children().eq(1).children().eq(2);
 
   returnToLandingBtn.on("click", function () {
-    console.log("this renders the landing page");
     landingPage();
   });
 
@@ -179,9 +178,7 @@ $(function () {
   root.on("click", ".card", function () {
     let id = $(this).children("#id").text();
     let title = $(this).children().eq(2).text();
-    // saveToLocalStorage(id, title);
     singleTitle(id, title);
-    console.log(title);
   });
 
   // converts realease received from RAWG to "Jan 2023 format"
@@ -492,7 +489,6 @@ $(function () {
       subHeading.addClass(" mb-4");
 
       getGrid();
-      console.log(gameData);
 
       $.each(gameData, function (i) {
         let indexer = gameData[i];
@@ -541,7 +537,6 @@ $(function () {
     exitBtn.on("click", function () {
       cardContainer.remove();
       overlay.remove();
-      console.log("exit");
     });
 
     let myScore = $("<p>");
@@ -577,7 +572,6 @@ $(function () {
         $(this).addClass("bg-pri-5");
         if ($(this).hasClass("bg-pri-5")) {
           reviewScore = $(this).text();
-          console.log("reviewScore = " + reviewScore);
         }
       });
       buttonContainer.append(button);
@@ -663,7 +657,6 @@ $(function () {
           "Plese leave a review and select a button in order to save!"
         );
       } else if (!reviewScore) {
-        console.log("select a button");
       } else {
         saveReviewToLocal(id, title, reviewScore, gameComment);
         singleTitle(id, title);
@@ -692,7 +685,6 @@ $(function () {
       getSearchBar();
       getGrid();
 
-      console.log(gameData);
       gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
 
       $.each(gameData.results, function (i) {
