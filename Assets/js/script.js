@@ -1783,6 +1783,7 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer  "
 =======
       
@@ -1816,6 +1817,9 @@ function getReviewed(){
 =======
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
 >>>>>>> acd197d (resolving commit)
+=======
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer  "
+>>>>>>> 87d1803 (modal spaning)
     );
     cardContainer.css({
       "z-index": "20",
