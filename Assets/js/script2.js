@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function getGame(gameName) {
   let fetchGame =
     "https://api.rawg.io/api/games?search=" +
@@ -52,3 +53,5 @@ function freeGames(getFreeGame) {
 //   greeting.text("Looks like you need to write some reviews!")
 //   subGreeting.text("Go ahead, search your favorite game and give it a review!")
 // }
+=======
+>>>>>>> 34a0418 (added empty search state for when user enters)
