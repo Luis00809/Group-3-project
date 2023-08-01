@@ -179,7 +179,7 @@ $(function () {
   root.on("click", ".card", function () {
     let id = $(this).children("#id").text();
     let title = $(this).children().eq(2).text();
-    saveToLocalStorage(id, title);
+    // saveToLocalStorage(id, title);
     singleTitle(id, title);
     console.log(title);
   });
@@ -372,7 +372,7 @@ $(function () {
     // gets localStorage 'myReviews' and parses to an array
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
-    if (!myReviews) {
+    if (!myReviews || myReviews.length == 0) {
       emptyStateReview();
       myReviews = [];
     }
@@ -414,8 +414,9 @@ $(function () {
     // gets localStorate 'viewedGames' and parse to an array
     let history = JSON.parse(localStorage.getItem("viewedGames"));
 
-    if (!history) {
+    if (!history || history.length == 0) {
       emptyStateHistory();
+      history = [];
     }
 
     history.reverse();
@@ -630,8 +631,6 @@ $(function () {
       buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
       reviewScore = null;
       gameComment = null;
-      console.log("reviewScore = " + reviewScore);
-      console.log("gameComment = " + gameComment);
       let getLocal = JSON.parse(localStorage.getItem("myReviews"));
       let getIndex = getLocal.findIndex((v) => v.thisId == id);
       if (getIndex > -1) {
@@ -893,6 +892,7 @@ $(function () {
           let detailsDiv = $("<div>");
           let topDiv = $("<div>");
           let platformsDiv = $("<div>");
+          let saveToBtn = $("<button>");
           let submitReviewBtn = $("<button>");
           let gameTitleText = $("<h1>");
           let developerText = $("<p>");
@@ -912,6 +912,7 @@ $(function () {
           gameDetailsCard.append(detailsDiv);
           detailsDiv.append(topDiv);
           topDiv.append(platformsDiv);
+          topDiv.append(saveToBtn);
           // topDiv.append(submitReviewBtn);
           detailsDiv.append(gameTitleText);
           detailsDiv.append(developerText);
@@ -923,6 +924,9 @@ $(function () {
           ratingDiv
             .addClass(" text-center bg-neu-9 absolute bottom-0 w-full")
             .css("padding", "8px 0");
+          saveToBtn.addClass(
+            " ml-auto border-solid border-pri-1 text-pri-1 border-2 h-10 px-4 bg-opac-pri rounded hover:bg-pri-5 "
+          );
           metacriticScore.addClass(h2);
           metacriticLabel.addClass(h4);
           detailsDiv.addClass(" w-full ");
@@ -975,6 +979,30 @@ $(function () {
             }
           }
 
+          let savedGames = JSON.parse(localStorage.getItem("viewedGames"));
+
+          if (!savedGames) {
+            savedGames = [];
+          }
+
+          if (savedGames.filter((e) => e.thisId == id).length > 0) {
+            saveToBtn.text("Remove from List");
+            saveToBtn.on("click", function () {
+              let getIndex = savedGames.findIndex((v) => v.thisId == id);
+              if (getIndex > -1) {
+                savedGames.splice(getIndex, 1);
+                localStorage.setItem("viewedGames", JSON.stringify(savedGames));
+              }
+              saveToBtn.text("Save to List");
+            });
+          } else {
+            saveToBtn.text("Save to List");
+            saveToBtn.on("click", function () {
+              saveToLocalStorage(id, title);
+              saveToBtn.text("Remove from List");
+            });
+          }
+
           // if this game has a review it will print it below the deteails card.
           let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
@@ -986,7 +1014,7 @@ $(function () {
             isGameReviewed(id);
           } else {
             topDiv.append(submitReviewBtn);
-            submitReviewBtn.addClass(btn + " ml-auto");
+            submitReviewBtn.addClass(btn + " ml-4");
             submitReviewBtn.text("Submit a Review");
             submitReviewBtn.on("click", function () {
               displayModal(id, title);
