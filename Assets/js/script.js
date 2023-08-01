@@ -528,7 +528,7 @@ $(function () {
     $("body").append(cardContainer);
 
     let gameTitle = $("<h3>");
-    gameTitle.addClass("col-span-2 text-h3 font-semibold text-neu-0 mt-4 h-10");
+    gameTitle.addClass("col-span-2 text-h3 font-semibold text-neu-0 mt-4 mb-4");
     gameTitle.text(title);
     cardContainer.append(gameTitle);
 
@@ -550,7 +550,7 @@ $(function () {
     cardContainer.append(myScore);
 
     let buttonContainer = $("<div>");
-    buttonContainer.addClass("col-span-3 grid-cols-10 ");
+    buttonContainer.addClass("col-span-3 grid-cols-10 flex");
 
     let buttons = [];
     let reviewScore;
@@ -564,8 +564,12 @@ $(function () {
       let button = $("<button>");
       button.text(i);
       button.addClass(
-        "bg-neu-8 rounded ratingBtnClass h-10 cursor-pointer hover:bg-pri-9"
+        "bg-neu-8 rounded ratingBtnClass h-10 cursor-pointer hover:bg-pri-9 active:bg-opac-pri active:outline-pri-5 active:outline active:outline-2 w-full"
       );
+
+      if (i > 1) {
+        button.addClass(" ml-1");
+      }
       buttons.push(button);
 
       button.on("click", function () {
@@ -872,8 +876,6 @@ $(function () {
   }
 
   landingPage(); // renders the landing page on load
-  // isGameReviewed(24182); // Test prints the my review seciton
-  // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
 
   function singleTitle(id, title) {
     window.scrollTo(0, 0); // scrolls to top of page on render
@@ -993,13 +995,14 @@ $(function () {
                 savedGames.splice(getIndex, 1);
                 localStorage.setItem("viewedGames", JSON.stringify(savedGames));
               }
-              saveToBtn.text("Save to List");
+              singleTitle(id, title);
             });
           } else {
             saveToBtn.text("Save to List");
             saveToBtn.on("click", function () {
               saveToLocalStorage(id, title);
               saveToBtn.text("Remove from List");
+              singleTitle(id, title);
             });
           }
 
