@@ -725,6 +725,7 @@ $(function () {
     }
   }
 
+<<<<<<< HEAD
   // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
   function testReview() {
     const temp = [
@@ -820,6 +821,8 @@ $(function () {
   testReview();
   // TEMPORARY FUNCTION TO TEST REVIEWED GAMES
 
+=======
+>>>>>>> 9485da9 (updates search history to recently viewed and removes test review data)
   // PAGE RENDERS
   // renders landing page
   function landingPage() {
@@ -837,12 +840,30 @@ $(function () {
     let searchField = $("<input>");
     let searchBtn = $("<button>");
 
+<<<<<<< HEAD
+=======
+    let apiP = $("<p>");
+    let apiDiv = $("<div>");
+    let apiImgGamer = $("<img>");
+    let apiAmper = $("<h2>");
+    let apiRawg = $("<img>");
+
+>>>>>>> a2554df (updates search history to recently viewed and)
     root.append(greetingDiv);
     greetingDiv.append(greeting);
     greetingDiv.append(subGreeting);
     greetingDiv.append(searchField);
     greetingDiv.append(searchBtn);
 
+<<<<<<< HEAD
+=======
+    greetingDiv.append(apiP);
+    greetingDiv.append(apiDiv);
+    apiDiv.append(apiImgGamer);
+    apiDiv.append(apiAmper);
+    apiDiv.append(apiRawg);
+
+>>>>>>> a2554df (updates search history to recently viewed and)
     greeting.text("Your next adventure awaits...");
     subGreeting.text(
       "Search from 1000s of games by title or genre to compare reviews and prices"
@@ -853,6 +874,23 @@ $(function () {
     });
     searchBtn.text("Show me what you've got!");
 
+<<<<<<< HEAD
+=======
+    apiP.text("Powered by");
+    apiP.addClass(h4 + "mt-8");
+
+    apiDiv.addClass("flex justify-center align-center gap mr-8 mt-2");
+    apiImgGamer.attr("src", "images/gamerpower.png ");
+    apiAmper.css({
+      position: "relative",
+      top: "10px",
+      margin: "0 5px",
+    });
+    apiAmper.text("&");
+    apiAmper.addClass(h2);
+    apiRawg.attr("src", "images/RAWG.png");
+
+>>>>>>> a2554df (updates search history to recently viewed and)
     greetingDiv.addClass(" text-center  m-auto");
     greeting.addClass(h1 + "  mb-1 ");
     subGreeting.addClass(h3 + "  mb-6");
@@ -866,18 +904,18 @@ $(function () {
     let fetchGame =
       "https://api.rawg.io/api/games?search=" +
       gameName +
-      "&search_exact=true&page_size=5000&ordering=released&key=decffd508da34a34bc289acf081e71c0"
+      "&search_exact=true&page_size=5000&ordering=released&key=decffd508da34a34bc289acf081e71c0";
 
-      if (!gameName) {
-        emptyStateSearch()
-        return;
-      }
-  
+    if (!gameName) {
+      emptyStateSearch();
+      return;
+    }
+
     const response = await fetch(fetchGame);
     const data = await response.json();
     return data;
   }
-  
+
   function freeGames(getFreeGame) {
     const settings = {
       async: true,
@@ -889,11 +927,11 @@ $(function () {
         "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
       },
     };
-  
+
     return $.ajax(settings).done(function (response) {
       return response;
     });
-  }  
+  }
 
   //renders Stuff I've Reviewed Page when nav link is clicked
   function getReviewed() {
@@ -1927,6 +1965,9 @@ function getReviewed(){
   function getSearchResults() {
     getGame($("#searchField").val()).then(function (gameData) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a2554df (updates search history to recently viewed and)
       if (gameData.results.length == 0) {
         emptyStateSearch();
         return;
@@ -3160,16 +3201,18 @@ function getReviewed(){
     let messageDiv = $("<div>");
     let message = $("<h2>");
     let subMessage = $("<h4>");
-  
+
     root.append(messageDiv);
     messageDiv.append(message);
     messageDiv.append(subMessage);
-  
+
     messageDiv.addClass(" text-center  mt-4 ");
     message.addClass(h2 + "  mb-1 ");
     subMessage.addClass(h4);
-  
-    message.text("It looks like the game you're searching for is not in our database.");
+
+    message.text(
+      "It looks like the game you're searching for is not in our database."
+    );
     subMessage.text(
       "Please search for another game or make sure your spelling is correct."
     );
