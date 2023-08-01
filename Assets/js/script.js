@@ -362,6 +362,7 @@ $(function () {
 
   //renders Stuff I've Reviewed Page when nav link is clicked
   function getReviewed() {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     clearDom();
     getSearchBar();
     getGrid();
@@ -405,6 +406,7 @@ $(function () {
 
   //renders Stuff I've Reviewed Page when nav link is clicked
   function searchHistory() {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     clearDom();
     getSearchBar();
     getGrid();
@@ -472,6 +474,7 @@ $(function () {
   }
 
   function getFreeGames() {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     freeGames().then(function (gameData) {
       clearDom();
 
@@ -674,6 +677,7 @@ $(function () {
 
   // prints search results on page
   function getSearchResults() {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     getGame($("#searchField").val()).then(function (gameData) {
       if (gameData.results.length == 0) {
         emptyStateSearch();
@@ -778,7 +782,6 @@ $(function () {
 
   // call this function in the single title page and pass in the id
   function isGameReviewed(paramId) {
-    // clearDom(); // remove this when added to single title screen
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
     $.each(myReviews, function (i) {
@@ -874,6 +877,7 @@ $(function () {
   // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
 
   function singleTitle(id, title) {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     getGame(title).then(function (gameData) {
       $.each(gameData.results, function (x) {
         let indexer = gameData.results[x];
@@ -916,7 +920,9 @@ $(function () {
 
           // STYLES
           gameImgDiv.addClass("w-full mr-4 relative ");
-          ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
+          ratingDiv
+            .addClass(" text-center bg-neu-9 absolute bottom-0 w-full")
+            .css("padding", "8px 0");
           metacriticScore.addClass(h2);
           metacriticLabel.addClass(h4);
           detailsDiv.addClass(" w-full ");
