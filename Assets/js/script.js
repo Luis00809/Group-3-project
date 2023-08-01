@@ -139,7 +139,7 @@ $(function () {
     }
 
     if (altSrc == "N/A") {
-      rating.addClass(" text-neu-3 ");
+      rating.addClass(" text-neu-5 ");
     }
 
     if (timeBool) {
