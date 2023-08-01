@@ -890,153 +890,199 @@ $(function () {
 
   landingPage(); // renders the landing page on load
 
+  async function getGameDetails(id) {
+    let fetchGame =
+      "https://api.rawg.io/api/games/" +
+      id +
+      "?key=decffd508da34a34bc289acf081e71c0";
+
+    const response = await fetch(fetchGame);
+    const data = await response.json();
+    // console.log(data);
+    return data;
+  }
+
   function singleTitle(id, title) {
     window.scrollTo(0, 0); // scrolls to top of page on render
     getGame(title).then(function (gameData) {
       $.each(gameData.results, function (x) {
         let indexer = gameData.results[x];
         if (indexer.id == id) {
-          clearDom();
+          getGameDetails(id).then(function (gameDetails) {
+            console.log(gameDetails);
+            clearDom();
 
-          let gameDetailsCard = $("<div>");
-          let gameImgDiv = $("<div>");
-          let gameImg = $("<img>");
-          let ratingDiv = $("<div>");
-          let metacriticScore = $("<h2>");
-          let metacriticLabel = $("<p>");
-          let detailsDiv = $("<div>");
-          let topDiv = $("<div>");
-          let platformsDiv = $("<div>");
-          let saveToBtn = $("<button>");
-          let submitReviewBtn = $("<button>");
-          let gameTitleText = $("<h1>");
-          let developerText = $("<p>");
-          let descriptionLabel = $("<h3>");
-          let descriptionText = $("<p>");
+            let gameDetailsCard = $("<div>");
+            let gameImgDiv = $("<div>");
+            let gameImg = $("<img>");
+            let ratingDiv = $("<div>");
+            let metacriticScore = $("<h2>");
+            let metacriticLabel = $("<p>");
+            let detailsDiv = $("<div>");
+            let topDiv = $("<div>");
+            let platformsDiv = $("<div>");
+            let saveToBtn = $("<button>");
+            let submitReviewBtn = $("<button>");
+            let gameTitleText = $("<h1>");
+            let developerText = $("<p>");
+            let descriptionLabel = $("<h3>");
+            let descriptionText = $("<p>");
+            let tagsDiv = $("<div>");
 
-          root.append(gameDetailsCard);
-          gameDetailsCard.addClass(
-            " p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md flex "
-          );
+            root.append(gameDetailsCard);
+            gameDetailsCard.addClass(
+              " p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md flex "
+            );
 
-          // RENDERS
-          gameDetailsCard.append(gameImgDiv);
-          gameImgDiv.append(gameImg);
-          gameImgDiv.append(ratingDiv);
-          ratingDiv.append(metacriticScore, metacriticLabel);
-          gameDetailsCard.append(detailsDiv);
-          detailsDiv.append(topDiv);
-          topDiv.append(platformsDiv);
-          topDiv.append(saveToBtn);
-          // topDiv.append(submitReviewBtn);
-          detailsDiv.append(gameTitleText);
-          detailsDiv.append(developerText);
-          detailsDiv.append(descriptionLabel);
-          detailsDiv.append(descriptionText);
+            // RENDERS
+            gameDetailsCard.append(gameImgDiv);
+            gameImgDiv.append(gameImg);
+            gameImgDiv.append(ratingDiv);
+            ratingDiv.append(metacriticScore, metacriticLabel);
+            gameDetailsCard.append(detailsDiv);
+            detailsDiv.append(topDiv);
+            topDiv.append(platformsDiv);
+            topDiv.append(saveToBtn);
+            // topDiv.append(submitReviewBtn);
+            detailsDiv.append(gameTitleText);
+            detailsDiv.append(developerText);
+            detailsDiv.append(descriptionLabel);
+            detailsDiv.append(descriptionText);
+            detailsDiv.append(tagsDiv);
 
-          // STYLES
-          gameImgDiv.addClass("w-full mr-4 relative ");
-          gameImg.addClass("w-full");
-          ratingDiv
-            .addClass(" text-center bg-neu-9 absolute bottom-0 w-full")
-            .css("padding", "8px 0");
-          saveToBtn.addClass(
-            " ml-auto border-solid border-pri-1 text-pri-1 border-2 h-10 px-4 bg-opac-pri rounded hover:bg-pri-5 "
-          );
-          metacriticScore.addClass(h2);
-          metacriticLabel.addClass(h4);
-          detailsDiv.addClass(" w-full ");
-          topDiv.addClass(" flex").css("margin-bottom", "32px");
-          platformsDiv.addClass(" flex  border-opac-neu ");
-          platformsDiv.css("border-bottom", "solid 1px ");
-          gameTitleText.addClass(h1 + " mb-1 ");
-          developerText
-            .addClass(lgTxt + " text-neu-3 mb-5")
-            .css("margin-bottom", "32px");
-          descriptionLabel.addClass(h3 + " mb-2 ");
-          descriptionText.addClass(mdTxt);
+            // STYLES
+            gameImgDiv.addClass("w-full mr-4 relative ");
+            gameImg.addClass("w-full");
+            ratingDiv
+              .addClass(" text-center bg-neu-9 absolute bottom-0 w-full")
+              .css("padding", "8px 0");
+            saveToBtn.addClass(
+              " ml-auto border-solid border-pri-1 text-pri-1 border-2 h-10 px-4 bg-opac-pri rounded hover:bg-pri-5 "
+            );
+            metacriticScore.addClass(h2);
+            metacriticLabel.addClass(h4);
+            detailsDiv.addClass(" w-full ");
+            topDiv.addClass(" flex").css("margin-bottom", "32px");
+            platformsDiv.addClass(" flex  border-opac-neu ");
+            platformsDiv.css("border-bottom", "solid 1px ");
+            gameTitleText.addClass(h1 + " mb-1 ");
+            developerText
+              .addClass(lgTxt + " text-neu-3 mb-5")
+              .css("margin-bottom", "32px");
+            descriptionLabel.addClass(h3 + " mb-2 ");
+            descriptionText.addClass(mdTxt);
+            tagsDiv.addClass(" flex mt-4 ");
 
-          // DATA INPUT
-          // prints the list of platforms the game is available on
+            // DATA INPUT
+            // prints the list of platforms the game is available on
 
-          gameImg.attr({ src: indexer.background_image });
-          let thisScore = indexer.metacritic;
+            gameImg.attr({ src: indexer.background_image });
+            let thisScore = indexer.metacritic;
 
-          // conditional for altScr text
-          if (!thisScore || thisScore == "N/A") {
-            thisScore = "N/A";
-          } else {
-            thisScore = thisScore + "/100";
-          }
-          metacriticScore.text(thisScore);
-          metacriticLabel.text("Metacritic Score");
-          gameTitleText.text(title);
-          developerText.text("Developer: ");
-          descriptionLabel.text("Game Description");
-          descriptionText.text("Lorem Ipsum");
+            // conditional for altScr text
+            if (!thisScore || thisScore == "N/A") {
+              thisScore = "N/A";
+            } else {
+              thisScore = thisScore + "/100";
+            }
+            metacriticScore.text(thisScore);
+            metacriticLabel.text("Metacritic Score");
+            gameTitleText.text(title);
+            developerText.text("Developer: " + gameDetails.publishers[0].name);
+            descriptionLabel.text("Game Description");
+            descriptionText.text(gameDetails.description_raw);
 
-          for (let p = 0; p < indexer.platforms.length; p++) {
-            if (p < 4) {
-              let platformItem = $("<p>");
-              platformsDiv.append(platformItem);
-              platformsDiv.addClass("pb-2");
-              platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
-              platformItem.css("padding", "4px 12px");
+            for (let p = 0; p < indexer.platforms.length; p++) {
+              if (p < 4) {
+                let platformItem = $("<p>");
+                platformsDiv.append(platformItem);
+                platformsDiv.addClass("pb-2");
+                platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
+                platformItem.css("padding", "4px 12px");
 
-              if (p > 0 && p < 4) {
-                platformItem.css("border-left", "solid 1px");
-              }
+                if (p > 0 && p < 4) {
+                  platformItem.css("border-left", "solid 1px");
+                }
 
-              if (p == 3) {
-                platformItem.text("+" + (indexer.platforms.length - 3));
-              } else {
-                platformItem.text(indexer.platforms[p].platform.name);
+                if (p == 3) {
+                  platformItem.text("+" + (indexer.platforms.length - 3));
+                } else {
+                  platformItem.text(indexer.platforms[p].platform.name);
+                }
               }
             }
-          }
 
-          let savedGames = JSON.parse(localStorage.getItem("viewedGames"));
+            let savedGames = JSON.parse(localStorage.getItem("viewedGames"));
 
-          if (!savedGames) {
-            savedGames = [];
-          }
+            if (!savedGames) {
+              savedGames = [];
+            }
 
-          if (savedGames.filter((e) => e.thisId == id).length > 0) {
-            saveToBtn.text("Remove from List");
-            saveToBtn.on("click", function () {
-              let getIndex = savedGames.findIndex((v) => v.thisId == id);
-              if (getIndex > -1) {
-                savedGames.splice(getIndex, 1);
-                localStorage.setItem("viewedGames", JSON.stringify(savedGames));
-              }
-              singleTitle(id, title);
-            });
-          } else {
-            saveToBtn.text("Save to List");
-            saveToBtn.on("click", function () {
-              saveToLocalStorage(id, title);
+            if (savedGames.filter((e) => e.thisId == id).length > 0) {
               saveToBtn.text("Remove from List");
-              singleTitle(id, title);
-            });
-          }
+              saveToBtn.on("click", function () {
+                let getIndex = savedGames.findIndex((v) => v.thisId == id);
+                if (getIndex > -1) {
+                  savedGames.splice(getIndex, 1);
+                  localStorage.setItem(
+                    "viewedGames",
+                    JSON.stringify(savedGames)
+                  );
+                }
+                singleTitle(id, title);
+              });
+            } else {
+              saveToBtn.text("Save to List");
+              saveToBtn.on("click", function () {
+                saveToLocalStorage(id, title);
+                saveToBtn.text("Remove from List");
+                singleTitle(id, title);
+              });
+            }
 
-          // if this game has a review it will print it below the deteails card.
-          let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+            let tags = gameDetails.tags;
+            for (let t = 0; t < 5; t++) {
+              if (tags.length > 5) {
+                let tag = $("<p>");
+                tagsDiv.append(tag);
+                tag.addClass(" bg-sec-5  rounded text-sec-1 px-2 py-0.5 ");
+                if (t == 4) {
+                  tag.text("+ " + (tags.length - 4));
+                } else {
+                  tag.text(tags[t].name);
+                }
+                if (t > 0) {
+                  tag.addClass("ml-1");
+                }
+              } else {
+                let tag = $("<p>");
+                tagsDiv.append(tag);
+                tag.addClass(" bg-sec-5  rounded text-sec-1 px-2 py-0.5 ");
+                tag.text(tags[t].name);
+                if (t > 0) {
+                  tag.addClass("ml-1");
+                }
+              }
+            }
 
-          if (!myReviews) {
-            myReviews = [];
-          }
+            // if this game has a review it will print it below the deteails card.
+            let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
-          if (myReviews.filter((e) => e.thisId == id).length > 0) {
-            isGameReviewed(id);
-          } else {
-            topDiv.append(submitReviewBtn);
-            submitReviewBtn.addClass(btn + " ml-4");
-            submitReviewBtn.text("Submit a Review");
-            submitReviewBtn.on("click", function () {
-              displayModal(id, title);
-            });
-          }
+            if (!myReviews) {
+              myReviews = [];
+            }
+
+            if (myReviews.filter((e) => e.thisId == id).length > 0) {
+              isGameReviewed(id);
+            } else {
+              topDiv.append(submitReviewBtn);
+              submitReviewBtn.addClass(btn + " ml-4");
+              submitReviewBtn.text("Submit a Review");
+              submitReviewBtn.on("click", function () {
+                displayModal(id, title);
+              });
+            }
+          });
         }
       });
     });

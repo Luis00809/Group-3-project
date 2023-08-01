@@ -775,6 +775,10 @@ video {
   border-radius: 0.5rem;
 }
 
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
 .border-2 {
   border-width: 2px;
 }
@@ -818,6 +822,15 @@ video {
 .bg-pri-5 {
   --tw-bg-opacity: 1;
   background-color: rgb(135 46 184 / var(--tw-bg-opacity));
+}
+
+.bg-opac-sec {
+  background-color: #2e94b926;
+}
+
+.bg-sec-5 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(46 148 185 / var(--tw-bg-opacity));
 }
 
 .bg-none {
@@ -873,6 +886,21 @@ video {
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
 }
 
 .pb-2 {
@@ -964,6 +992,21 @@ video {
   color: rgb(240 183 117 / var(--tw-text-opacity));
 }
 
+.text-pri-5 {
+  --tw-text-opacity: 1;
+  color: rgb(135 46 184 / var(--tw-text-opacity));
+}
+
+.text-sec-5 {
+  --tw-text-opacity: 1;
+  color: rgb(46 148 185 / var(--tw-text-opacity));
+}
+
+.text-sec-1 {
+  --tw-text-opacity: 1;
+  color: rgb(224 239 245 / var(--tw-text-opacity));
+}
+
 .shadow-md {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
@@ -989,6 +1032,10 @@ video {
 
 .outline-war-5 {
   outline-color: #f0b775;
+}
+
+.outline-pri-1 {
+  outline-color: #ede0f4;
 }
 
 .filter {
