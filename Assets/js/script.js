@@ -819,8 +819,6 @@ $(function () {
           let ratingDiv = $("<div>");
           let metacriticScore = $("<h2>");
           let metacriticLabel = $("<p>");
-          let metacriticScore = $("<h2>");
-          let metacriticLabel = $("<p>");
           let detailsDiv = $("<div>");
           let topDiv = $("<div>");
           let platformsDiv = $("<div>");
