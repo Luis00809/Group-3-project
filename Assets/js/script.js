@@ -509,12 +509,12 @@ $(function () {
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer  "
     );
     cardContainer.css({
       "z-index": "20",
       height: "45%",
-      width: "30%",
+      'max-width': '30%',
       margin: "0 auto",
       position: "fixed",
       top: "25%",
@@ -525,7 +525,7 @@ $(function () {
     $("body").append(cardContainer);
 
     let gameTitle = $("<h3>");
-    gameTitle.addClass("col-span-1 text-h3 font-semibold text-neu-0 mt-4 ");
+    gameTitle.addClass("col-span-2 text-h3 font-semibold text-neu-0 mt-4 ");
     gameTitle.text(title);
     cardContainer.append(gameTitle);
 
@@ -541,10 +541,7 @@ $(function () {
       console.log("exit");
     });
 
-    let developer = $("<p>");
-    developer.addClass(" col-span-3 text-medium text-neu-0 mb-6 text-neu-3 ");
-    developer.text("Developer: ");
-    cardContainer.append(developer);
+   
 
     let myScore = $("<p>");
     myScore.addClass(" col-span-2 text-neu-0 mb-4 text-neu-3 text-medium ");
@@ -567,7 +564,7 @@ $(function () {
       let button = $("<button>");
       button.text(i);
       button.addClass(
-        "bg-neu-8 rounded mb-4 py-3 h-10 cursor-pointer hover:bg-pri-9"
+        "bg-neu-8 rounded ratingBtnClass h-10 cursor-pointer hover:bg-pri-9"
       );
       buttons.push(button);
 

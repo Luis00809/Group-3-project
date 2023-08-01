@@ -568,6 +568,25 @@ video {
   }
 }
 
+.ratingBtnClass{
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+
+}
+
+@media (400px <= width <= 1000px){
+  .ratingBtnClass{
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    margin-bottom: .3rem;
+  
+  }
+}
+
+
+
+
 .fixed {
   position: fixed;
 }
