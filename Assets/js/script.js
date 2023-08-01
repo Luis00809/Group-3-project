@@ -26,7 +26,6 @@ $(function () {
   let iveReviewedBtn = nav.children().eq(1).children().eq(2);
 
   returnToLandingBtn.on("click", function () {
-    console.log("this renders the landing page");
     landingPage();
   });
 
@@ -126,11 +125,11 @@ $(function () {
     ratingDiv.append(rating);
 
     // sets styles for card
-    newCard.addClass(card);
-    img.addClass("w-full  h-52 object-cover");
-    title.addClass(h3 + " mt-4");
+    newCard.addClass(card + " relative h-[360px] ");
+    img.addClass("w-full h-[168px] object-cover");
+    title.addClass(h3 + " mt-4 line-clamp-2 mx-h-[40px]");
     release.addClass(smTxt + " mb-6  text-neu-3");
-    altDiv.addClass("flex ");
+    altDiv.addClass("flex w-full absolute left-0 bottom-4 px-4");
     rating.addClass(h2);
     ratingLabel.addClass(" text-sm  text-neu-3");
 
@@ -140,7 +139,7 @@ $(function () {
     }
 
     if (altSrc == "N/A") {
-      rating.addClass(" text-neu-3 ");
+      rating.addClass(" text-neu-5 ");
     }
 
     if (timeBool) {
@@ -179,9 +178,7 @@ $(function () {
   root.on("click", ".card", function () {
     let id = $(this).children("#id").text();
     let title = $(this).children().eq(2).text();
-    saveToLocalStorage(id, title);
     singleTitle(id, title);
-    console.log(title);
   });
 
   // converts realease received from RAWG to "Jan 2023 format"
@@ -362,6 +359,7 @@ $(function () {
 
   //renders Stuff I've Reviewed Page when nav link is clicked
   function getReviewed() {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     clearDom();
     getSearchBar();
     getGrid();
@@ -371,7 +369,7 @@ $(function () {
     // gets localStorage 'myReviews' and parses to an array
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
-    if (!myReviews) {
+    if (!myReviews || myReviews.length == 0) {
       emptyStateReview();
       myReviews = [];
     }
@@ -405,6 +403,7 @@ $(function () {
 
   //renders Stuff I've Reviewed Page when nav link is clicked
   function searchHistory() {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     clearDom();
     getSearchBar();
     getGrid();
@@ -412,8 +411,9 @@ $(function () {
     // gets localStorate 'viewedGames' and parse to an array
     let history = JSON.parse(localStorage.getItem("viewedGames"));
 
-    if (!history) {
+    if (!history || history.length == 0) {
       emptyStateHistory();
+      history = [];
     }
 
     history.reverse();
@@ -472,6 +472,7 @@ $(function () {
   }
 
   function getFreeGames() {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     freeGames().then(function (gameData) {
       clearDom();
 
@@ -488,7 +489,6 @@ $(function () {
       subHeading.addClass(" mb-4");
 
       getGrid();
-      console.log(gameData);
 
       $.each(gameData, function (i) {
         let indexer = gameData[i];
@@ -509,28 +509,27 @@ $(function () {
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer  "
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md "
     );
     cardContainer.css({
       "z-index": "20",
-      height: "45%",
-      'max-width': '30%',
+      width: "640px",
       margin: "0 auto",
       position: "fixed",
       top: "25%",
-      bottom: "25%",
+      // bottom: "25%",
       right: "25%",
       left: "25%",
     });
     $("body").append(cardContainer);
 
     let gameTitle = $("<h3>");
-    gameTitle.addClass("col-span-2 text-h3 font-semibold text-neu-0 mt-4 ");
+    gameTitle.addClass("col-span-2 text-h3 font-semibold text-neu-0 mt-4 mb-4");
     gameTitle.text(title);
     cardContainer.append(gameTitle);
 
     let exitBtn = $("<button>");
-    exitBtn.addClass("col-start-3  ");
+    exitBtn.addClass("col-start-3  w-10 ml-auto hover:text-neu-3 ");
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
     cardContainer.append(exitBtn);
@@ -538,18 +537,15 @@ $(function () {
     exitBtn.on("click", function () {
       cardContainer.remove();
       overlay.remove();
-      console.log("exit");
     });
 
-   
-
     let myScore = $("<p>");
-    myScore.addClass(" col-span-2 text-neu-0 mb-4 text-neu-3 text-medium ");
+    myScore.addClass(" col-span-2 text-neu-0 mb-2 text-neu-3 text-medium ");
     myScore.text("My Score: ");
     cardContainer.append(myScore);
 
     let buttonContainer = $("<div>");
-    buttonContainer.addClass("col-span-3 grid-cols-10 ");
+    buttonContainer.addClass("col-span-3 grid-cols-10 flex");
 
     let buttons = [];
     let reviewScore;
@@ -559,13 +555,16 @@ $(function () {
       reviewScore = score;
     }
 
-    console.log(reviewScore);
     for (let i = 1; i <= 10; i++) {
       let button = $("<button>");
       button.text(i);
       button.addClass(
-        "bg-neu-8 rounded ratingBtnClass h-10 cursor-pointer hover:bg-pri-9"
+        "bg-neu-8 rounded ratingBtnClass h-10 cursor-pointer hover:bg-opac-pri active:bg-opac-pri active:outline-pri-5 active:outline active:outline-2 w-full"
       );
+
+      if (i > 1) {
+        button.addClass(" ml-1");
+      }
       buttons.push(button);
 
       button.on("click", function () {
@@ -573,7 +572,6 @@ $(function () {
         $(this).addClass("bg-pri-5");
         if ($(this).hasClass("bg-pri-5")) {
           reviewScore = $(this).text();
-          console.log("reviewScore = " + reviewScore);
         }
       });
       buttonContainer.append(button);
@@ -587,23 +585,43 @@ $(function () {
 
     let textarea = $("<textarea>");
     textarea.attr("placeholder", "My Notes");
-    textarea.addClass(
-      "col-span-3  bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full "
-    );
+    textarea
+      .addClass(
+        "col-span-3  bg-neu-8 text-neu-0 rounded px-3 mr-4 mt-4 w-full "
+      )
+      .css("margin-bottom", "16px");
     let gameComment;
     cardContainer.append(textarea);
     // populates the text area if i am in edit mode
     if (text) {
       textarea.text(text);
+      var totalHeight =
+        textarea.prop("scrollHeight") -
+        parseInt(textarea.css("padding-top")) -
+        parseInt(textarea.css("padding-bottom"));
+      textarea.css({ height: totalHeight });
     }
 
     textarea.on("input", function () {
       gameComment = $(this).val();
     });
 
+    // text area height will be based on its content.
+    textarea.on({
+      input: function () {
+        var totalHeight =
+          $(this).prop("scrollHeight") -
+          parseInt($(this).css("padding-top")) -
+          parseInt($(this).css("padding-bottom"));
+        $(this).css({ height: totalHeight });
+      },
+    });
+
     let deleteBtn = $("<button>");
     deleteBtn.text("Delete Review");
-    deleteBtn.addClass("px-4 py-3 h-10 text-red-600 hover:scale-[1.02] redT");
+    deleteBtn.addClass(
+      "px-4 mr-auto py-3 h-10 text-dan-5 hover:scale-[1.02] hover:text-dan-9 redT"
+    );
     cardContainer.append(deleteBtn);
 
     deleteBtn.on("click", function () {
@@ -611,8 +629,6 @@ $(function () {
       buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
       reviewScore = null;
       gameComment = null;
-      console.log("reviewScore = " + reviewScore);
-      console.log("gameComment = " + gameComment);
       let getLocal = JSON.parse(localStorage.getItem("myReviews"));
       let getIndex = getLocal.findIndex((v) => v.thisId == id);
       if (getIndex > -1) {
@@ -626,22 +642,42 @@ $(function () {
 
     let savebtn = $("<button>");
     savebtn.addClass(
-      " col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
+      "ml-auto col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
     );
     savebtn.css({
       width: "80%",
     });
     savebtn.text("Save");
     cardContainer.append(savebtn);
+
     savebtn.on("click", function () {
-      if (!gameComment) {
-        textarea.addClass("placeHolderColor");
-        textarea.attr(
-          "placeholder",
-          "Plese leave a review and select a button in order to save!"
+      if (!gameComment && !reviewScore) {
+        let warningText = $("<p>");
+        cardContainer.append(warningText);
+        warningText.addClass(
+          "text-war-5 w-full px-4 py-3 bg-opac-war rounded col-span-3 mt-4"
         );
+        warningText.text(
+          "Select a review score and enter a comment to continue"
+        );
+        textarea.addClass(" outline outline-war-5 outline-1");
+        myScore.addClass("text-war-5");
+      } else if (!gameComment) {
+        let warningText = $("<p>");
+        cardContainer.append(warningText);
+        warningText.addClass(
+          "text-war-5 w-full px-4 py-3 bg-opac-war rounded col-span-3 mt-4"
+        );
+        warningText.text("Enter a comment to continue");
+        textarea.addClass(" outline outline-war-5 outline-1");
       } else if (!reviewScore) {
-        console.log("select a button");
+        let warningText = $("<p>");
+        cardContainer.append(warningText);
+        warningText.addClass(
+          "text-war-5 w-full px-4 py-3 bg-opac-war rounded col-span-3 mt-4"
+        );
+        warningText.text("Select a review score to continue");
+        myScore.addClass("text-war-5");
       } else {
         saveReviewToLocal(id, title, reviewScore, gameComment);
         singleTitle(id, title);
@@ -658,6 +694,7 @@ $(function () {
 
   // prints search results on page
   function getSearchResults() {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     getGame($("#searchField").val()).then(function (gameData) {
       if (gameData.results.length == 0) {
         emptyStateSearch();
@@ -669,7 +706,6 @@ $(function () {
       getSearchBar();
       getGrid();
 
-      console.log(gameData);
       gameData.results.reverse(); // reverses the array of search results so the newest game will appear first
 
       $.each(gameData.results, function (i) {
@@ -762,7 +798,6 @@ $(function () {
 
   // call this function in the single title page and pass in the id
   function isGameReviewed(paramId) {
-    // clearDom(); // remove this when added to single title screen
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
     $.each(myReviews, function (i) {
@@ -831,7 +866,7 @@ $(function () {
           scoreOutOfText.addClass(h3 + " text-neu-3 mt-auto mb-1");
           scoreBarDiv
             .attr({ id: "scoreBarDiv" })
-            .addClass("bg-neu-7 w-full h-10 rounded-lg overflow-hidden");
+            .addClass("bg-neu-7 w-3/6 h-10 rounded-lg overflow-hidden ");
           scoreValue.addClass("bg-pri-5 w-full h-full");
 
           notesLabel.text("My Notes");
@@ -854,122 +889,199 @@ $(function () {
   }
 
   landingPage(); // renders the landing page on load
-  // isGameReviewed(24182); // Test prints the my review seciton
-  // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
+
+  async function getGameDetails(id) {
+    let fetchGame =
+      "https://api.rawg.io/api/games/" +
+      id +
+      "?key=decffd508da34a34bc289acf081e71c0";
+
+    const response = await fetch(fetchGame);
+    const data = await response.json();
+    // console.log(data);
+    return data;
+  }
 
   function singleTitle(id, title) {
+    window.scrollTo(0, 0); // scrolls to top of page on render
     getGame(title).then(function (gameData) {
       $.each(gameData.results, function (x) {
         let indexer = gameData.results[x];
         if (indexer.id == id) {
-          clearDom();
+          getGameDetails(id).then(function (gameDetails) {
+            clearDom();
 
-          let gameDetailsCard = $("<div>");
-          let gameImgDiv = $("<div>");
-          let gameImg = $("<img>");
-          let ratingDiv = $("<div>");
-          let metacriticScore = $("<h2>");
-          let metacriticLabel = $("<p>");
-          let detailsDiv = $("<div>");
-          let topDiv = $("<div>");
-          let platformsDiv = $("<div>");
-          let submitReviewBtn = $("<button>");
-          let gameTitleText = $("<h1>");
-          let developerText = $("<p>");
-          let descriptionLabel = $("<h3>");
-          let descriptionText = $("<p>");
+            let gameDetailsCard = $("<div>");
+            let gameImgDiv = $("<div>");
+            let gameImg = $("<img>");
+            let ratingDiv = $("<div>");
+            let metacriticScore = $("<h2>");
+            let metacriticLabel = $("<p>");
+            let detailsDiv = $("<div>");
+            let topDiv = $("<div>");
+            let platformsDiv = $("<div>");
+            let saveToBtn = $("<button>");
+            let submitReviewBtn = $("<button>");
+            let gameTitleText = $("<h1>");
+            let developerText = $("<p>");
+            let descriptionLabel = $("<h3>");
+            let descriptionText = $("<p>");
+            let tagsDiv = $("<div>");
 
-          root.append(gameDetailsCard);
-          gameDetailsCard.addClass(
-            " p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md flex "
-          );
+            root.append(gameDetailsCard);
+            gameDetailsCard.addClass(
+              " p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md flex "
+            );
 
-          // RENDERS
-          gameDetailsCard.append(gameImgDiv);
-          gameImgDiv.append(gameImg);
-          gameImgDiv.append(ratingDiv);
-          ratingDiv.append(metacriticScore, metacriticLabel);
-          gameDetailsCard.append(detailsDiv);
-          detailsDiv.append(topDiv);
-          topDiv.append(platformsDiv);
-          // topDiv.append(submitReviewBtn);
-          detailsDiv.append(gameTitleText);
-          detailsDiv.append(developerText);
-          detailsDiv.append(descriptionLabel);
-          detailsDiv.append(descriptionText);
+            // RENDERS
+            gameDetailsCard.append(gameImgDiv);
+            gameImgDiv.append(gameImg);
+            gameImgDiv.append(ratingDiv);
+            ratingDiv.append(metacriticScore, metacriticLabel);
+            gameDetailsCard.append(detailsDiv);
+            detailsDiv.append(topDiv);
+            topDiv.append(platformsDiv);
+            topDiv.append(saveToBtn);
+            // topDiv.append(submitReviewBtn);
+            detailsDiv.append(gameTitleText);
+            detailsDiv.append(developerText);
+            detailsDiv.append(descriptionLabel);
+            detailsDiv.append(descriptionText);
+            detailsDiv.append(tagsDiv);
 
-          // STYLES
-          gameImgDiv.addClass("w-full mr-4 relative ");
-          ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
-          metacriticScore.addClass(h2);
-          metacriticLabel.addClass(h4);
-          detailsDiv.addClass(" w-full ");
-          topDiv.addClass(" flex").css("margin-bottom", "32px");
-          platformsDiv.addClass(" flex  border-opac-neu ");
-          platformsDiv.css("border-bottom", "solid 1px ");
-          gameTitleText.addClass(h1 + " mb-1 ");
-          developerText
-            .addClass(lgTxt + " text-neu-3 mb-5")
-            .css("margin-bottom", "32px");
-          descriptionLabel.addClass(h3 + " mb-2 ");
-          descriptionText.addClass(mdTxt);
+            // STYLES
+            gameImgDiv.addClass("w-full mr-4 relative ");
+            gameImg.addClass("w-full");
+            ratingDiv
+              .addClass(" text-center bg-neu-9 absolute bottom-0 w-full")
+              .css("padding", "8px 0");
+            saveToBtn.addClass(
+              " ml-auto border-solid border-pri-1 text-pri-1 border-2 h-10 px-4 bg-opac-pri rounded hover:bg-pri-5 "
+            );
+            metacriticScore.addClass(h2);
+            metacriticLabel.addClass(h4);
+            detailsDiv.addClass(" w-full ");
+            topDiv.addClass(" flex").css("margin-bottom", "32px");
+            platformsDiv.addClass(" flex  border-opac-neu ");
+            platformsDiv.css("border-bottom", "solid 1px ");
+            gameTitleText.addClass(h1 + " mb-1 ");
+            developerText
+              .addClass(lgTxt + " text-neu-3 mb-5")
+              .css("margin-bottom", "32px");
+            descriptionLabel.addClass(h3 + " mb-2 ");
+            descriptionText.addClass(mdTxt);
+            tagsDiv.addClass(" flex mt-4 ");
 
-          // DATA INPUT
-          // prints the list of platforms the game is available on
+            // DATA INPUT
+            // prints the list of platforms the game is available on
 
-          gameImg.attr({ src: indexer.background_image });
-          let thisScore = indexer.metacritic;
+            gameImg.attr({ src: indexer.background_image });
+            let thisScore = indexer.metacritic;
 
-          // conditional for altScr text
-          if (!thisScore || thisScore == "N/A") {
-            thisScore = "N/A";
-          } else {
-            thisScore = thisScore + "/100";
-          }
-          metacriticScore.text(thisScore);
-          metacriticLabel.text("Metacritic Score");
-          gameTitleText.text(title);
-          developerText.text("Developer: ");
-          descriptionLabel.text("Game Description");
-          descriptionText.text("Lorem Ipsum");
+            // conditional for altScr text
+            if (!thisScore || thisScore == "N/A") {
+              thisScore = "N/A";
+            } else {
+              thisScore = thisScore + "/100";
+            }
+            metacriticScore.text(thisScore);
+            metacriticLabel.text("Metacritic Score");
+            gameTitleText.text(title);
+            developerText.text("Developer: " + gameDetails.publishers[0].name);
+            descriptionLabel.text("Game Description");
+            descriptionText.text(gameDetails.description_raw);
 
-          for (let p = 0; p < indexer.platforms.length; p++) {
-            if (p < 4) {
-              let platformItem = $("<p>");
-              platformsDiv.append(platformItem);
-              platformsDiv.addClass("pb-2");
-              platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
-              platformItem.css("padding", "4px 12px");
+            for (let p = 0; p < indexer.platforms.length; p++) {
+              if (p < 4) {
+                let platformItem = $("<p>");
+                platformsDiv.append(platformItem);
+                platformsDiv.addClass("pb-2");
+                platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
+                platformItem.css("padding", "4px 12px");
 
-              if (p > 0 && p < 4) {
-                platformItem.css("border-left", "solid 1px");
-              }
+                if (p > 0 && p < 4) {
+                  platformItem.css("border-left", "solid 1px");
+                }
 
-              if (p == 3) {
-                platformItem.text("+" + (indexer.platforms.length - 3));
-              } else {
-                platformItem.text(indexer.platforms[p].platform.name);
+                if (p == 3) {
+                  platformItem.text("+" + (indexer.platforms.length - 3));
+                } else {
+                  platformItem.text(indexer.platforms[p].platform.name);
+                }
               }
             }
-          }
 
-          // if this game has a review it will print it below the deteails card.
-          let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+            let savedGames = JSON.parse(localStorage.getItem("viewedGames"));
 
-          if (!myReviews) {
-            myReviews = [];
-          }
+            if (!savedGames) {
+              savedGames = [];
+            }
 
-          if (myReviews.filter((e) => e.thisId == id).length > 0) {
-            isGameReviewed(id);
-          } else {
-            topDiv.append(submitReviewBtn);
-            submitReviewBtn.addClass(btn + " ml-auto");
-            submitReviewBtn.text("Submit a Review");
-            submitReviewBtn.on("click", function () {
-              displayModal(id, title);
-            });
-          }
+            if (savedGames.filter((e) => e.thisId == id).length > 0) {
+              saveToBtn.text("Remove from List");
+              saveToBtn.on("click", function () {
+                let getIndex = savedGames.findIndex((v) => v.thisId == id);
+                if (getIndex > -1) {
+                  savedGames.splice(getIndex, 1);
+                  localStorage.setItem(
+                    "viewedGames",
+                    JSON.stringify(savedGames)
+                  );
+                }
+                singleTitle(id, title);
+              });
+            } else {
+              saveToBtn.text("Save to List");
+              saveToBtn.on("click", function () {
+                saveToLocalStorage(id, title);
+                saveToBtn.text("Remove from List");
+                singleTitle(id, title);
+              });
+            }
+
+            let tags = gameDetails.tags;
+            for (let t = 0; t < 5; t++) {
+              if (tags.length > 5) {
+                let tag = $("<p>");
+                tagsDiv.append(tag);
+                tag.addClass(" bg-sec-5  rounded text-sec-1 px-2 py-0.5 ");
+                if (t == 4) {
+                  tag.text("+ " + (tags.length - 4));
+                } else {
+                  tag.text(tags[t].name);
+                }
+                if (t > 0) {
+                  tag.addClass("ml-1");
+                }
+              } else {
+                let tag = $("<p>");
+                tagsDiv.append(tag);
+                tag.addClass(" bg-sec-5  rounded text-sec-1 px-2 py-0.5 ");
+                tag.text(tags[t].name);
+                if (t > 0) {
+                  tag.addClass("ml-1");
+                }
+              }
+            }
+
+            // if this game has a review it will print it below the deteails card.
+            let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+            if (!myReviews) {
+              myReviews = [];
+            }
+
+            if (myReviews.filter((e) => e.thisId == id).length > 0) {
+              isGameReviewed(id);
+            } else {
+              topDiv.append(submitReviewBtn);
+              submitReviewBtn.addClass(btn + " ml-4");
+              submitReviewBtn.text("Submit a Review");
+              submitReviewBtn.on("click", function () {
+                displayModal(id, title);
+              });
+            }
+          });
         }
       });
     });
