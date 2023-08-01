@@ -1028,6 +1028,15 @@ function getReviewed(){
       gameComment = null;
       console.log("reviewScore = " + reviewScore);
       console.log("gameComment = " + gameComment);
+      let getLocal = JSON.parse(localStorage.getItem("myReviews"));
+      let getIndex = getLocal.findIndex((v) => v.thisId == id);
+      if (getIndex > -1) {
+        getLocal.splice(getIndex, 1);
+        localStorage.setItem("myReviews", JSON.stringify(getLocal));
+        singleTitle(id, title);
+        cardContainer.remove();
+        overlay.remove();
+      }
     });
 
     let savebtn = $("<button>");
