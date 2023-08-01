@@ -509,28 +509,27 @@ $(function () {
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer  "
+      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md "
     );
     cardContainer.css({
       "z-index": "20",
-      height: "45%",
-      'max-width': '30%',
+      width: "640px",
       margin: "0 auto",
       position: "fixed",
       top: "25%",
-      bottom: "25%",
+      // bottom: "25%",
       right: "25%",
       left: "25%",
     });
     $("body").append(cardContainer);
 
     let gameTitle = $("<h3>");
-    gameTitle.addClass("col-span-2 text-h3 font-semibold text-neu-0 mt-4 ");
+    gameTitle.addClass("col-span-2 text-h3 font-semibold text-neu-0 mt-4 h-10");
     gameTitle.text(title);
     cardContainer.append(gameTitle);
 
     let exitBtn = $("<button>");
-    exitBtn.addClass("col-start-3  ");
+    exitBtn.addClass("col-start-3  w-10 ml-auto");
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
     cardContainer.append(exitBtn);
@@ -541,10 +540,8 @@ $(function () {
       console.log("exit");
     });
 
-   
-
     let myScore = $("<p>");
-    myScore.addClass(" col-span-2 text-neu-0 mb-4 text-neu-3 text-medium ");
+    myScore.addClass(" col-span-2 text-neu-0 mb-2 text-neu-3 text-medium ");
     myScore.text("My Score: ");
     cardContainer.append(myScore);
 
@@ -559,7 +556,6 @@ $(function () {
       reviewScore = score;
     }
 
-    console.log(reviewScore);
     for (let i = 1; i <= 10; i++) {
       let button = $("<button>");
       button.text(i);
@@ -587,23 +583,43 @@ $(function () {
 
     let textarea = $("<textarea>");
     textarea.attr("placeholder", "My Notes");
-    textarea.addClass(
-      "col-span-3  bg-neu-8 text-neu-0 h-10 rounded px-3 mr-4 mt-4 w-full "
-    );
+    textarea
+      .addClass(
+        "col-span-3  bg-neu-8 text-neu-0 rounded px-3 mr-4 mt-4 w-full "
+      )
+      .css("margin-bottom", "16px");
     let gameComment;
     cardContainer.append(textarea);
     // populates the text area if i am in edit mode
     if (text) {
       textarea.text(text);
+      var totalHeight =
+        textarea.prop("scrollHeight") -
+        parseInt(textarea.css("padding-top")) -
+        parseInt(textarea.css("padding-bottom"));
+      textarea.css({ height: totalHeight });
     }
 
     textarea.on("input", function () {
       gameComment = $(this).val();
     });
 
+    // text area height will be based on its content.
+    textarea.on({
+      input: function () {
+        var totalHeight =
+          $(this).prop("scrollHeight") -
+          parseInt($(this).css("padding-top")) -
+          parseInt($(this).css("padding-bottom"));
+        $(this).css({ height: totalHeight });
+      },
+    });
+
     let deleteBtn = $("<button>");
     deleteBtn.text("Delete Review");
-    deleteBtn.addClass("px-4 py-3 h-10 text-red-600 hover:scale-[1.02] redT");
+    deleteBtn.addClass(
+      "px-4 mr-auto py-3 h-10 text-red-600 hover:scale-[1.02] redT"
+    );
     cardContainer.append(deleteBtn);
 
     deleteBtn.on("click", function () {
@@ -626,7 +642,7 @@ $(function () {
 
     let savebtn = $("<button>");
     savebtn.addClass(
-      " col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
+      "ml-auto col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
     );
     savebtn.css({
       width: "80%",
