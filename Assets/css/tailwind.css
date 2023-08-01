@@ -637,6 +637,10 @@ video {
   margin-top: 1rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .mr-auto {
   margin-right: auto;
 }
@@ -664,6 +668,15 @@ video {
 .flex {
   display: flex;
 }
+
+.justify-center{
+  justify-content: center;
+}
+
+.align-center{
+  align-content: center;
+}
+
 
 .grid {
   display: grid;
@@ -830,6 +843,10 @@ video {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.gap{
+  gap: .5rem;
 }
 
 .overflow-hidden {

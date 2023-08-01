@@ -377,7 +377,7 @@ $(function () {
     let apiP = $('<p>');
     let apiDiv = $('<div>');
     let apiImgGamer = $('<img>');
-    let apiAmper = $('<p>');
+    let apiAmper = $('<h2>');
     let apiRawg = $('<img>');
     // 
 
@@ -404,15 +404,24 @@ $(function () {
       id: "searchField",
     });
     searchBtn.text("Show me what you've got!");
+
     // my code
     apiP.text('Powered BY');
-    // apiImgGamer.attr('src', './pathway to gamer');
-    apiAmper.text('&');
-    // apiRawg.attr('src', './pathwatToRawg');
+    apiP.addClass(h4 + 'mt-8')
 
-    // need to link to images
-    // need to resize images
-    // need to set div to flex
+    apiDiv.addClass('flex justify-center align-center gap mr-8 mt-2')
+    apiImgGamer.attr('src', 'images/gamerpower.png ');
+    apiAmper.css({
+      position: 'relative',
+      top: '10px',
+      'margin': '0 5px'
+    })
+    apiAmper.text('&');
+    apiAmper.addClass(h2 )
+    apiRawg.attr('src', 'images/RAWG.png');
+
+    
+    
     // need to space elements
     // 
     greetingDiv.addClass(" text-center  m-auto");
