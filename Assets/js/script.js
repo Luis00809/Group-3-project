@@ -909,7 +909,6 @@ $(function () {
         let indexer = gameData.results[x];
         if (indexer.id == id) {
           getGameDetails(id).then(function (gameDetails) {
-            console.log(gameDetails);
             clearDom();
 
             let gameDetailsCard = $("<div>");
