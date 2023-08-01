@@ -587,6 +587,11 @@ video {
   margin-right: auto;
 }
 
+.mx-20 {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -693,6 +698,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-3\/6 {
+  width: 50%;
 }
 
 .cursor-pointer {
@@ -851,6 +860,11 @@ video {
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+}
+
+.px-20 {
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
 
 .pb-2 {

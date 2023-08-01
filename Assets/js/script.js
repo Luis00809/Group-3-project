@@ -866,7 +866,7 @@ $(function () {
           scoreOutOfText.addClass(h3 + " text-neu-3 mt-auto mb-1");
           scoreBarDiv
             .attr({ id: "scoreBarDiv" })
-            .addClass("bg-neu-7 w-full h-10 rounded-lg overflow-hidden");
+            .addClass("bg-neu-7 w-3/6 h-10 rounded-lg overflow-hidden ");
           scoreValue.addClass("bg-pri-5 w-full h-full");
 
           notesLabel.text("My Notes");
@@ -936,6 +936,7 @@ $(function () {
 
           // STYLES
           gameImgDiv.addClass("w-full mr-4 relative ");
+          gameImg.addClass("w-full");
           ratingDiv
             .addClass(" text-center bg-neu-9 absolute bottom-0 w-full")
             .css("padding", "8px 0");
