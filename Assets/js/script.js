@@ -373,13 +373,11 @@ $(function () {
     let searchField = $("<input>");
     let searchBtn = $("<button>");
 
-    // my code:
     let apiP = $('<p>');
     let apiDiv = $('<div>');
     let apiImgGamer = $('<img>');
     let apiAmper = $('<h2>');
     let apiRawg = $('<img>');
-    // 
 
     root.append(greetingDiv);
     greetingDiv.append(greeting);
@@ -387,13 +385,11 @@ $(function () {
     greetingDiv.append(searchField);
     greetingDiv.append(searchBtn);
 
-    // my code
     greetingDiv.append(apiP);
     greetingDiv.append(apiDiv);
     apiDiv.append(apiImgGamer);
     apiDiv.append(apiAmper);
     apiDiv.append(apiRawg);
-    // 
     
     greeting.text("Your next adventure awaits...");
     subGreeting.text(
@@ -405,8 +401,7 @@ $(function () {
     });
     searchBtn.text("Show me what you've got!");
 
-    // my code
-    apiP.text('Powered BY');
+    apiP.text('Powered by');
     apiP.addClass(h4 + 'mt-8')
 
     apiDiv.addClass('flex justify-center align-center gap mr-8 mt-2')
@@ -417,13 +412,9 @@ $(function () {
       'margin': '0 5px'
     })
     apiAmper.text('&');
-    apiAmper.addClass(h2 )
+    apiAmper.addClass(h2)
     apiRawg.attr('src', 'images/RAWG.png');
 
-    
-    
-    // need to space elements
-    // 
     greetingDiv.addClass(" text-center  m-auto");
     greeting.addClass(h1 + "  mb-1 ");
     subGreeting.addClass(h3 + "  mb-6");
