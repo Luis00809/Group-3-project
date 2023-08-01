@@ -848,8 +848,10 @@ $(function () {
           detailsDiv.append(descriptionText);
 
           // STYLES
-          gameImgDiv.addClass("w-full mr-4 ");
-          ratingDiv.addClass(" flex  ");
+          gameImgDiv.addClass("w-full mr-4 relative ");
+          ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
+          metacriticScore.addClass(h2);
+          metacriticLabel.addClass(h4);
           detailsDiv.addClass(" w-full ");
           topDiv.addClass(" flex").css("margin-bottom", "32px");
           platformsDiv.addClass(" flex  border-opac-neu ");
