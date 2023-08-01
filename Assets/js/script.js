@@ -3313,6 +3313,7 @@ function getReviewed(){
           let metacriticScore = $("<h2>");
           let metacriticLabel = $("<p>");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7813582 (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
 <<<<<<< HEAD
@@ -3329,7 +3330,12 @@ function getReviewed(){
           let metacriticScore = $("<h2>");
           let metacriticLabel = $("<p>");
 >>>>>>> b9ce93e (add metacritic to single page)
+<<<<<<< HEAD
 >>>>>>> ddb13ca (add metacritic to single page)
+=======
+=======
+>>>>>>> ee983db (pulls down main)
+>>>>>>> 6f0d71d (pulls down main)
           let detailsDiv = $("<div>");
           let topDiv = $("<div>");
           let platformsDiv = $("<div>");
