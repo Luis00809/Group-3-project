@@ -442,6 +442,39 @@ $(function () {
     searchBtn.on("click", getSearchResults);
   }
 
+  async function getGame(gameName) {
+    let fetchGame =
+      "https://api.rawg.io/api/games?search=" +
+      gameName +
+      "&search_exact=true&page_size=5000&ordering=released&key=decffd508da34a34bc289acf081e71c0"
+
+      if (!gameName) {
+        emptyStateSearch()
+        return;
+      }
+  
+    const response = await fetch(fetchGame);
+    const data = await response.json();
+    return data;
+  }
+  
+  function freeGames(getFreeGame) {
+    const settings = {
+      async: true,
+      crossDomain: true,
+      url: "https://gamerpower.p.rapidapi.com/api/giveaways",
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "ec68b97893mshf85a5138dcd165ep1180d5jsnc5fcd51d8dc9",
+        "X-RapidAPI-Host": "gamerpower.p.rapidapi.com",
+      },
+    };
+  
+    return $.ajax(settings).done(function (response) {
+      return response;
+    });
+  }  
+
   //renders Stuff I've Reviewed Page when nav link is clicked
   function getReviewed() {
     clearDom();
@@ -494,6 +527,7 @@ $(function () {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (!myReviews) {
       emptyStateReview();
       console.log("please add a review");
@@ -507,6 +541,12 @@ $(function () {
 >>>>>>> 7ac952f (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
 =======
 >>>>>>> 971a0cd (updates review local storage function to allow new reviews to overwrite a review for a game that already exists in the storage)
+=======
+    if (!myReviews) {
+      emptyStateReview();
+    }
+
+>>>>>>> c68a832 (added empty search state for when user enters nothing or a game that isn't in the database)
     myReviews.reverse();
 >>>>>>> abf1bb3 (adds my review logic when a page renders that has a review in the past)
 
@@ -611,8 +651,6 @@ function getReviewed(){
 
     if (!history) {
       emptyStateHistory();
-      console.log("please search something");
-      return;
     }
 
     history.reverse();
@@ -1024,6 +1062,12 @@ function getReviewed(){
   // prints search results on page
   function getSearchResults() {
     getGame($("#searchField").val()).then(function (gameData) {
+
+      if (gameData.results.length == 0) {
+        emptyStateSearch()
+        return;
+      }
+
       // gets Promise from getGame() and loads page when fullfilled.
       clearDom();
       getSearchBar();
@@ -1229,6 +1273,27 @@ function getReviewed(){
         }
       });
     });
+  }
+
+  function emptyStateSearch() {
+    clearDom();
+    getSearchBar();
+    let messageDiv = $("<div>");
+    let message = $("<h2>");
+    let subMessage = $("<h4>");
+  
+    root.append(messageDiv);
+    messageDiv.append(message);
+    messageDiv.append(subMessage);
+  
+    messageDiv.addClass(" text-center  mt-4 ");
+    message.addClass(h2 + "  mb-1 ");
+    subMessage.addClass(h4);
+  
+    message.text("It looks like the game you're searching for is not in our database.");
+    subMessage.text(
+      "Please search for another game or make sure your spelling is correct."
+    );
   }
 
   // renders message when reviews page has no data saved to local storage
