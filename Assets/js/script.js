@@ -180,6 +180,7 @@ $(function () {
     let id = $(this).children("#id").text();
     let title = $(this).children().eq(2).text();
     saveToLocalStorage(id, title);
+    singleTitle(id, title);
     console.log(title);
   });
 
@@ -441,7 +442,8 @@ $(function () {
         $.each(gameData, function (i) {
           let x = gameData[i];
 
-          if(x.id == indexer.thisId){
+
+          if (x.id == indexer.thisId) {
             getCard(
               x.id,
               x.thumbnail,
@@ -451,10 +453,10 @@ $(function () {
               x.worth,
               true,
               x.end_date
-              )
-            }
-        })
-      })
+            );
+          }
+        });
+      });
     });
   }
 
@@ -493,7 +495,7 @@ $(function () {
     });
   }
 
-  function displayModal(id, title) {
+  function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
       " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md cursor-pointer "
@@ -513,7 +515,7 @@ $(function () {
 
     let gameTitle = $("<h3>");
     gameTitle.addClass("col-span-1 text-h3 font-semibold text-neu-0 mt-4 ");
-    gameTitle.text("Game Name");
+    gameTitle.text(title);
     cardContainer.append(gameTitle);
 
     let exitBtn = $("<button>");
@@ -543,6 +545,13 @@ $(function () {
 
     let buttons = [];
     let reviewScore;
+
+    // if a score is passed in it will set the default score in the modal
+    if (score) {
+      reviewScore = score;
+    }
+
+    console.log(reviewScore);
     for (let i = 1; i <= 10; i++) {
       let button = $("<button>");
       button.text(i);
@@ -560,6 +569,11 @@ $(function () {
         }
       });
       buttonContainer.append(button);
+
+      // sets background color of score level on load if i am in edit mode
+      if (i == score) {
+        button.addClass("bg-pri-5");
+      }
     }
     cardContainer.append(buttonContainer);
 
@@ -570,6 +584,10 @@ $(function () {
     );
     let gameComment;
     cardContainer.append(textarea);
+    // populates the text area if i am in edit mode
+    if (text) {
+      textarea.text(text);
+    }
 
     textarea.on("input", function () {
       gameComment = $(this).val();
@@ -700,14 +718,14 @@ $(function () {
 
   // call this function in the single title page and pass in the id
   function isGameReviewed(paramId) {
-    clearDom(); // remove this when added to single title screen
+    // clearDom(); // remove this when added to single title screen
     let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
     $.each(myReviews, function (i) {
       let x = myReviews[i];
 
       if (x.thisId == paramId) {
-        printReview(x.thisTitle, "Jul 28, 2023", x.thisComment, x.thisScore);
+        printReview(x.thisTitle, x.thisDate, x.thisComment, x.thisScore);
 
         function printReview(title, date, notes, score) {
           // elements to be rendered
@@ -782,6 +800,10 @@ $(function () {
           let barWidth = $("#scoreBarDiv").width(); // gets the width of the bar which changes at different view ports
           let scoreBarValue = barWidth - (barWidth / 10) * inputScore; // calculates what the right padding should be
           scoreBarDiv.css("padding-right", scoreBarValue + "px"); // sets the right padding the offsets the bar to communicate the score
+
+          editBtn.on("click", function () {
+            displayModal(paramId, x.thisTitle, x.thisComment, x.thisScore);
+          });
         }
       }
     });
@@ -790,4 +812,110 @@ $(function () {
   landingPage(); // renders the landing page on load
   // isGameReviewed(24182); // Test prints the my review seciton
   // displayModal("27969", "The Legend of Zelda: Ocarina of Time 3D");
+
+  function singleTitle(id, title) {
+    getGame(title).then(function (gameData) {
+      $.each(gameData.results, function (x) {
+        let indexer = gameData.results[x];
+        if (indexer.id == id) {
+          clearDom();
+
+          let gameDetailsCard = $("<div>");
+          let gameImgDiv = $("<div>");
+          let gameImg = $("<img>");
+          let ratingDiv = $("<div>");
+          let metacriticScore = $("<h2>");
+          let metacriticLabel = $("<p>");
+          let detailsDiv = $("<div>");
+          let topDiv = $("<div>");
+          let platformsDiv = $("<div>");
+          let submitReviewBtn = $("<button>");
+          let gameTitleText = $("<h1>");
+          let developerText = $("<p>");
+          let descriptionLabel = $("<h3>");
+          let descriptionText = $("<p>");
+
+          root.append(gameDetailsCard);
+          gameDetailsCard.addClass(
+            " p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md flex "
+          );
+
+          // RENDERS
+          gameDetailsCard.append(gameImgDiv);
+          gameImgDiv.append(gameImg);
+          gameImgDiv.append(ratingDiv);
+          ratingDiv.append(metacriticScore, metacriticLabel);
+          gameDetailsCard.append(detailsDiv);
+          detailsDiv.append(topDiv);
+          topDiv.append(platformsDiv);
+          // topDiv.append(submitReviewBtn);
+          detailsDiv.append(gameTitleText);
+          detailsDiv.append(developerText);
+          detailsDiv.append(descriptionLabel);
+          detailsDiv.append(descriptionText);
+
+          // STYLES
+          gameImgDiv.addClass("w-full mr-4 relative ");
+          ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
+          metacriticScore.addClass(h2);
+          metacriticLabel.addClass(h4);
+          detailsDiv.addClass(" w-full ");
+          topDiv.addClass(" flex").css("margin-bottom", "32px");
+          platformsDiv.addClass(" flex  border-opac-neu ");
+          platformsDiv.css("border-bottom", "solid 1px ");
+          gameTitleText.addClass(h1 + " mb-1 ");
+          developerText
+            .addClass(lgTxt + " text-neu-3 mb-5")
+            .css("margin-bottom", "32px");
+          descriptionLabel.addClass(h3 + " mb-2 ");
+          descriptionText.addClass(mdTxt);
+
+          // DATA INPUT
+          // prints the list of platforms the game is available on
+
+          gameImg.attr({ src: indexer.background_image });
+          let thisScore = indexer.metacritic;
+
+          // conditional for altScr text
+          if (!thisScore || thisScore == "N/A") {
+            thisScore = "N/A";
+          } else {
+            thisScore = thisScore + "/100";
+          }
+          metacriticScore.text(thisScore);
+          metacriticLabel.text("Metacritic Score");
+          gameTitleText.text(title);
+          developerText.text("Developer: ");
+          descriptionLabel.text("Game Description");
+          descriptionText.text("Lorem Ipsum");
+
+          for (let p = 0; p < indexer.platforms.length; p++) {
+            let platformItem = $("<p>");
+            platformsDiv.append(platformItem);
+            platformsDiv.addClass("pb-2");
+            platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
+            platformItem.css("padding", "4px 12px");
+            platformItem.text(indexer.platforms[p].platform.name);
+            if (p > 0) {
+              platformItem.css("border-left", "solid 1px");
+            }
+          }
+
+          // if this game has a review it will print it below the deteails card.
+          let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+          if (myReviews.filter((e) => e.thisId == id).length > 0) {
+            isGameReviewed(id);
+          } else {
+            topDiv.append(submitReviewBtn);
+            submitReviewBtn.addClass(btn + " ml-auto");
+            submitReviewBtn.text("Submit a Review");
+            submitReviewBtn.on("click", function () {
+              displayModal(id, title);
+            });
+          }
+        }
+      });
+    });
+  }
 });
