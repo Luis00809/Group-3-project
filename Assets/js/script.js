@@ -125,7 +125,7 @@ $(function () {
     ratingDiv.append(rating);
 
     // sets styles for card
-    newCard.addClass(card);
+    newCard.addClass(card + " max-w-[332px]");
     img.addClass("w-full  h-52 object-cover");
     title.addClass(h3 + " mt-4");
     release.addClass(smTxt + " mb-6  text-neu-3");

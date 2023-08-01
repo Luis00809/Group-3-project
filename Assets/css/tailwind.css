@@ -704,6 +704,10 @@ video {
   width: 50%;
 }
 
+.max-w-\[332px\] {
+  max-width: 332px;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
