@@ -326,12 +326,24 @@ $(function () {
     let searchField = $("<input>");
     let searchBtn = $("<button>");
 
+    let apiP = $('<p>');
+    let apiDiv = $('<div>');
+    let apiImgGamer = $('<img>');
+    let apiAmper = $('<h2>');
+    let apiRawg = $('<img>');
+
     root.append(greetingDiv);
     greetingDiv.append(greeting);
     greetingDiv.append(subGreeting);
     greetingDiv.append(searchField);
     greetingDiv.append(searchBtn);
 
+    greetingDiv.append(apiP);
+    greetingDiv.append(apiDiv);
+    apiDiv.append(apiImgGamer);
+    apiDiv.append(apiAmper);
+    apiDiv.append(apiRawg);
+    
     greeting.text("Your next adventure awaits...");
     subGreeting.text(
       "Search from 1000s of games by title or genre to compare reviews and prices"
@@ -341,6 +353,20 @@ $(function () {
       id: "searchField",
     });
     searchBtn.text("Show me what you've got!");
+
+    apiP.text('Powered by');
+    apiP.addClass(h4 + 'mt-8')
+
+    apiDiv.addClass('flex justify-center align-center gap mr-8 mt-2')
+    apiImgGamer.attr('src', 'images/gamerpower.png ');
+    apiAmper.css({
+      position: 'relative',
+      top: '10px',
+      'margin': '0 5px'
+    })
+    apiAmper.text('&');
+    apiAmper.addClass(h2)
+    apiRawg.attr('src', 'images/RAWG.png');
 
     greetingDiv.addClass(" text-center  m-auto");
     greeting.addClass(h1 + "  mb-1 ");
