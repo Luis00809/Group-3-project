@@ -529,7 +529,7 @@ $(function () {
     cardContainer.append(gameTitle);
 
     let exitBtn = $("<button>");
-    exitBtn.addClass("col-start-3  w-10 ml-auto");
+    exitBtn.addClass("col-start-3  w-10 ml-auto hover:text-neu-3 ");
     exitBtn.attr("id", "exitBtn");
     exitBtn.text("\u00D7");
     cardContainer.append(exitBtn);
@@ -559,7 +559,7 @@ $(function () {
       let button = $("<button>");
       button.text(i);
       button.addClass(
-        "bg-neu-8 rounded ratingBtnClass h-10 cursor-pointer hover:bg-pri-9 active:bg-opac-pri active:outline-pri-5 active:outline active:outline-2 w-full"
+        "bg-neu-8 rounded ratingBtnClass h-10 cursor-pointer hover:bg-opac-pri active:bg-opac-pri active:outline-pri-5 active:outline active:outline-2 w-full"
       );
 
       if (i > 1) {
@@ -620,7 +620,7 @@ $(function () {
     let deleteBtn = $("<button>");
     deleteBtn.text("Delete Review");
     deleteBtn.addClass(
-      "px-4 mr-auto py-3 h-10 text-red-600 hover:scale-[1.02] redT"
+      "px-4 mr-auto py-3 h-10 text-dan-5 hover:scale-[1.02] hover:text-dan-9 redT"
     );
     cardContainer.append(deleteBtn);
 
