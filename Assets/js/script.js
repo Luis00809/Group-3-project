@@ -289,6 +289,12 @@ $(function () {
         score: "6",
         comment: "Test",
       },
+      {
+        id: "56092",
+        title: "The Legend of Zelda: The Wind Waker",
+        score: "7",
+        comment: "This is the most recent wind waker review",
+      },
     ];
 
     $.each(temp, function (i) {
@@ -435,6 +441,7 @@ $(function () {
       freeGames().then(function (gameData) {
         $.each(gameData, function (i) {
           let x = gameData[i];
+
 
           if (x.id == indexer.thisId) {
             getCard(
