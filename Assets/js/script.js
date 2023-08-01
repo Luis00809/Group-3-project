@@ -3383,17 +3383,24 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> c98449c (add metacritic to single page)
+<<<<<<< HEAD
 >>>>>>> d1fbcae (add metacritic to single page)
+=======
+=======
+>>>>>>> c6367f6 (fixes metacritic score)
+>>>>>>> f4b9367 (fixes metacritic score)
           gameImgDiv.addClass("w-full mr-4 relative ");
           ratingDiv.addClass(" text-center bg-neu-9 absolute bottom-0 w-full");
           metacriticScore.addClass(h2);
           metacriticLabel.addClass(h4);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -3412,6 +3419,8 @@ function getReviewed(){
           gameImgDiv.addClass("w-full mr-4 ");
           ratingDiv.addClass(" flex  ");
 >>>>>>> 07f06a3 (builds the single title page and links up all of the logic)
+=======
+>>>>>>> c6367f6 (fixes metacritic score)
           detailsDiv.addClass(" w-full ");
           topDiv.addClass(" flex").css("margin-bottom", "32px");
           platformsDiv.addClass(" flex  border-opac-neu ");
