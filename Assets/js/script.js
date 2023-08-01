@@ -649,14 +649,35 @@ $(function () {
     });
     savebtn.text("Save");
     cardContainer.append(savebtn);
+
     savebtn.on("click", function () {
-      if (!gameComment) {
-        textarea.addClass("placeHolderColor");
-        textarea.attr(
-          "placeholder",
-          "Plese leave a review and select a button in order to save!"
+      if (!gameComment && !reviewScore) {
+        let warningText = $("<p>");
+        cardContainer.append(warningText);
+        warningText.addClass(
+          "text-war-5 w-full px-4 py-3 bg-opac-war rounded col-span-3 mt-4"
         );
+        warningText.text(
+          "Select a review score and enter a comment to continue"
+        );
+        textarea.addClass(" outline outline-war-5 outline-1");
+        myScore.addClass("text-war-5");
+      } else if (!gameComment) {
+        let warningText = $("<p>");
+        cardContainer.append(warningText);
+        warningText.addClass(
+          "text-war-5 w-full px-4 py-3 bg-opac-war rounded col-span-3 mt-4"
+        );
+        warningText.text("Enter a comment to continue");
+        textarea.addClass(" outline outline-war-5 outline-1");
       } else if (!reviewScore) {
+        let warningText = $("<p>");
+        cardContainer.append(warningText);
+        warningText.addClass(
+          "text-war-5 w-full px-4 py-3 bg-opac-war rounded col-span-3 mt-4"
+        );
+        warningText.text("Select a review score to continue");
+        myScore.addClass("text-war-5");
       } else {
         saveReviewToLocal(id, title, reviewScore, gameComment);
         singleTitle(id, title);
