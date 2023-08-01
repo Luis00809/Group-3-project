@@ -1275,10 +1275,15 @@ function getReviewed(){
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 765569b (fixes truncate)
 =======
 >>>>>>> d92b183 (fixed search history page to show free games)
+=======
+=======
+>>>>>>> 765569b (fixes truncate)
+>>>>>>> ac8ad8b (fixes truncate)
           if (x.id == indexer.thisId) {
 =======
           if(x.id == indexer.thisId){
@@ -3362,6 +3367,11 @@ function getReviewed(){
             platformItem.text(indexer.platforms[p].platform.name);
             if (p > 0) {
               platformItem.css("border-left", "solid 1px");
+            }
+
+            if (p == 3) {
+              platformItem.text("+" + (indexer.platforms.length - 3));
+              return;
             }
           }
 
