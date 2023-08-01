@@ -373,6 +373,7 @@ $(function () {
 
     if (!myReviews) {
       emptyStateReview();
+      myReviews = [];
     }
 
     myReviews.reverse();
@@ -636,9 +637,8 @@ $(function () {
       } else if (!reviewScore) {
         console.log("select a button");
       } else {
-        saveReviewToLocal(id, title, reviewScore, gameComment); ///  ITS RIGHT HHHHHERE
-        console.log("saved");
-        console.log("review comment: " + gameComment);
+        saveReviewToLocal(id, title, reviewScore, gameComment);
+        singleTitle(id, title);
         cardContainer.remove();
         overlay.remove();
       }
@@ -949,6 +949,10 @@ $(function () {
 
           // if this game has a review it will print it below the deteails card.
           let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+          if (!myReviews) {
+            myReviews = [];
+          }
 
           if (myReviews.filter((e) => e.thisId == id).length > 0) {
             isGameReviewed(id);
