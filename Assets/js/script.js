@@ -442,7 +442,6 @@ $(function () {
         $.each(gameData, function (i) {
           let x = gameData[i];
 
-
           if (x.id == indexer.thisId) {
             getCard(
               x.id,
@@ -898,6 +897,11 @@ $(function () {
             platformItem.text(indexer.platforms[p].platform.name);
             if (p > 0) {
               platformItem.css("border-left", "solid 1px");
+            }
+
+            if (p == 3) {
+              platformItem.text("+" + (indexer.platforms.length - 3));
+              return;
             }
           }
 
