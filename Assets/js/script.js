@@ -1061,6 +1061,7 @@ $(function () {
 =======
     if (!myReviews) {
       emptyStateReview();
+      myReviews = [];
     }
 
 >>>>>>> c68a832 (added empty search state for when user enters nothing or a game that isn't in the database)
@@ -2993,6 +2994,7 @@ function getReviewed(){
             myReviews = [];
           }
 
+<<<<<<< HEAD
           if (myReviews.filter((e) => e.thisId == id).length > 0) {
             isGameReviewed(id);
           } else {
@@ -3600,6 +3602,8 @@ function getReviewed(){
           // if this game has a review it will print it below the deteails card.
           let myReviews = JSON.parse(localStorage.getItem("myReviews"));
 
+=======
+>>>>>>> df8cada (adds rerender page after a review is submitted)
           if (myReviews.filter((e) => e.thisId == id).length > 0) {
             isGameReviewed(id);
           } else {
