@@ -547,6 +547,7 @@ $(function () {
 =======
     if (!myReviews) {
       emptyStateReview();
+      myReviews = [];
     }
 
 >>>>>>> c68a832 (added empty search state for when user enters nothing or a game that isn't in the database)
@@ -1048,9 +1049,8 @@ function getReviewed(){
       } else if (!reviewScore) {
         console.log("select a button");
       } else {
-        saveReviewToLocal(id, title, reviewScore, gameComment); ///  ITS RIGHT HHHHHERE
-        console.log("saved");
-        console.log("review comment: " + gameComment);
+        saveReviewToLocal(id, title, reviewScore, gameComment);
+        singleTitle(id, title);
         cardContainer.remove();
         overlay.remove();
       }
@@ -1611,6 +1611,10 @@ function getReviewed(){
 
           // if this game has a review it will print it below the deteails card.
           let myReviews = JSON.parse(localStorage.getItem("myReviews"));
+
+          if (!myReviews) {
+            myReviews = [];
+          }
 
           if (myReviews.filter((e) => e.thisId == id).length > 0) {
             isGameReviewed(id);
