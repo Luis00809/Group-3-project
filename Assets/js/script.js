@@ -1466,19 +1466,22 @@ function getReviewed(){
           descriptionText.text("Lorem Ipsum");
 
           for (let p = 0; p < indexer.platforms.length; p++) {
-            let platformItem = $("<p>");
-            platformsDiv.append(platformItem);
-            platformsDiv.addClass("pb-2");
-            platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
-            platformItem.css("padding", "4px 12px");
-            platformItem.text(indexer.platforms[p].platform.name);
-            if (p > 0) {
-              platformItem.css("border-left", "solid 1px");
-            }
+            if (p < 4) {
+              let platformItem = $("<p>");
+              platformsDiv.append(platformItem);
+              platformsDiv.addClass("pb-2");
+              platformItem.addClass(mdTxt + " px-3 py-1 border-opac-neu");
+              platformItem.css("padding", "4px 12px");
 
-            if (p == 3) {
-              platformItem.text("+" + (indexer.platforms.length - 3));
-              return;
+              if (p > 0 && p < 4) {
+                platformItem.css("border-left", "solid 1px");
+              }
+
+              if (p == 3) {
+                platformItem.text("+" + (indexer.platforms.length - 3));
+              } else {
+                platformItem.text(indexer.platforms[p].platform.name);
+              }
             }
           }
 
