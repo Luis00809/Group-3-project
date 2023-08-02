@@ -13,7 +13,7 @@ const input =
 const grid = " grid  grid-cols-auto  gap-4 ";
 const card =
   " card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
-
+let steamUrl;
 // CORE APP
 $(function () {
   let nav = $("nav");
@@ -89,7 +89,9 @@ $(function () {
     altLabel,
     altSrc,
     timeBool,
-    timeSrc
+    timeSrc,
+    steamBool,
+    steamUrl
   ) {
     // imgSrc = data point for game thumbnail
     // titleSrc = data point for game title
@@ -108,6 +110,7 @@ $(function () {
     let rating = $("<h2>");
     let idConst = $("<p>" + id + "</p>");
 
+   
     // renders card on .grid
     $(".grid").append(newCard);
 
@@ -164,6 +167,13 @@ $(function () {
       } else {
         timeLeft.text(formatDate(timeSrc));
       }
+
+      if(steamBool){
+        newCard.on('click', function(){
+          window.open(steamUrl, '_blank');
+        })
+      }
+      
     }
 
     // data from returned results goes here
@@ -173,6 +183,7 @@ $(function () {
     ratingLabel.text(altLabel);
     rating.text(altSrc);
   }
+  
 
   // listener for cards - temporily prints game title in console - will eventually render that games info page.
   root.on("click", ".card", function () {
@@ -449,25 +460,6 @@ $(function () {
           }
         });
       });
-
-      freeGames().then(function (gameData) {
-        $.each(gameData, function (i) {
-          let x = gameData[i];
-
-          if (x.id == indexer.thisId) {
-            getCard(
-              x.id,
-              x.thumbnail,
-              x.title,
-              formatDate(x.published_date),
-              "Value",
-              x.worth,
-              true,
-              x.end_date
-            );
-          }
-        });
-      });
     });
   }
 
@@ -492,6 +484,7 @@ $(function () {
 
       $.each(gameData, function (i) {
         let indexer = gameData[i];
+        
         getCard(
           indexer.id,
           indexer.thumbnail,
@@ -500,7 +493,9 @@ $(function () {
           "Value",
           indexer.worth,
           true,
-          indexer.end_date
+          indexer.end_date,
+          true,
+          indexer.open_giveaway_url
         );
       });
     });
@@ -1135,3 +1130,6 @@ $(function () {
     });
   }
 });
+
+
+   
