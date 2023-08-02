@@ -45,4 +45,6 @@ N/A
 
 Deployed live application https://luis00809.github.io/Group-3-project/
 
+
 ![Screenshot of website](<images/Screenshot 2023-08-01 191417.png>)
+
