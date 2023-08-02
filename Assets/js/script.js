@@ -71,6 +71,12 @@ $(function () {
       id: "searchField",
     });
     searchBtn.on("click", getSearchResults);
+
+    searchField.keypress(function (event) {
+      if (event.which == 13) {
+        searchBtn.click();
+      }
+    });
   }
 
   // renders card grid when called to house cards
@@ -331,6 +337,11 @@ $(function () {
     searchBtn.addClass(btn + "  block  mt-4  mx-auto");
 
     searchBtn.on("click", getSearchResults);
+    searchField.keypress(function (event) {
+      if (event.which == 13) {
+        getSearchResults();
+      }
+    });
   }
 
   // fetch for RAWG API
@@ -506,7 +517,7 @@ $(function () {
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md "
+      " cardContainer grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md "
     );
     cardContainer.css({
       "z-index": "20",
@@ -692,6 +703,14 @@ $(function () {
     overlay.addClass("fixed top-0 left-0 w-full h-full z-10 ");
     overlay.css("background", "rgba(0, 0, 0, 0.6)");
     $("body").append(overlay);
+
+    overlay.click(function () {
+      if (!$(this.target).is(".cardContainer")) {
+        console.log("test");
+        cardContainer.remove();
+        overlay.remove();
+      }
+    });
   }
 
   // prints search results on page
@@ -911,6 +930,7 @@ $(function () {
         if (indexer.id == id) {
           getGameDetails(id).then(function (gameDetails) {
             clearDom();
+            getSearchBar();
 
             let gameDetailsCard = $("<div>");
             let gameImgDiv = $("<div>");
