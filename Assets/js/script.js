@@ -706,7 +706,6 @@ $(function () {
 
     overlay.click(function () {
       if (!$(this.target).is(".cardContainer")) {
-        console.log("test");
         cardContainer.remove();
         overlay.remove();
       }
