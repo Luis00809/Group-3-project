@@ -909,6 +909,7 @@ $(function () {
         let indexer = gameData.results[x];
         if (indexer.id == id) {
           getGameDetails(id).then(function (gameDetails) {
+            console.log(gameDetails);
             clearDom();
 
             let gameDetailsCard = $("<div>");
@@ -970,7 +971,7 @@ $(function () {
               .css("margin-bottom", "32px");
             descriptionLabel.addClass(h3 + " mb-2 ");
             descriptionText.addClass(mdTxt);
-            tagsDiv.addClass(" flex mt-4 ");
+            tagsDiv.addClass(" flex mt-4 w-full flex-wrap");
 
             // DATA INPUT
             // prints the list of platforms the game is available on
@@ -1040,29 +1041,78 @@ $(function () {
             }
 
             let tags = gameDetails.tags;
-            for (let t = 0; t < 5; t++) {
-              if (tags.length > 5) {
-                let tag = $("<p>");
-                tagsDiv.append(tag);
-                tag.addClass(" bg-sec-5  rounded text-sec-1 px-2 py-0.5 ");
-                if (t == 4) {
-                  tag.text("+ " + (tags.length - 4));
+
+            function shortTags() {
+              for (let t = 0; t < tags.length; t++) {
+                if (tags.length > 4) {
+                  if (t < 3) {
+                    let tag = $("<p>");
+                    tagsDiv.append(tag);
+                    tag.addClass(
+                      " bg-sec-5  rounded text-sec-1 px-2 py-0.5 max-w-[176px] truncate"
+                    );
+                    tag.text(tags[t].name);
+                    if (t > 0) {
+                      tag.addClass("ml-1");
+                    }
+                  } else if (t == 3) {
+                    let tag = $("<p>");
+                    tagsDiv.append(tag);
+                    tag.addClass(
+                      " bg-sec-5  rounded text-sec-1 px-2 py-0.5 ml-1 "
+                    );
+                    tag.text("+ " + (tags.length - 3));
+
+                    let showBtn = $("<h4>");
+                    tagsDiv.append(showBtn);
+                    showBtn.addClass(
+                      h4 + " ml-4 my-1.5 cursor-pointer hover:text-sec-5"
+                    );
+                    showBtn.text("View All Tags");
+                    showBtn.on("click", function () {
+                      tagsDiv.text("");
+                      longTags();
+                    });
+                  }
                 } else {
+                  let tag = $("<p>");
+                  tagsDiv.append(tag);
+                  tag.addClass(
+                    " bg-sec-5  rounded text-sec-1 px-2 py-0.5 max-w-[176px] truncate"
+                  );
                   tag.text(tags[t].name);
+                  if (t > 0) {
+                    tag.addClass("ml-1");
+                  }
                 }
-                if (t > 0) {
-                  tag.addClass("ml-1");
-                }
-              } else {
+              }
+            }
+
+            function longTags() {
+              for (let t = 0; t < tags.length; t++) {
                 let tag = $("<p>");
                 tagsDiv.append(tag);
-                tag.addClass(" bg-sec-5  rounded text-sec-1 px-2 py-0.5 ");
+                tag.addClass(
+                  " bg-sec-5  rounded text-sec-1 px-2 py-0.5 max-w-[176px] truncate mb-1"
+                );
                 tag.text(tags[t].name);
                 if (t > 0) {
                   tag.addClass("ml-1");
                 }
               }
+              let hideBtn = $("<h4>");
+              tagsDiv.append(hideBtn);
+              hideBtn.addClass(
+                h4 + " ml-4 my-1.5 cursor-pointer hover:text-sec-5"
+              );
+              hideBtn.text("Show Less Tags");
+              hideBtn.on("click", function () {
+                tagsDiv.text("");
+                shortTags();
+              });
             }
+
+            shortTags();
 
             // if this game has a review it will print it below the deteails card.
             let myReviews = JSON.parse(localStorage.getItem("myReviews"));
