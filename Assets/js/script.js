@@ -45,10 +45,10 @@ $(function () {
   // clears dom before re rendering
   function clearDom() {
     root.text("");
-    root.css({ backgroundImage: "none", height: "calc(100vh + 56px)" });
+    root.css({ backgroundImage: "none", height: "100%" });
     root.removeClass(" flex");
     root.addClass(
-      "  mt-14  block  bg-cover  bg-no-repeat  p-8  bg-neu-9  bg-none "
+      "    block  bg-cover h-full  bg-no-repeat p-8  bg-neu-9  bg-none "
     );
   }
 
@@ -279,6 +279,7 @@ $(function () {
     root.css({
       backgroundImage:
         "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images8.alphacoders.com/954/thumb-1920-954028.jpg)",
+      height: "calc(100vh - 56px)",
     });
     root.addClass(" flex");
 
@@ -813,7 +814,7 @@ $(function () {
     subMessage.addClass(h4);
 
     message.text("You haven't searched anything yet?");
-    subMessage.text("Games you search for will hang out here on this page.");
+    subMessage.text("Games you save for will hang out here on this page.");
   }
 
   // call this function in the single title page and pass in the id
@@ -846,7 +847,7 @@ $(function () {
           let scoreValue = $("<div>");
 
           root.append(reviewCard);
-          reviewCard.addClass("p-4 bg-neu-8 rounded-lg mt-4");
+          reviewCard.addClass("p-4 bg-neu-8 rounded-lg mt-4 ");
 
           // HEADER DIV SECTION
           reviewCard.append(headerDiv);

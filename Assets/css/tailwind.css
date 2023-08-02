@@ -546,6 +546,10 @@ video {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .bottom-0 {
   bottom: 0px;
 }
@@ -712,6 +716,10 @@ video {
   height: 420px;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
 .max-h-\[420px\] {
   max-height: 420px;
 }
@@ -874,6 +882,10 @@ video {
 
 .bg-cover {
   background-size: cover;
+}
+
+.bg-scroll {
+  background-attachment: scroll;
 }
 
 .bg-no-repeat {
