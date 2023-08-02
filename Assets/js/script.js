@@ -951,8 +951,8 @@ $(function () {
             detailsDiv.append(tagsDiv);
 
             // STYLES
-            gameImgDiv.addClass("w-full mr-4 relative ");
-            gameImg.addClass("w-full");
+            gameImgDiv.addClass("w-full mr-4 relative max-h-[420px] ");
+            gameImg.addClass("w-full h-full object-cover ");
             ratingDiv
               .addClass(" text-center bg-neu-9 absolute bottom-0 w-full")
               .css("padding", "8px 0");
