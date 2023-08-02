@@ -10,10 +10,10 @@ const btn =
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
 const input =
   " bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 outline-none outline-offset-[-2px] focus:outline-pri-5 ";
-const grid = " grid  grid-cols-auto  gap-4 ";
+const grid = " wrapDiv flex flex-wrap gap-4";
 const card =
-  " card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
-let steamUrl;
+  " card p-4 text-neu-0  bg-neu-8 w-[340px] rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
+
 // CORE APP
 $(function () {
   let nav = $("nav");
@@ -45,10 +45,10 @@ $(function () {
   // clears dom before re rendering
   function clearDom() {
     root.text("");
-    root.css({ backgroundImage: "none", height: "calc(100vh + 56px)" });
+    root.css({ backgroundImage: "none", height: "100%" });
     root.removeClass(" flex");
     root.addClass(
-      "  mt-14  block  bg-cover  bg-no-repeat  p-8  bg-neu-9  bg-none "
+      "    block  bg-cover h-full  bg-no-repeat p-8  bg-neu-9  bg-none "
     );
   }
 
@@ -71,6 +71,12 @@ $(function () {
       id: "searchField",
     });
     searchBtn.on("click", getSearchResults);
+
+    searchField.keypress(function (event) {
+      if (event.which == 13) {
+        searchBtn.click();
+      }
+    });
   }
 
   // renders card grid when called to house cards
@@ -100,6 +106,8 @@ $(function () {
     // altSrc = value or game rating data point.
     // timeBool = (boolean) used for free games to add another line item for givaway end date
     // timeSrc = value of the end date.
+    // steamBool = (boolean) triggers the card click state to launch steamURL
+    // steamUrl = url from the gamerpower API passed in
     let newCard = $("<div>");
     let img = $("<img>");
     let title = $("<h3>");
@@ -110,9 +118,8 @@ $(function () {
     let rating = $("<h2>");
     let idConst = $("<p>" + id + "</p>");
 
-   
     // renders card on .grid
-    $(".grid").append(newCard);
+    $(".wrapDiv").append(newCard);
 
     // holds the id collected from the api for storage
     newCard.append(idConst);
@@ -145,6 +152,7 @@ $(function () {
       rating.addClass(" text-neu-5 ");
     }
 
+    // conditional for free game card to add the date the giveaway ends
     if (timeBool) {
       let timeDiv = $("<div>");
       let timeLabel = $("<p>");
@@ -168,12 +176,11 @@ $(function () {
         timeLeft.text(formatDate(timeSrc));
       }
 
-      if(steamBool){
-        newCard.on('click', function(){
-          window.open(steamUrl, '_blank');
-        })
+      if (steamBool) {
+        newCard.on("click", function () {
+          window.open(steamUrl, "_blank");
+        });
       }
-      
     }
 
     // data from returned results goes here
@@ -183,7 +190,6 @@ $(function () {
     ratingLabel.text(altLabel);
     rating.text(altSrc);
   }
-  
 
   // listener for cards - temporily prints game title in console - will eventually render that games info page.
   root.on("click", ".card", function () {
@@ -212,15 +218,13 @@ $(function () {
       existingViewedGames = [];
     }
 
-    // if an id of a clicked card already exists in localStorage this will move that id to be beginning of the array
+    // if an id of a saved game already exists in localStorage this will move that id to be beginning of the array
     if (
       JSON.stringify(existingViewedGames).includes(JSON.stringify(thisGame))
     ) {
       existingViewedGames.push(
         existingViewedGames.splice(
-          existingViewedGames.findIndex(
-            (v) => v == JSON.stringify(thisGame)
-          ) /* + 1 */,
+          existingViewedGames.findIndex((v) => v == JSON.stringify(thisGame)),
           1
         )[0]
       );
@@ -275,6 +279,7 @@ $(function () {
     root.css({
       backgroundImage:
         "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(https://images8.alphacoders.com/954/thumb-1920-954028.jpg)",
+      height: "calc(100vh - 56px)",
     });
     root.addClass(" flex");
 
@@ -333,8 +338,14 @@ $(function () {
     searchBtn.addClass(btn + "  block  mt-4  mx-auto");
 
     searchBtn.on("click", getSearchResults);
+    searchField.keypress(function (event) {
+      if (event.which == 13) {
+        getSearchResults();
+      }
+    });
   }
 
+  // fetch for RAWG API
   async function getGame(gameName) {
     let fetchGame =
       "https://api.rawg.io/api/games?search=" +
@@ -351,7 +362,8 @@ $(function () {
     return data;
   }
 
-  function freeGames(getFreeGame) {
+  // fetch for Gamer Power API
+  function freeGames() {
     const settings = {
       async: true,
       crossDomain: true,
@@ -463,6 +475,7 @@ $(function () {
     });
   }
 
+  // renders a list of a games and DLC that are currently free on Steam
   function getFreeGames() {
     window.scrollTo(0, 0); // scrolls to top of page on render
     freeGames().then(function (gameData) {
@@ -482,9 +495,9 @@ $(function () {
 
       getGrid();
 
+      // prints cards to grid
       $.each(gameData, function (i) {
         let indexer = gameData[i];
-        
         getCard(
           indexer.id,
           indexer.thumbnail,
@@ -501,10 +514,11 @@ $(function () {
     });
   }
 
+  // renders the add review form modal
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      " grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md "
+      " cardContainer grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md "
     );
     cardContainer.css({
       "z-index": "20",
@@ -512,7 +526,6 @@ $(function () {
       margin: "0 auto",
       position: "fixed",
       top: "25%",
-      // bottom: "25%",
       right: "25%",
       left: "25%",
     });
@@ -550,6 +563,7 @@ $(function () {
       reviewScore = score;
     }
 
+    // renders 1 through 10 score buttons
     for (let i = 1; i <= 10; i++) {
       let button = $("<button>");
       button.text(i);
@@ -612,29 +626,32 @@ $(function () {
       },
     });
 
-    let deleteBtn = $("<button>");
-    deleteBtn.text("Delete Review");
-    deleteBtn.addClass(
-      "px-4 mr-auto py-3 h-10 text-dan-5 hover:scale-[1.02] hover:text-dan-9 redT"
-    );
-    cardContainer.append(deleteBtn);
+    // if a review exists for this game then give the user the ability to delete that review
+    if (text && score) {
+      let deleteBtn = $("<button>");
+      deleteBtn.text("Delete Review");
+      deleteBtn.addClass(
+        "px-4 mr-auto py-3 h-10 text-dan-5 hover:scale-[1.02] hover:text-dan-9 redT"
+      );
+      cardContainer.append(deleteBtn);
 
-    deleteBtn.on("click", function () {
-      textarea.val("");
-      buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
-      reviewScore = null;
-      gameComment = null;
-      let getLocal = JSON.parse(localStorage.getItem("myReviews"));
-      let getIndex = getLocal.findIndex((v) => v.thisId == id);
-      if (getIndex > -1) {
-        getLocal.splice(getIndex, 1);
-        localStorage.setItem("myReviews", JSON.stringify(getLocal));
-        singleTitle(id, title);
-        cardContainer.remove();
-        overlay.remove();
-      }
-    });
-
+      // function to delete the item from localStorage
+      deleteBtn.on("click", function () {
+        textarea.val("");
+        buttons.forEach((btn) => btn.removeClass("bg-pri-5"));
+        reviewScore = null;
+        gameComment = null;
+        let getLocal = JSON.parse(localStorage.getItem("myReviews"));
+        let getIndex = getLocal.findIndex((v) => v.thisId == id);
+        if (getIndex > -1) {
+          getLocal.splice(getIndex, 1);
+          localStorage.setItem("myReviews", JSON.stringify(getLocal));
+          singleTitle(id, title);
+          cardContainer.remove();
+          overlay.remove();
+        }
+      });
+    }
     let savebtn = $("<button>");
     savebtn.addClass(
       "ml-auto col-start-3  bg-pri-5 rounded px-4 py-3 h-10 cursor-pointer hover:bg-pri-9 text-h4 font-medium text-neu-0"
@@ -645,7 +662,9 @@ $(function () {
     savebtn.text("Save");
     cardContainer.append(savebtn);
 
+    // function to add the item to local storage
     savebtn.on("click", function () {
+      // warning logic for form submission
       if (!gameComment && !reviewScore) {
         let warningText = $("<p>");
         cardContainer.append(warningText);
@@ -685,6 +704,13 @@ $(function () {
     overlay.addClass("fixed top-0 left-0 w-full h-full z-10 ");
     overlay.css("background", "rgba(0, 0, 0, 0.6)");
     $("body").append(overlay);
+
+    overlay.click(function () {
+      if (!$(this.target).is(".cardContainer")) {
+        cardContainer.remove();
+        overlay.remove();
+      }
+    });
   }
 
   // prints search results on page
@@ -788,7 +814,7 @@ $(function () {
     subMessage.addClass(h4);
 
     message.text("You haven't searched anything yet?");
-    subMessage.text("Games you search for will hang out here on this page.");
+    subMessage.text("Games you save for will hang out here on this page.");
   }
 
   // call this function in the single title page and pass in the id
@@ -821,7 +847,7 @@ $(function () {
           let scoreValue = $("<div>");
 
           root.append(reviewCard);
-          reviewCard.addClass("p-4 bg-neu-8 rounded-lg mt-4");
+          reviewCard.addClass("p-4 bg-neu-8 rounded-lg mt-4 ");
 
           // HEADER DIV SECTION
           reviewCard.append(headerDiv);
@@ -904,6 +930,7 @@ $(function () {
         if (indexer.id == id) {
           getGameDetails(id).then(function (gameDetails) {
             clearDom();
+            getSearchBar();
 
             let gameDetailsCard = $("<div>");
             let gameImgDiv = $("<div>");
@@ -944,8 +971,8 @@ $(function () {
             detailsDiv.append(tagsDiv);
 
             // STYLES
-            gameImgDiv.addClass("w-full mr-4 relative ");
-            gameImg.addClass("w-full");
+            gameImgDiv.addClass("w-full mr-4 relative max-h-[420px] ");
+            gameImg.addClass("w-full h-full object-cover ");
             ratingDiv
               .addClass(" text-center bg-neu-9 absolute bottom-0 w-full")
               .css("padding", "8px 0");
@@ -1035,9 +1062,11 @@ $(function () {
 
             let tags = gameDetails.tags;
 
+            // renders game tags truncated
             function shortTags() {
               for (let t = 0; t < tags.length; t++) {
                 if (tags.length > 4) {
+                  // if tags.length is more than 4 the last item in the list will be a roll up of the truncated tags
                   if (t < 3) {
                     let tag = $("<p>");
                     tagsDiv.append(tag);
@@ -1056,6 +1085,7 @@ $(function () {
                     );
                     tag.text("+ " + (tags.length - 3));
 
+                    // button to show all tags
                     let showBtn = $("<h4>");
                     tagsDiv.append(showBtn);
                     showBtn.addClass(
@@ -1068,6 +1098,7 @@ $(function () {
                     });
                   }
                 } else {
+                  /* if tags.length <= 4 renders the label for each tag */
                   let tag = $("<p>");
                   tagsDiv.append(tag);
                   tag.addClass(
@@ -1081,6 +1112,7 @@ $(function () {
               }
             }
 
+            // renders all game tags when user clicks show all
             function longTags() {
               for (let t = 0; t < tags.length; t++) {
                 let tag = $("<p>");
@@ -1093,6 +1125,7 @@ $(function () {
                   tag.addClass("ml-1");
                 }
               }
+              // button to truncate the tags
               let hideBtn = $("<h4>");
               tagsDiv.append(hideBtn);
               hideBtn.addClass(
@@ -1105,7 +1138,7 @@ $(function () {
               });
             }
 
-            shortTags();
+            shortTags(); // renders short tags on single title load
 
             // if this game has a review it will print it below the deteails card.
             let myReviews = JSON.parse(localStorage.getItem("myReviews"));
@@ -1130,6 +1163,3 @@ $(function () {
     });
   }
 });
-
-
-   
