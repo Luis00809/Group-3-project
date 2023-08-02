@@ -10,10 +10,10 @@ const btn =
   " bg-pri-5  rounded  px-4  py-3  h-10  cursor-pointer hover:bg-pri-9 " + h4;
 const input =
   " bg-neu-8  text-neu-0  h-10  rounded  px-3  mr-4  w-80 outline-none outline-offset-[-2px] focus:outline-pri-5 ";
-const grid = " grid  grid-cols-auto  gap-4 ";
+const grid = " wrapDiv flex flex-wrap gap-4";
 const card =
-  " card p-4 text-neu-0  bg-neu-8  rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
-let steamUrl;
+  " card p-4 text-neu-0  bg-neu-8 w-[340px] rounded-lg shadow-md cursor-pointer hover:scale-[1.02] hover:shadow-[0_0_25px_-5px] hover:shadow-pri-5 ";
+
 // CORE APP
 $(function () {
   let nav = $("nav");
@@ -110,9 +110,8 @@ $(function () {
     let rating = $("<h2>");
     let idConst = $("<p>" + id + "</p>");
 
-   
     // renders card on .grid
-    $(".grid").append(newCard);
+    $(".wrapDiv").append(newCard);
 
     // holds the id collected from the api for storage
     newCard.append(idConst);
@@ -168,12 +167,11 @@ $(function () {
         timeLeft.text(formatDate(timeSrc));
       }
 
-      if(steamBool){
-        newCard.on('click', function(){
-          window.open(steamUrl, '_blank');
-        })
+      if (steamBool) {
+        newCard.on("click", function () {
+          window.open(steamUrl, "_blank");
+        });
       }
-      
     }
 
     // data from returned results goes here
@@ -183,7 +181,6 @@ $(function () {
     ratingLabel.text(altLabel);
     rating.text(altSrc);
   }
-  
 
   // listener for cards - temporily prints game title in console - will eventually render that games info page.
   root.on("click", ".card", function () {
@@ -484,7 +481,7 @@ $(function () {
 
       $.each(gameData, function (i) {
         let indexer = gameData[i];
-        
+
         getCard(
           indexer.id,
           indexer.thumbnail,
@@ -1130,6 +1127,3 @@ $(function () {
     });
   }
 });
-
-
-   
