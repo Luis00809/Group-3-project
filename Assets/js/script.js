@@ -518,16 +518,15 @@ $(function () {
   function displayModal(id, title, text, score) {
     let cardContainer = $("<div>");
     cardContainer.addClass(
-      " cardContainer grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md "
+      " cardContainer grid grid-cols-3 p-4 text-neu-0 bg-neu-9 rounded-lg shadow-md sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 max-w-[640px]  "
     );
     cardContainer.css({
       "z-index": "20",
-      width: "640px",
       margin: "0 auto",
-      position: "fixed",
-      top: "25%",
-      right: "25%",
-      left: "25%",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
     });
     $("body").append(cardContainer);
 
@@ -631,7 +630,7 @@ $(function () {
       let deleteBtn = $("<button>");
       deleteBtn.text("Delete Review");
       deleteBtn.addClass(
-        "px-4 mr-auto py-3 h-10 text-dan-5 hover:scale-[1.02] hover:text-dan-9 redT"
+        "px-4 mr-auto py-3 h-10 text-dan-5 hover:scale-[1.02] col-span-2 hover:text-dan-9 redT"
       );
       cardContainer.append(deleteBtn);
 
