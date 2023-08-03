@@ -67,7 +67,7 @@ $(function () {
     searchBarDiv.append(searchBtn);
     searchBtn.text("Go!");
     searchField.attr({
-      placeholder: "Search Title or Genre",
+      placeholder: "Search Game Title",
       id: "searchField",
     });
     searchBtn.on("click", getSearchResults);
@@ -312,7 +312,7 @@ $(function () {
       "Search from 1000s of games by title or genre to compare reviews and prices"
     );
     searchField.attr({
-      placeholder: "Search Title or Genre",
+      placeholder: "Search Game Title",
       id: "searchField",
     });
     searchBtn.text("Show me what you've got!");
